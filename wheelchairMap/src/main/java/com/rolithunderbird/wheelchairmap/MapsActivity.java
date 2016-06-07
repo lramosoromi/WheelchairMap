@@ -49,6 +49,8 @@ public class MapsActivity extends AppCompatActivity implements
      */
     private boolean mPermissionDenied = false;
 
+    LocationManagerCheck locationManagerCheck;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,21 +168,8 @@ public class MapsActivity extends AppCompatActivity implements
      * Enables the My Location layer if the fine location permission has been granted.
      */
     private void enableMyLocation() {
-
-        //Popup que me dice de habilitar el GPS
-        LocationManagerCheck locationManagerCheck = new LocationManagerCheck(this);
-        Location location = null;
-
-        if(locationManagerCheck.isLocationServiceAvailable()){
-            if (locationManagerCheck.getProviderType() == Constants.PROVIDERTYPE.NETWORK_PROVIDER)
-                location = locationManagerCheck.getLocationManager()
-                        .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            else if (locationManagerCheck.getProviderType() == Constants.PROVIDERTYPE.GPS_PROVIDER)
-                location = locationManagerCheck.getLocationManager()
-                        .getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        }else{
-            locationManagerCheck.createLocationServiceError(MapsActivity.this);
-        }
+        //  Initialize the locationManagerCheck
+        locationManagerCheck = new LocationManagerCheck(this);
 
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -195,6 +184,27 @@ public class MapsActivity extends AppCompatActivity implements
 
     @Override
     public boolean onMyLocationButtonClick() {
+
+        //Popup que me dice de habilitar el GPS
+        locationManagerCheck.updateLocationManagerCheck();
+
+        if(locationManagerCheck.isLocationServiceAvailable()){
+            if (locationManagerCheck.getProviderType() != Constants.PROVIDERTYPE.GPS_PROVIDER) {
+                locationManagerCheck.createLocationServiceError(MapsActivity.this, false);
+            }
+/*
+            if (locationManagerCheck.getProviderType() == Constants.PROVIDERTYPE.NETWORK_PROVIDER)
+                location = locationManagerCheck.getLocationManager()
+                        .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            else if (locationManagerCheck.getProviderType() == Constants.PROVIDERTYPE.GPS_PROVIDER)
+                location = locationManagerCheck.getLocationManager()
+                        .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+*/
+        }else{
+            locationManagerCheck.createLocationServiceError(MapsActivity.this, true);
+        }
+
+
         Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).

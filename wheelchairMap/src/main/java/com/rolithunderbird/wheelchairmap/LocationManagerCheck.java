@@ -22,21 +22,7 @@ public class LocationManagerCheck {
 
     public LocationManagerCheck(Context context) {
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        boolean gpsIsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        boolean networkIsEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-
-        if (networkIsEnabled && gpsIsEnabled) {
-            locationServiceBoolean = true;
-            providerType = Constants.PROVIDERTYPE.GPS_PROVIDER;
-
-        } else if (!networkIsEnabled && gpsIsEnabled) {
-            locationServiceBoolean = true;
-            providerType = Constants.PROVIDERTYPE.GPS_PROVIDER;
-
-        } else if (networkIsEnabled) {
-            locationServiceBoolean = true;
-            providerType = Constants.PROVIDERTYPE.NETWORK_PROVIDER;
-        }
+        updateLocationManagerCheck();
     }
 
     public Boolean isLocationServiceAvailable() {
@@ -51,13 +37,23 @@ public class LocationManagerCheck {
         return locationManager;
     }
 
-    public void createLocationServiceError(final Activity activityObj) {
+    public void createLocationServiceError(final Activity activityObj, boolean isError) {
 
+        String alertMessage;
+        String alertTitle;
+        if (isError) {
+            alertMessage = activityObj.getBaseContext().getString(R.string.alertDialogMessage);
+            alertTitle = activityObj.getBaseContext().getString(R.string.alertDialogTitle);
+        }
+        else {
+            alertMessage = activityObj.getBaseContext().getString(R.string.alertDialogImprovementMessage);
+            alertTitle = activityObj.getBaseContext().getString(R.string.alertDialogImprovementTitle);
+        }
         // show alert dialog if Internet is not connected
         AlertDialog.Builder builder = new AlertDialog.Builder(activityObj);
 
-        builder.setMessage(activityObj.getBaseContext().getString(R.string.alertDialogMessage))
-                .setTitle(activityObj.getBaseContext().getString(R.string.alertDialogTitle))
+        builder.setMessage(alertMessage)
+                .setTitle(alertTitle)
                 .setCancelable(false)
                 .setPositiveButton(
                         activityObj.getBaseContext().getString(R.string.alertDialogButtonSettings),
@@ -78,5 +74,23 @@ public class LocationManagerCheck {
                         });
         alert = builder.create();
         alert.show();
+    }
+
+    public void updateLocationManagerCheck() {
+        boolean gpsIsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        boolean networkIsEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+        if (networkIsEnabled && gpsIsEnabled) {
+            locationServiceBoolean = true;
+            providerType = Constants.PROVIDERTYPE.GPS_PROVIDER;
+
+        } else if (!networkIsEnabled && gpsIsEnabled) {
+            locationServiceBoolean = true;
+            providerType = Constants.PROVIDERTYPE.GPS_PROVIDER;
+
+        } else if (networkIsEnabled) {
+            locationServiceBoolean = true;
+            providerType = Constants.PROVIDERTYPE.NETWORK_PROVIDER;
+        }
     }
 }
