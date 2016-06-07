@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="button1" type="id"/>
+    <item name="mapLinearLayout" type="id"/>
+    <item name="transparency_text" type="id"/>
+    <item name="transparencySeekBar" type="id"/>
+    <item name="makeTransparentButton" type="id"/>
+    <item name="toggleClickability" type="id"/>
+    <item name="map" type="id"/>
+</resources>
