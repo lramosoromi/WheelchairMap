@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--    Main Activity   -->
     <item name="button1" type="id"/>
+
+    <!--    Map Activity    -->
     <item name="mapLinearLayout" type="id"/>
     <item name="transparency_text" type="id"/>
     <item name="transparencySeekBar" type="id"/>
     <item name="makeTransparentButton" type="id"/>
     <item name="toggleClickability" type="id"/>
     <item name="map" type="id"/>
+
+    <!--    Menu    -->
+    <item name="action_show_routes" type="id"/>
+    <item name="action_settings" type="id"/>
 </resources>

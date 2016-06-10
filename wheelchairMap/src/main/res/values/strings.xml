@@ -1,15 +1,19 @@
 <resources>
     <string name="app_name">WheelchairMap</string>
-    <string name="title_activity_maps">Map</string>
 
     <!--    MainActivity strings -->
     <string name="button1Text">Start Map</string>
 
     <!--    MapActivity strings -->
+    <string name="title_activity_maps">WheelchairMap</string>
     <string name="mapLayoutName">com.google.android.gms.maps.SupportMapFragment</string>
     <string name="transparency">Transparency</string>
     <string name="makeTransparent">Make Transparent</string>
     <string name="clickable">Clickable</string>
+
+    <!--    Menu MapActivity    -->
+    <string name="action_show_routes">Routes</string>
+    <string name="action_settings">Settings</string>
 
     <!--    AlertDialog strings -->
     <string name="alertDialogTitle">Caution</string>

@@ -58,6 +58,10 @@ public class Constants {
     //Location donde va el mapa. Esta location es el borde inferior izquierdo
     protected static final LatLng REUTLINGEN_MAP = new LatLng(48.478679, 9.188791);
 
+    protected static final int BASIC_MAP = R.drawable.mapa_reutlingen;
+
+    protected static final int ROUTE_MAP = R.drawable.mapa_reutlingen_rutas;
+
     /**
      * Request code for location permission request.
      *

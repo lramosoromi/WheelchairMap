@@ -1,14 +1,19 @@
 package com.rolithunderbird.wheelchairmap;
 
+import android.app.ActionBar;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -68,6 +73,32 @@ public class MapsActivity extends AppCompatActivity implements
         mapFragment.getMapAsync(this);
     }
 
+    /**
+     * Method that creates a menu
+     *
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.action_show_routes:
+                mImages.add(BitmapDescriptorFactory.fromResource(Constants.ROUTE_MAP));
+                mGroundOverlayReutlingen.setImage(mImages.get(mImages.size() - 1));
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
 
     /**
      * Manipulates the map once available.
@@ -100,7 +131,7 @@ public class MapsActivity extends AppCompatActivity implements
 
         //Aca agrego los mapas a la lista de mapas
         mImages.clear();
-        mImages.add(BitmapDescriptorFactory.fromResource(R.drawable.mapa_reutlingen));
+        mImages.add(BitmapDescriptorFactory.fromResource(Constants.BASIC_MAP));
 
         //Pongo la imagen del mapa sobre google maps
         mGroundOverlayReutlingen = map.addGroundOverlay(new GroundOverlayOptions()
