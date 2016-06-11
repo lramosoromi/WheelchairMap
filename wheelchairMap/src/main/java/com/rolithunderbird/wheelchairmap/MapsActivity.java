@@ -1,7 +1,8 @@
 package com.rolithunderbird.wheelchairmap;
 
-import android.app.ActionBar;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,10 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -34,7 +31,6 @@ import java.util.List;
 
 public class MapsActivity extends AppCompatActivity implements
         SeekBar.OnSeekBarChangeListener, OnMapReadyCallback,
-        GoogleMap.OnGroundOverlayClickListener,
         GoogleMap.OnMyLocationButtonClickListener,
         ActivityCompat.OnRequestPermissionsResultCallback {
 
@@ -45,6 +41,8 @@ public class MapsActivity extends AppCompatActivity implements
     private final List<BitmapDescriptor> mImages = new ArrayList<BitmapDescriptor>();
 
     private GroundOverlay mGroundOverlayReutlingen;
+
+    private Constants.MAP_ACTIVE activeMap;
 
     private SeekBar mTransparencyBar;
 
@@ -88,12 +86,24 @@ public class MapsActivity extends AppCompatActivity implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
-                return true;
             case R.id.action_show_routes:
-                mImages.add(BitmapDescriptorFactory.fromResource(Constants.ROUTE_MAP));
-                mGroundOverlayReutlingen.setImage(mImages.get(mImages.size() - 1));
+                if (activeMap == Constants.MAP_ACTIVE.BASIC_MAP) {
+                    mGroundOverlayReutlingen.setImage(mImages.get(1));
+                    activeMap = Constants.MAP_ACTIVE.ROUTE_MAP;
+                }
+                else if (activeMap == Constants.MAP_ACTIVE.ROUTE_MAP) {
+                    mGroundOverlayReutlingen.setImage(mImages.get(0));
+                    activeMap = Constants.MAP_ACTIVE.BASIC_MAP;
+                }
+                return true;
+            case R.id.action_select_building:
+                CustomDialog customDialog=new CustomDialog(this);
+                customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                customDialog.show();
+                return true;
+            case R.id.action_toggle_transparency:
+                // Toggle transparency value between 0.0f and 0.5f. Initial default value is 0.0f.
+                mGroundOverlayReutlingen.setTransparency(0.5f - mGroundOverlayReutlingen.getTransparency());
                 return true;
             default:
                 return super.onContextItemSelected(item);
@@ -109,12 +119,11 @@ public class MapsActivity extends AppCompatActivity implements
      */
     @Override
     public void onMapReady(GoogleMap map) {
-        // Register a listener to respond to clicks on GroundOverlays.
-        map.setOnGroundOverlayClickListener(this);
+        mMap = map;
 
         //Seteo la funcion a realizar cuando toco sobre el mapa
         // FALTARIA FIJARME QUE SI TOCO AFUERA DEL PDF NO DEBERIA DEVOLVER NADA
-        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
                 //Primero me fijo que el mapa este seteado para que pueda cliquear
@@ -126,28 +135,28 @@ public class MapsActivity extends AppCompatActivity implements
         });
 
         //Esto es para cambiar donde arranca el mapa
-        map.moveCamera(CameraUpdateFactory.newCameraPosition(
-                new CameraPosition(Constants.REUTLINGEN_CENTER, 15, 0, 0)));
+        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(
+                new CameraPosition(Constants.REUTLINGEN_CENTER, 16, 0, 0)));
 
         //Aca agrego los mapas a la lista de mapas
         mImages.clear();
         mImages.add(BitmapDescriptorFactory.fromResource(Constants.BASIC_MAP));
+        mImages.add(BitmapDescriptorFactory.fromResource(Constants.ROUTE_MAP));
 
         //Pongo la imagen del mapa sobre google maps
-        mGroundOverlayReutlingen = map.addGroundOverlay(new GroundOverlayOptions()
+        mGroundOverlayReutlingen = mMap.addGroundOverlay(new GroundOverlayOptions()
                 .image(mImages.get(0)).anchor(0, 1)
                 .bearing(-60)
-                .position(Constants.REUTLINGEN_MAP, 600, 465)
-                .clickable(!((CheckBox) findViewById(R.id.toggleClickability)).isChecked()));
+                .position(Constants.REUTLINGEN_MAP, 600, 465));
+        activeMap = Constants.MAP_ACTIVE.BASIC_MAP;
 
         mTransparencyBar.setOnSeekBarChangeListener(this);
 
         // Override the default content description on the view, for accessibility mode.
         // Ideally this string would be localised.
-        map.setContentDescription("Google Map with ground overlay.");
+        mMap.setContentDescription("Google Map with ground overlay.");
 
         // AGREGADO POR MI para poder ver mi location en el mapa
-        mMap = map;
         mMap.setOnMyLocationButtonClickListener(this);
         enableMyLocation();
     }
@@ -164,33 +173,6 @@ public class MapsActivity extends AppCompatActivity implements
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         if (mGroundOverlayReutlingen != null)
             mGroundOverlayReutlingen.setTransparency((float) progress / (float) Constants.TRANSPARENCY_MAX);
-    }
-
-    /**
-     * Hago que el mapa de Reutlingen se vea transparente o no
-     * @param view
-     */
-    public void makeTransparent(View view) {
-        // Toggle transparency value between 0.0f and 0.5f. Initial default value is 0.0f.
-        mGroundOverlayReutlingen.setTransparency(0.5f - mGroundOverlayReutlingen.getTransparency());
-    }
-
-    /**
-     * Toggles the visibility between 100% and 50% when a {@link GroundOverlay} is clicked.
-     */
-    @Override
-    public void onGroundOverlayClick(GroundOverlay groundOverlay) {
-
-    }
-
-    /**
-     * Toggles the clickability of the map.
-     * This callback is defined on the CheckBox in the layout for this Activity.
-     */
-    public void toggleClickability(View view) {
-        if (mGroundOverlayReutlingen != null) {
-            mGroundOverlayReutlingen.setClickable(!((CheckBox) view).isChecked());
-        }
     }
 
     //A PARTIR DE ACA ES LO NECESARIO PARA PODER VER MI LOCATION EN EL MAPA

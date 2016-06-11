@@ -7,11 +7,18 @@
     <item name="mapLinearLayout" type="id"/>
     <item name="transparency_text" type="id"/>
     <item name="transparencySeekBar" type="id"/>
-    <item name="makeTransparentButton" type="id"/>
     <item name="toggleClickability" type="id"/>
     <item name="map" type="id"/>
 
     <!--    Menu    -->
     <item name="action_show_routes" type="id"/>
-    <item name="action_settings" type="id"/>
+    <item name="action_select_building" type="id"/>
+    <item name="action_toggle_transparency" type="id"/>
+    <item name="group_contact" type="id"/>
+    <item name="action_contact" type="id"/>
+
+    <!--    Custom Dialog   -->
+    <item name="custom_dialog_message" type="id"/>
+    <item name="spinner_buildings" type="id"/>
+    <item name="custom_dialog_button" type="id"/>
 </resources>

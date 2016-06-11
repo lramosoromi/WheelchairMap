@@ -73,4 +73,9 @@ public class Constants {
     protected enum PROVIDERTYPE {
         NULL, GPS_PROVIDER, NETWORK_PROVIDER
     }
+
+    //  What map is active
+    protected enum MAP_ACTIVE {
+        BASIC_MAP, ROUTE_MAP
+    }
 }

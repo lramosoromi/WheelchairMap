@@ -8,8 +8,20 @@
         android:icon="@android:drawable/ic_dialog_map"
         android:title="@string/action_show_routes"
         wheelchairMap:showAsAction="always"/>
+
     <item
-        android:id="@id/action_settings"
-        android:title="@string/action_settings">
+        android:id="@id/action_toggle_transparency"
+        android:title="@string/action_toggle_transparency" />
+
+    <item
+        android:id="@id/action_select_building"
+        android:title="@string/action_select_building">
     </item>
+
+    <group android:id="@id/group_contact">
+        <item
+            android:id="@id/action_contact"
+            android:title="@string/action_contact"/>
+    </group>
+
 </menu>

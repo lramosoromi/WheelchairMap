@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="250dp"
+    android:layout_height="100dp"
+    android:background="@drawable/curve_sharp"
+    android:orientation="vertical"
+    tools:context="com.rolithunderbird.wheelchairmap.CustomDialog">
+
+    <TextView
+        android:id="@id/custom_dialog_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:text="@string/custom_dialog_message"
+        android:textColor="@android:color/white"
+        android:textSize="20dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimaryDark">
+
+        <Spinner
+            android:id="@id/spinner_buildings"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"/>
+
+        <Button
+            android:id="@id/custom_dialog_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:text="@string/custom_dialog_button"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -42,14 +42,7 @@
             android:layout_toEndOf="@id/transparency_text"
             android:layout_toRightOf="@id/transparency_text" />
 
-        <Button
-            android:id="@id/makeTransparentButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/transparencySeekBar"
-            android:onClick="makeTransparent"
-            android:text="@string/makeTransparent" />
-
+<!--
         <CheckBox
             android:id="@id/toggleClickability"
             android:layout_width="wrap_content"
@@ -60,6 +53,7 @@
             android:checked="true"
             android:onClick="toggleClickability"
             android:text="@string/clickable" />
+-->
 
     </RelativeLayout>
 
