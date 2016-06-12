@@ -1,21 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.rolithunderbird.wheelchairmap.BlueprintActivity">
 
-    <ImageView
-        android:id="@id/imageView1"
+    <ScrollView
+        android:id="@id/scroll"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/mapa_reutlingen" />
+        android:layout_height="wrap_content">
+
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/zoomImage"
+                android:isScrollContainer="true"
+                android:src="@drawable/building9_0floor"/>
+        </HorizontalScrollView>
+    </ScrollView>
 
     <Button
-        android:id="@id/btnChangeImage"
+        android:id="@id/btnUnderground"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btnChangeImage" />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:text="@string/btnChangeUG"
+        android:onClick="btnChangeUnderground"/>
 
-</LinearLayout>
+    <Button
+        android:id="@id/btnMainFloor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnUnderground"
+        android:layout_alignParentEnd="true"
+        android:text="@string/btnChangeEG"
+        android:onClick="btnChangeMainFloor"/>
+
+    <Button
+        android:id="@id/btnFirstFloor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnMainFloor"
+        android:layout_alignParentEnd="true"
+        android:text="@string/btnChange1OG"
+        android:onClick="btnChangeFirstFloor"/>
+
+    <Button
+        android:id="@id/btnSecondFloor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnFirstFloor"
+        android:layout_alignParentEnd="true"
+        android:text="@string/btnChange2OG"
+        android:onClick="btnChangeSecondFloor"/>
+
+    <Button
+        android:id="@id/btnThirdFloor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnSecondFloor"
+        android:layout_alignParentEnd="true"
+        android:text="@string/btnChange3OG"
+        android:onClick="btnChangeThirdFloor"/>
+</RelativeLayout>

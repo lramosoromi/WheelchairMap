@@ -24,7 +24,12 @@
     <string name="custom_dialog_button">Select</string>
 
     <!--    BlueprintActivity Activity strings  -->
-    <string name="btnChangeImage">Change Image</string>
+    <string name="btnChangeUG">UG</string>
+    <string name="btnChangeEG">EG</string>
+    <string name="btnChange1OG">1OG</string>
+    <string name="btnChange2OG">2OG</string>
+    <string name="btnChange3OG">3OG</string>
+    <string name="zoomImage">Zooming image</string>
 
     <!--    AlertDialog strings -->
     <string name="alertDialogTitle">Caution</string>

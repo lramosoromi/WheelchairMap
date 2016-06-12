@@ -61,8 +61,8 @@ public class CustomDialog extends Dialog
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
         // An item was selected. You can retrieve the selected item using
-        Toast.makeText(activity.getBaseContext(),
-                " " + parent.getItemAtPosition(pos), Toast.LENGTH_LONG).show();
+        //Toast.makeText(activity.getBaseContext(),
+        //        " " + parent.getItemAtPosition(pos), Toast.LENGTH_LONG).show();
     }
 
     @Override

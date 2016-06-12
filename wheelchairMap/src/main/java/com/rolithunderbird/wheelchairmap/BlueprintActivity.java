@@ -3,35 +3,57 @@ package com.rolithunderbird.wheelchairmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 
-public class BlueprintActivity extends AppCompatActivity {
+public class BlueprintActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button button;
     ImageView image;
+    float zoomFactor = 2f;
+    boolean zoomedOut = false;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blueprint);
 
-        addListenerOnButton();
+        image = (ImageView) findViewById(R.id.imageView);
+        assert image != null;
+        image.setOnClickListener(this);
     }
 
-    // NO ESTARIA VIENDO EL BOTON
+    @Override
+    public void onClick(View view) {
+        if(zoomedOut) {
+            view.setScaleX(1);
+            view.setScaleY(1);
+            zoomedOut = false;
+        }
+        else {
+            view.setScaleX(zoomFactor);
+            view.setScaleY(zoomFactor);
+            zoomedOut = true;
+        }
+    }
 
-    public void addListenerOnButton() {
+    public void btnChangeUnderground(View view) {
+        image.setImageResource(R.drawable.building9_underground);
+    }
 
-        image = (ImageView) findViewById(R.id.imageView1);
+    public void btnChangeMainFloor(View view) {
+        image.setImageResource(R.drawable.building9_0floor);
+    }
 
-        button = (Button) findViewById(R.id.btnChangeImage);
-        button.setOnClickListener(new View.OnClickListener() {
+    public void btnChangeFirstFloor(View view) {
+        image.setImageResource(R.drawable.building9_1floor);
+    }
 
-            @Override
-            public void onClick(View arg0) {
-                image.setImageResource(R.drawable.mapa_reutlingen_rutas);
-            }
-        });
+    public void btnChangeSecondFloor(View view) {
+        image.setImageResource(R.drawable.building9_2floor);
+    }
+
+    public void btnChangeThirdFloor(View view) {
+        image.setImageResource(R.drawable.building9_3floor);
     }
 }

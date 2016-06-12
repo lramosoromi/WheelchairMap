@@ -11,8 +11,13 @@
     <item name="map" type="id"/>
 
     <!--    BlueprintActivity Activity  -->
-    <item name="imageView1" type="id"/>
-    <item name="btnChangeImage" type="id"/>
+    <item name="scroll" type="id"/>
+    <item name="imageView" type="id"/>
+    <item name="btnUnderground" type="id"/>
+    <item name="btnMainFloor" type="id"/>
+    <item name="btnFirstFloor" type="id"/>
+    <item name="btnSecondFloor" type="id"/>
+    <item name="btnThirdFloor" type="id"/>
 
     <!--    Menu    -->
     <item name="action_show_routes" type="id"/>
