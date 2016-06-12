@@ -10,6 +10,10 @@
     <item name="toggleClickability" type="id"/>
     <item name="map" type="id"/>
 
+    <!--    BlueprintActivity Activity  -->
+    <item name="imageView1" type="id"/>
+    <item name="btnChangeImage" type="id"/>
+
     <!--    Menu    -->
     <item name="action_show_routes" type="id"/>
     <item name="action_select_building" type="id"/>

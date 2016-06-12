@@ -3,10 +3,8 @@ package com.rolithunderbird.wheelchairmap;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -54,6 +52,8 @@ public class CustomDialog extends Dialog
     @Override
     public void onClick(View v) {
         //Call Activity of the building blueprint
+        activity.startActivity(new Intent(activity.getBaseContext(), BlueprintActivity.class));
+
         dismiss();
     }
 
@@ -61,7 +61,6 @@ public class CustomDialog extends Dialog
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
         // An item was selected. You can retrieve the selected item using
-        parent.getItemAtPosition(pos);
         Toast.makeText(activity.getBaseContext(),
                 " " + parent.getItemAtPosition(pos), Toast.LENGTH_LONG).show();
     }

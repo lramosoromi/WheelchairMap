@@ -23,6 +23,9 @@
     </string-array>
     <string name="custom_dialog_button">Select</string>
 
+    <!--    BlueprintActivity Activity strings  -->
+    <string name="btnChangeImage">Change Image</string>
+
     <!--    AlertDialog strings -->
     <string name="alertDialogTitle">Caution</string>
     <string name="alertDialogMessage">
