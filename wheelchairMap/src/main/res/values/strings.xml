@@ -1,9 +1,6 @@
 <resources>
     <string name="app_name">WheelchairMap</string>
 
-    <!--    MainActivity strings -->
-    <string name="button1Text">Start Map</string>
-
     <!--    MapActivity strings -->
     <string name="title_activity_maps">WheelchairMap</string>
     <string name="mapLayoutName">com.google.android.gms.maps.SupportMapFragment</string>
@@ -25,6 +22,83 @@
 
     <!--    Dialog Building Info   -->
     <string name="dialog_building_info_title">Building</string>
+    <string name="dialog_building_info_description_one">
+        School of textile and design.\n
+        Interactive materials teaching and research center.\n
+        Process analysis and technology teaching and research center.
+    </string>
+    <string name="dialog_building_info_description_two">
+        School of applied chemistry.\n
+        Reutlingen research institute.
+    </string>
+    <string name="dialog_building_info_description_three">
+        Presidium / Administration.\n
+        Study service center.\n
+        International Office.\n
+        Learning center.
+    </string>
+    <string name="dialog_building_info_description_four">
+        School of engineering.
+    </string>
+    <string name="dialog_building_info_description_five">
+        ESB Business school.
+    </string>
+    <string name="dialog_building_info_description_six">
+        Aula.
+    </string>
+    <string name="dialog_building_info_description_seven">
+        Cafeteria.\n
+        Real training seminar.
+    </string>
+    <string name="dialog_building_info_description_eight">
+        Computing and media center.
+    </string>
+    <string name="dialog_building_info_description_nine">
+        School of informatics.
+    </string>
+    <string name="dialog_building_info_description_ten">
+        University service center.
+    </string>
+    <string name="dialog_building_info_description_eleven">
+        Gym.
+    </string>
+    <string name="dialog_building_info_description_twelve">
+        Educational college.
+    </string>
+    <string name="dialog_building_info_description_thirteen">
+        Day care center.
+    </string>
+    <string name="dialog_building_info_description_fourteen">
+        Educational college.
+    </string>
+    <string name="dialog_building_info_description_fifteen">
+        University service center.
+    </string>
+    <string name="dialog_building_info_description_sixteen">
+        ESB Business school.
+    </string>
+    <string name="dialog_building_info_description_seventeen">
+        ESB Business school.\n
+        Knowledge foundation.
+    </string>
+    <string name="dialog_building_info_description_twenty">
+        School of textiles and design.\n
+        School of informatics.\n
+        Reutlingen energy center.
+    </string>
+
+    <!--    Dialog Contact  -->
+    <string name="dialog_contact_title">Contact</string>
+    <string name="dialog_contact_responsibility">Disabled representation for Students</string>
+    <string name="dialog_contact_message">
+        Prof. Dr. Bernd Herr\n
+        Tel.: +49(0)7121/271-2025
+    </string>
+    <string name="dialog_contact_place">
+        Reutlingen University\n
+        Alteburgstraße 150\n
+        D-72762 Reutlingen
+    </string>
 
     <!--    BlueprintActivity Activity strings  -->
     <string name="btnChangeUG">UG</string>

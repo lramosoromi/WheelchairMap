@@ -9,6 +9,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -25,6 +26,15 @@ public class CustomDialog extends Dialog
     private Activity activity;
     private ArrayAdapter adapter;
     private Constants.DIALOG_TYPE dialogType;
+    private String buildingTitle;
+    private String buildingInfo;
+    private boolean iconPlane;
+    private boolean iconInclined;
+    private boolean iconElevator;
+    private boolean iconAutomaticDoor;
+    private boolean iconWC;
+    private boolean iconAssistance;
+    private boolean iconExit;
 
 
     public CustomDialog(Activity a, Constants.DIALOG_TYPE dialog_type) {
@@ -53,15 +63,31 @@ public class CustomDialog extends Dialog
             spinner.setAdapter(adapter);
             spinner.setOnItemSelectedListener(this);
         }
-        else {
+        else if (dialogType == Constants.DIALOG_TYPE.BUILDING_INFO){
             setContentView(R.layout.dialog_info_layout);
             TextView textView = (TextView) findViewById(R.id.dialog_building_info_title);
-            String title = activity.getResources().getString(R.string.dialog_building_info_title) + " 9";
-            textView.setText(title);
+            textView.setText(buildingTitle);
 
             TextView textView1 = (TextView) findViewById(R.id.dialog_building_info_message);
-            String message = "School of informatics";
-            textView1.setText(message);
+            textView1.setText(buildingInfo);
+
+            if (!iconPlane)
+                findViewById(R.id.icon_plane).setVisibility(View.GONE);
+            if (!iconInclined)
+                findViewById(R.id.icon_inclined).setVisibility(View.GONE);
+            if (!iconAutomaticDoor)
+                findViewById(R.id.icon_automatic_door).setVisibility(View.GONE);
+            if (!iconElevator)
+                findViewById(R.id.icon_elevator).setVisibility(View.GONE);
+            if (!iconWC)
+                findViewById(R.id.icon_wc).setVisibility(View.GONE);
+            if (!iconAssistance)
+                findViewById(R.id.icon_needs_assistance).setVisibility(View.GONE);
+            if (!iconExit)
+                findViewById(R.id.icon_exit).setVisibility(View.GONE);
+        }
+        else {
+            setContentView(R.layout.dialog_contact_layout);
         }
     }
 
@@ -83,4 +109,183 @@ public class CustomDialog extends Dialog
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {  }
+
+    public void setBuildingTitle(String title) {
+        String titleAux =
+                activity.getResources().getString(R.string.dialog_building_info_title) + " " + title;
+        this.buildingTitle = titleAux;
+    }
+
+    public void setBuildingInfo(String info) {
+        this.buildingInfo = info;
+    }
+
+    public void setIconsVisibility(int building) {
+        switch (building) {
+            case 1 :
+                iconPlane = true;
+                iconInclined = false;
+                iconElevator = true;
+                iconAutomaticDoor = false;
+                iconAssistance = true;
+                iconWC = true;
+                iconExit = false;
+                break;
+            case 2 :
+                iconPlane = true;
+                iconInclined = false;
+                iconElevator = true;
+                iconAutomaticDoor = false;
+                iconAssistance = false;
+                iconWC = false;
+                iconExit = false;
+                break;
+            case 3 :
+                iconPlane = true;
+                iconInclined = false;
+                iconElevator = true;
+                iconAutomaticDoor = true;
+                iconAssistance = false;
+                iconWC = true;
+                iconExit = true;
+                break;
+            case 4 :
+                iconPlane = true;
+                iconInclined = false;
+                iconElevator = true;
+                iconAutomaticDoor = true;
+                iconAssistance = false;
+                iconWC = true;
+                iconExit = true;
+                break;
+            case 5 :
+                iconPlane = true;
+                iconInclined = false;
+                iconElevator = true;
+                iconAutomaticDoor = false;
+                iconAssistance = true;
+                iconWC = true;
+                iconExit = false;
+                break;
+            case 6 :
+                iconPlane = false;
+                iconInclined = true;
+                iconElevator = true;
+                iconAutomaticDoor = false;
+                iconAssistance = true;
+                iconWC = true;
+                iconExit = false;
+                break;
+            case 7 :
+                iconPlane = true;
+                iconInclined = false;
+                iconElevator = true;
+                iconAutomaticDoor = false;
+                iconAssistance = true;
+                iconWC = true;
+                iconExit = false;
+                break;
+            case 8 :
+                iconPlane = true;
+                iconInclined = false;
+                iconElevator = true;
+                iconAutomaticDoor = true;
+                iconAssistance = false;
+                iconWC = true;
+                iconExit = true;
+                break;
+            case 9 :
+                iconPlane = false;
+                iconInclined = true;
+                iconElevator = true;
+                iconAutomaticDoor = false;
+                iconAssistance = true;
+                iconWC = true;
+                iconExit = false;
+                break;
+            case 10 :
+                iconPlane = true;
+                iconInclined = false;
+                iconElevator = true;
+                iconAutomaticDoor = false;
+                iconAssistance = true;
+                iconWC = true;
+                iconExit = false;
+                break;
+            case 11 :
+                iconPlane = true;
+                iconInclined = false;
+                iconElevator = false;
+                iconAutomaticDoor = true;
+                iconAssistance = false;
+                iconWC = true;
+                iconExit = true;
+                break;
+            case 12 :
+                iconPlane = false;
+                iconInclined = false;
+                iconElevator = false;
+                iconAutomaticDoor = false;
+                iconAssistance = false;
+                iconWC = false;
+                iconExit = false;
+                break;
+            case 13 :
+                iconPlane = false;
+                iconInclined = false;
+                iconElevator = false;
+                iconAutomaticDoor = false;
+                iconAssistance = false;
+                iconWC = false;
+                iconExit = false;
+                break;
+            case 14 :
+                iconPlane = true;
+                iconInclined = false;
+                iconElevator = true;
+                iconAutomaticDoor = false;
+                iconAssistance = true;
+                iconWC = true;
+                iconExit = true;
+                break;
+            case 15 :
+                iconPlane = true;
+                iconInclined = false;
+                iconElevator = false;
+                iconAutomaticDoor = false;
+                iconAssistance = true;
+                iconWC = false;
+                iconExit = false;
+                break;
+            case 16 :
+                iconPlane = true;
+                iconInclined = false;
+                iconElevator = true;
+                iconAutomaticDoor = true;
+                iconAssistance = false;
+                iconWC = true;
+                iconExit = true;
+                break;
+            case 17 :
+                iconPlane = true;
+                iconInclined = false;
+                iconElevator = true;
+                iconAutomaticDoor = false;
+                iconAssistance = false;
+                iconWC = true;
+                iconExit = false;
+                break;
+            case 20 :
+                iconPlane = true;
+                iconInclined = false;
+                iconElevator = true;
+                iconAutomaticDoor = true;
+                iconAssistance = false;
+                iconWC = true;
+                iconExit = true;
+                break;
+            default:
+                break;
+        }
+    }
 }

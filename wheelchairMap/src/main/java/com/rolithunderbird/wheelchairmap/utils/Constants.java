@@ -82,6 +82,6 @@ public class Constants {
     }
 
     public enum DIALOG_TYPE {
-        BUILDING_SELECTION, BUILDING_INFO
+        BUILDING_SELECTION, BUILDING_INFO, CONTACT_INFO
     }
 }

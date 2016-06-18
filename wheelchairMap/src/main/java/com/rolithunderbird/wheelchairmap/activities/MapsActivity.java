@@ -1,15 +1,10 @@
 package com.rolithunderbird.wheelchairmap.activities;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -18,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -115,6 +111,10 @@ public class MapsActivity extends AppCompatActivity implements
                 // Toggle transparency value between 0.0f and 0.5f. Initial default value is 0.0f.
                 mGroundOverlayReutlingen.setTransparency(0.5f - mGroundOverlayReutlingen.getTransparency());
                 return true;
+            case R.id.action_contact :
+                CustomDialog customDialog1 = new CustomDialog(this, Constants.DIALOG_TYPE.CONTACT_INFO);
+                customDialog1.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                customDialog1.show();
             default:
                 return super.onContextItemSelected(item);
         }
@@ -136,11 +136,7 @@ public class MapsActivity extends AppCompatActivity implements
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                //Primero me fijo que el mapa este seteado para que pueda cliquear
-                //ESTA AL REVES XQ USO EL NEGADO DE isClickable()
-                if (!mGroundOverlayReutlingen.isClickable()) {
-                    selectClosestBuilding(latLng);
-                }
+                selectClosestBuilding(latLng);
             }
         });
 
@@ -293,104 +289,94 @@ public class MapsActivity extends AppCompatActivity implements
                 closestDistance = newDistance;
             }
         }
-
-        String building = "";
+        if (closestDistance > 10)
+            indexOfClosestBuilding = -1;
         //Este switch esta para poder decir cual es el edificio dependiendo de el id
         // en la lista
         switch (indexOfClosestBuilding) {
             case 0:
-                building = "Building 1";
+                createBuildingInfoPopup("1", getResources()
+                        .getString(R.string.dialog_building_info_description_one));
                 break;
             case 1:
-                building = "Building 2";
+                createBuildingInfoPopup("2", getResources()
+                        .getString(R.string.dialog_building_info_description_two));
                 break;
             case 2:
-                building = "Building 3";
+                createBuildingInfoPopup("3", getResources()
+                        .getString(R.string.dialog_building_info_description_three));
                 break;
             case 3:
-                building = "Building 4";
+                createBuildingInfoPopup("4", getResources()
+                        .getString(R.string.dialog_building_info_description_four));
                 break;
             case 4:
-                building = "Building 5";
+                createBuildingInfoPopup("5", getResources()
+                        .getString(R.string.dialog_building_info_description_five));
                 break;
             case 5:
-                building = "Building 6";
+                createBuildingInfoPopup("6", getResources()
+                        .getString(R.string.dialog_building_info_description_six));
                 break;
             case 6:
-                building = "Building 7";
+                createBuildingInfoPopup("7", getResources()
+                        .getString(R.string.dialog_building_info_description_seven));
                 break;
             case 7:
-                building = "Building 8";
+                createBuildingInfoPopup("8", getResources()
+                        .getString(R.string.dialog_building_info_description_eight));
                 break;
             case 8:
-                building = "Building 9";
-                CustomDialog customDialog = new CustomDialog(this, Constants.DIALOG_TYPE.BUILDING_INFO);
-                customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                customDialog.show();
+                createBuildingInfoPopup("9", getResources()
+                        .getString(R.string.dialog_building_info_description_nine));
                 break;
             case 9:
-                building = "Building 10";
+                createBuildingInfoPopup("10", getResources()
+                        .getString(R.string.dialog_building_info_description_ten));
                 break;
             case 10:
-                building = "Building 11";
+                createBuildingInfoPopup("11", getResources()
+                        .getString(R.string.dialog_building_info_description_eleven));
                 break;
             case 11:
-                building = "Building 12";
+                createBuildingInfoPopup("12", getResources()
+                        .getString(R.string.dialog_building_info_description_twelve));
                 break;
             case 12:
-                building = "Building 13";
+                createBuildingInfoPopup("13", getResources()
+                        .getString(R.string.dialog_building_info_description_thirteen));
                 break;
             case 13:
-                building = "Building 14";
+                createBuildingInfoPopup("14", getResources()
+                        .getString(R.string.dialog_building_info_description_fourteen));
                 break;
             case 14:
-                building = "Building 15";
+                createBuildingInfoPopup("15", getResources()
+                        .getString(R.string.dialog_building_info_description_fifteen));
                 break;
             case 15:
-                building = "Building 16";
+                createBuildingInfoPopup("16", getResources()
+                        .getString(R.string.dialog_building_info_description_sixteen));
                 break;
             case 16:
-                building = "Building 17";
+                createBuildingInfoPopup("17", getResources()
+                        .getString(R.string.dialog_building_info_description_seventeen));
                 break;
             case 17:
-                building = "Building 20";
+                createBuildingInfoPopup("20", getResources()
+                        .getString(R.string.dialog_building_info_description_twenty));
+                break;
+            default:
                 break;
         }
-        Toast.makeText(getApplicationContext(), "You just picked: " + building,
-                Toast.LENGTH_LONG).show();
     }
 
-/*
-    private void buildingPopup(String building) {
-        String alertMessage;
-        String alertTitle;
-        Dialog alert;
-
-        // show alert dialog of the building descriptions
-        Dialog.Builder builder = new Dialog.Builder(this);
-
-        builder.setMessage(alertMessage)
-                .setTitle(alertTitle)
-                .setCancelable(false)
-                .setPositiveButton(
-                        this.getBaseContext().getString(R.string.alertDialogButtonSettings),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                Intent intent = new Intent(
-                                        Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                this.startActivity(intent);
-                                alert.dismiss();
-                            }
-                        })
-                .setNegativeButton(
-                        this.getBaseContext().getString(R.string.alertDialogButtonCancel),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                alert.dismiss();
-                            }
-                        });
-        alert = builder.create();
-        alert.show();
+    private void createBuildingInfoPopup(String title, String info) {
+        CustomDialog customDialog = new CustomDialog(this, Constants.DIALOG_TYPE.BUILDING_INFO);
+        customDialog.setIconsVisibility(Integer.parseInt(title));
+        customDialog.setBuildingTitle(title);
+        customDialog.setBuildingInfo(info);
+        customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        customDialog.show();
     }
-*/
 }
