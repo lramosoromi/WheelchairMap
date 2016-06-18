@@ -16,12 +16,15 @@
     <string name="action_toggle_transparency">Toggle Transparency</string>
     <string name="action_contact">Contact</string>
 
-    <!--    Custom Dialog   -->
-    <string name="custom_dialog_message">Select a building</string>
+    <!--    Dialog Building Selection   -->
+    <string name="dialog_building_selection_message">Select a building</string>
     <string-array name="buildings_array">
         <item>Building 9</item>
     </string-array>
-    <string name="custom_dialog_button">Select</string>
+    <string name="dialog_building_selection_button">Select</string>
+
+    <!--    Dialog Building Info   -->
+    <string name="dialog_building_info_title">Building</string>
 
     <!--    BlueprintActivity Activity strings  -->
     <string name="btnChangeUG">UG</string>

@@ -11,7 +11,6 @@
     <item name="map" type="id"/>
 
     <!--    BlueprintActivity Activity  -->
-    <item name="scroll" type="id"/>
     <item name="imageView" type="id"/>
     <item name="btnUnderground" type="id"/>
     <item name="btnMainFloor" type="id"/>
@@ -26,8 +25,19 @@
     <item name="group_contact" type="id"/>
     <item name="action_contact" type="id"/>
 
-    <!--    Custom Dialog   -->
-    <item name="custom_dialog_message" type="id"/>
+    <!--    Dialog Building Selection   -->
+    <item name="dialog_building_selection_message" type="id"/>
     <item name="spinner_buildings" type="id"/>
-    <item name="custom_dialog_button" type="id"/>
+    <item name="dialog_building_selection_button" type="id"/>
+
+    <!--    Dialog Building Info    -->
+    <item name="dialog_building_info_title" type="id"/>
+    <item name="dialog_building_info_message" type="id"/>
+    <item name="icon_plane" type="id"/>
+    <item name="icon_inclined" type="id"/>
+    <item name="icon_elevator" type="id"/>
+    <item name="icon_automatic_door" type="id"/>
+    <item name="icon_wc" type="id"/>
+    <item name="icon_needs_assistance" type="id"/>
+    <item name="icon_exit" type="id"/>
 </resources>
