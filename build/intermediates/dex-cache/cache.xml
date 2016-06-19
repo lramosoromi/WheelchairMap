@@ -1,12 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" >
-
-    <item
-        jar="/home/rolithunderbird/AndroidStudioProjects/WheelchairMap/wheelchairMap/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        revision="23.0.3"
-        sha1="235317a7af4caa44a9b12d8a2946bf3db858fdbe">
-        <dex dex="/home/rolithunderbird/AndroidStudioProjects/WheelchairMap/wheelchairMap/build/intermediates/pre-dexed/debug/instant-run-bootstrap_203c1bd37767c16449ec498e68ddccbe2432bd4d.jar" />
-    </item>
-
-</items>
+<items version="2" />

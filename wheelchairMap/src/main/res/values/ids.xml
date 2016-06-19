@@ -28,6 +28,7 @@
     <item name="dialog_building_selection_button" type="id"/>
 
     <!--    Dialog Building Info    -->
+    <item name="grid_layout" type="id"/>
     <item name="dialog_building_info_title" type="id"/>
     <item name="dialog_building_info_message" type="id"/>
     <item name="icon_plane" type="id"/>

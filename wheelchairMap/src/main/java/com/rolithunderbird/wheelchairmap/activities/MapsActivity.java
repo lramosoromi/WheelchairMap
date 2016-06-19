@@ -289,7 +289,7 @@ public class MapsActivity extends AppCompatActivity implements
                 closestDistance = newDistance;
             }
         }
-        if (closestDistance > 10)
+        if (closestDistance > 20)
             indexOfClosestBuilding = -1;
         //Este switch esta para poder decir cual es el edificio dependiendo de el id
         // en la lista

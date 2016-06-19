@@ -5,10 +5,12 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -16,6 +18,8 @@ import android.widget.TextView;
 import com.rolithunderbird.wheelchairmap.R;
 import com.rolithunderbird.wheelchairmap.activities.BlueprintActivity;
 import com.rolithunderbird.wheelchairmap.utils.Constants;
+
+import java.util.ArrayList;
 
 /**
  * Created by rolithunderbird on 11.06.16.
@@ -28,6 +32,7 @@ public class CustomDialog extends Dialog
     private Constants.DIALOG_TYPE dialogType;
     private String buildingTitle;
     private String buildingInfo;
+    ArrayList<ImageView> iconsList;
     private boolean iconPlane;
     private boolean iconInclined;
     private boolean iconElevator;
@@ -42,12 +47,14 @@ public class CustomDialog extends Dialog
         // TODO Auto-generated constructor stub
         this.activity = a;
         this.dialogType = dialog_type;
+        this.iconsList = new ArrayList<>();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         if (dialogType == Constants.DIALOG_TYPE.BUILDING_SELECTION) {
             setContentView(R.layout.dialog_selection_layout);
             Button button = (Button) findViewById(R.id.dialog_building_selection_button);
@@ -65,26 +72,56 @@ public class CustomDialog extends Dialog
         }
         else if (dialogType == Constants.DIALOG_TYPE.BUILDING_INFO){
             setContentView(R.layout.dialog_info_layout);
+            iconsList.add((ImageView) findViewById(R.id.icon_plane));
+            iconsList.add((ImageView) findViewById(R.id.icon_inclined));
+            iconsList.add((ImageView) findViewById(R.id.icon_elevator));
+            iconsList.add((ImageView) findViewById(R.id.icon_automatic_door));
+            iconsList.add((ImageView) findViewById(R.id.icon_needs_assistance));
+            iconsList.add((ImageView) findViewById(R.id.icon_wc));
+            iconsList.add((ImageView) findViewById(R.id.icon_exit));
+
             TextView textView = (TextView) findViewById(R.id.dialog_building_info_title);
             textView.setText(buildingTitle);
 
             TextView textView1 = (TextView) findViewById(R.id.dialog_building_info_message);
             textView1.setText(buildingInfo);
 
-            if (!iconPlane)
-                findViewById(R.id.icon_plane).setVisibility(View.GONE);
-            if (!iconInclined)
-                findViewById(R.id.icon_inclined).setVisibility(View.GONE);
-            if (!iconAutomaticDoor)
-                findViewById(R.id.icon_automatic_door).setVisibility(View.GONE);
-            if (!iconElevator)
-                findViewById(R.id.icon_elevator).setVisibility(View.GONE);
-            if (!iconWC)
-                findViewById(R.id.icon_wc).setVisibility(View.GONE);
-            if (!iconAssistance)
-                findViewById(R.id.icon_needs_assistance).setVisibility(View.GONE);
-            if (!iconExit)
-                findViewById(R.id.icon_exit).setVisibility(View.GONE);
+            if (!iconPlane) {
+                ImageView icon = (ImageView) findViewById(R.id.icon_plane);
+                icon.setVisibility(View.GONE);
+                iconsList.remove(icon);
+            }
+            if (!iconInclined) {
+                ImageView icon = (ImageView) findViewById(R.id.icon_inclined);
+                icon.setVisibility(View.GONE);
+                iconsList.remove(icon);
+            }
+            if (!iconElevator) {
+                ImageView icon = (ImageView) findViewById(R.id.icon_elevator);
+                icon.setVisibility(View.GONE);
+                iconsList.remove(icon);
+            }
+            if (!iconAutomaticDoor) {
+                ImageView icon = (ImageView) findViewById(R.id.icon_automatic_door);
+                icon.setVisibility(View.GONE);
+                iconsList.remove(icon);
+            }
+            if (!iconAssistance) {
+                ImageView icon = (ImageView) findViewById(R.id.icon_needs_assistance);
+                icon.setVisibility(View.GONE);
+                iconsList.remove(icon);
+            }
+            if (!iconWC) {
+                ImageView icon = (ImageView) findViewById(R.id.icon_wc);
+                icon.setVisibility(View.GONE);
+                iconsList.remove(icon);
+            }
+            if (!iconExit) {
+                ImageView icon = (ImageView) findViewById(R.id.icon_exit);
+                icon.setVisibility(View.GONE);
+                iconsList.remove(icon);
+            }
+            reorderIcons(iconsList);
         }
         else {
             setContentView(R.layout.dialog_contact_layout);
@@ -121,171 +158,116 @@ public class CustomDialog extends Dialog
     }
 
     public void setIconsVisibility(int building) {
+        iconPlane = false;
+        iconInclined = false;
+        iconElevator = false;
+        iconAutomaticDoor = false;
+        iconAssistance = false;
+        iconWC = false;
+        iconExit = false;
+
         switch (building) {
             case 1 :
-                iconPlane = true;
-                iconInclined = false;
-                iconElevator = true;
-                iconAutomaticDoor = false;
-                iconAssistance = true;
-                iconWC = true;
-                iconExit = false;
+                iterateIconArray(Constants.BUILDING_ONE_ICONS);
                 break;
             case 2 :
-                iconPlane = true;
-                iconInclined = false;
-                iconElevator = true;
-                iconAutomaticDoor = false;
-                iconAssistance = false;
-                iconWC = false;
-                iconExit = false;
+                iterateIconArray(Constants.BUILDING_TWO_ICONS);
                 break;
             case 3 :
-                iconPlane = true;
-                iconInclined = false;
-                iconElevator = true;
-                iconAutomaticDoor = true;
-                iconAssistance = false;
-                iconWC = true;
-                iconExit = true;
+                iterateIconArray(Constants.BUILDING_THREE_ICONS);
                 break;
             case 4 :
-                iconPlane = true;
-                iconInclined = false;
-                iconElevator = true;
-                iconAutomaticDoor = true;
-                iconAssistance = false;
-                iconWC = true;
-                iconExit = true;
+                iterateIconArray(Constants.BUILDING_FOUR_ICONS);
                 break;
             case 5 :
-                iconPlane = true;
-                iconInclined = false;
-                iconElevator = true;
-                iconAutomaticDoor = false;
-                iconAssistance = true;
-                iconWC = true;
-                iconExit = false;
+                iterateIconArray(Constants.BUILDING_FIVE_ICONS);
                 break;
             case 6 :
-                iconPlane = false;
-                iconInclined = true;
-                iconElevator = true;
-                iconAutomaticDoor = false;
-                iconAssistance = true;
-                iconWC = true;
-                iconExit = false;
+                iterateIconArray(Constants.BUILDING_SIX_ICONS);
                 break;
             case 7 :
-                iconPlane = true;
-                iconInclined = false;
-                iconElevator = true;
-                iconAutomaticDoor = false;
-                iconAssistance = true;
-                iconWC = true;
-                iconExit = false;
+                iterateIconArray(Constants.BUILDING_SEVEN_ICONS);
                 break;
             case 8 :
-                iconPlane = true;
-                iconInclined = false;
-                iconElevator = true;
-                iconAutomaticDoor = true;
-                iconAssistance = false;
-                iconWC = true;
-                iconExit = true;
+                iterateIconArray(Constants.BUILDING_EIGHT_ICONS);
                 break;
             case 9 :
-                iconPlane = false;
-                iconInclined = true;
-                iconElevator = true;
-                iconAutomaticDoor = false;
-                iconAssistance = true;
-                iconWC = true;
-                iconExit = false;
+                iterateIconArray(Constants.BUILDING_NINE_ICONS);
                 break;
             case 10 :
-                iconPlane = true;
-                iconInclined = false;
-                iconElevator = true;
-                iconAutomaticDoor = false;
-                iconAssistance = true;
-                iconWC = true;
-                iconExit = false;
+                iterateIconArray(Constants.BUILDING_TEN_ICONS);
                 break;
             case 11 :
-                iconPlane = true;
-                iconInclined = false;
-                iconElevator = false;
-                iconAutomaticDoor = true;
-                iconAssistance = false;
-                iconWC = true;
-                iconExit = true;
+                iterateIconArray(Constants.BUILDING_ELEVEN_ICONS);
                 break;
             case 12 :
-                iconPlane = false;
-                iconInclined = false;
-                iconElevator = false;
-                iconAutomaticDoor = false;
-                iconAssistance = false;
-                iconWC = false;
-                iconExit = false;
+                iterateIconArray(Constants.BUILDING_TWELVE_ICONS);
                 break;
             case 13 :
-                iconPlane = false;
-                iconInclined = false;
-                iconElevator = false;
-                iconAutomaticDoor = false;
-                iconAssistance = false;
-                iconWC = false;
-                iconExit = false;
+                iterateIconArray(Constants.BUILDING_THIRTEEN_ICONS);
                 break;
             case 14 :
-                iconPlane = true;
-                iconInclined = false;
-                iconElevator = true;
-                iconAutomaticDoor = false;
-                iconAssistance = true;
-                iconWC = true;
-                iconExit = true;
+                iterateIconArray(Constants.BUILDING_FOURTEEN_ICONS);
                 break;
             case 15 :
-                iconPlane = true;
-                iconInclined = false;
-                iconElevator = false;
-                iconAutomaticDoor = false;
-                iconAssistance = true;
-                iconWC = false;
-                iconExit = false;
+                iterateIconArray(Constants.BUILDING_FIFTEEN_ICONS);
                 break;
             case 16 :
-                iconPlane = true;
-                iconInclined = false;
-                iconElevator = true;
-                iconAutomaticDoor = true;
-                iconAssistance = false;
-                iconWC = true;
-                iconExit = true;
+                iterateIconArray(Constants.BUILDING_SIXTEEN_ICONS);
                 break;
             case 17 :
-                iconPlane = true;
-                iconInclined = false;
-                iconElevator = true;
-                iconAutomaticDoor = false;
-                iconAssistance = false;
-                iconWC = true;
-                iconExit = false;
+                iterateIconArray(Constants.BUILDING_SEVENTEEN_ICONS);
                 break;
             case 20 :
-                iconPlane = true;
-                iconInclined = false;
-                iconElevator = true;
-                iconAutomaticDoor = true;
-                iconAssistance = false;
-                iconWC = true;
-                iconExit = true;
+                iterateIconArray(Constants.BUILDING_TWENTY_ICONS);
                 break;
             default:
                 break;
+        }
+    }
+
+    private void reorderIcons(ArrayList<ImageView> iconsList) {
+        int column = 0;
+        int row = 0;
+        for (ImageView icon : iconsList) {
+            if (icon != null) {
+                GridLayout grid = (GridLayout) findViewById(R.id.grid_layout);
+                GridLayout.LayoutParams layout = new GridLayout.LayoutParams();
+                if (column >= 3) {
+                    column = 0;
+                    row++;
+                    layout.columnSpec = grid.spec(column);
+                    layout.rowSpec = grid.spec(row);
+                } else {
+                    layout.columnSpec = grid.spec(column);
+                    layout.rowSpec = grid.spec(row);
+                }
+                column++;
+                layout.width = 50;
+                layout.height = 50;
+                icon.setLayoutParams(layout);
+            }
+            else
+                break;
+        }
+    }
+
+    private void iterateIconArray(Constants.DEFAULT_ICONS[] iconArray) {
+        for (Constants.DEFAULT_ICONS icon : iconArray) {
+            if (icon == Constants.DEFAULT_ICONS.PLANE)
+                iconPlane = true;
+            if (icon == Constants.DEFAULT_ICONS.INCLINED)
+                iconInclined = true;
+            if (icon == Constants.DEFAULT_ICONS.ELEVATOR)
+                iconElevator = true;
+            if (icon == Constants.DEFAULT_ICONS.AUTOMATIC_DOOR)
+                iconAutomaticDoor = true;
+            if (icon == Constants.DEFAULT_ICONS.ASSISTANCE)
+                iconAssistance = true;
+            if (icon == Constants.DEFAULT_ICONS.WC)
+                iconWC = true;
+            if (icon == Constants.DEFAULT_ICONS.EXIT)
+                iconExit = true;
         }
     }
 }
