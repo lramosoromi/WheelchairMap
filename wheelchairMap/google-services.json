@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "344717732386",
+    "firebase_url": "https://wheelchairmap.firebaseio.com",
+    "project_id": "wheelchairmap",
+    "storage_bucket": "wheelchairmap.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344717732386:android:fb7d9af08e2d9277",
+        "android_client_info": {
+          "package_name": "com.rolithunderbird.wheelchairmap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "344717732386-os6bf7scl70as6jsmql703ckdr181499.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVCKp_Ve4LeuIIIwfmccNAZTOlG9cYuMM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

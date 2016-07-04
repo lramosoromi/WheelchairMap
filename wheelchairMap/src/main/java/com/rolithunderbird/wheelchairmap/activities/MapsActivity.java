@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -13,14 +14,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.SeekBar;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.GroundOverlay;
@@ -32,7 +29,7 @@ import com.rolithunderbird.wheelchairmap.utils.LocationManagerCheck;
 import com.rolithunderbird.wheelchairmap.utils.PermissionUtils;
 import com.rolithunderbird.wheelchairmap.R;
 
-import java.util.ArrayList;
+import java.io.File;
 import java.util.List;
 
 public class MapsActivity extends AppCompatActivity implements
@@ -41,10 +38,6 @@ public class MapsActivity extends AppCompatActivity implements
         ActivityCompat.OnRequestPermissionsResultCallback {
 
     private GoogleMap mMap;
-
-    //Esto estaba de antes. Es una lista con todos los mapas. Lo puedo usar para cuando tenga el
-    // mapa con las flechas
-    private final List<BitmapDescriptor> mImages = new ArrayList<BitmapDescriptor>();
 
     private GroundOverlay mGroundOverlayReutlingen;
 
@@ -60,11 +53,15 @@ public class MapsActivity extends AppCompatActivity implements
 
     LocationManagerCheck locationManagerCheck;
 
+    private Constants CONSTANTS;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        CONSTANTS = new Constants();
 
         mTransparencyBar = (SeekBar) findViewById(R.id.transparencySeekBar);
         assert mTransparencyBar != null;
@@ -75,6 +72,9 @@ public class MapsActivity extends AppCompatActivity implements
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        // Testing servlet Backend
+        //new ServletPostAsyncTask().execute(new Pair<Context, String>(this, "Lucas"));
     }
 
     /**
@@ -94,11 +94,13 @@ public class MapsActivity extends AppCompatActivity implements
         switch (item.getItemId()) {
             case R.id.action_show_routes:
                 if (activeMap == Constants.MAP_ACTIVE.BASIC_MAP) {
-                    mGroundOverlayReutlingen.setImage(mImages.get(1));
+                    mGroundOverlayReutlingen.setImage(
+                            BitmapDescriptorFactory.fromPath(CONSTANTS.getmImages().get(1).getPath()));
                     activeMap = Constants.MAP_ACTIVE.ROUTE_MAP;
                 }
                 else if (activeMap == Constants.MAP_ACTIVE.ROUTE_MAP) {
-                    mGroundOverlayReutlingen.setImage(mImages.get(0));
+                    mGroundOverlayReutlingen.setImage(
+                            BitmapDescriptorFactory.fromPath(CONSTANTS.getmImages().get(0).getPath()));
                     activeMap = Constants.MAP_ACTIVE.BASIC_MAP;
                 }
                 return true;
@@ -144,14 +146,11 @@ public class MapsActivity extends AppCompatActivity implements
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(
                 new CameraPosition(Constants.REUTLINGEN_CENTER, 16, 0, 0)));
 
-        //Aca agrego los mapas a la lista de mapas
-        mImages.clear();
-        mImages.add(BitmapDescriptorFactory.fromResource(Constants.BASIC_MAP));
-        mImages.add(BitmapDescriptorFactory.fromResource(Constants.ROUTE_MAP));
-
         //Pongo la imagen del mapa sobre google maps
+        List<File> files = CONSTANTS.getmImages();
         mGroundOverlayReutlingen = mMap.addGroundOverlay(new GroundOverlayOptions()
-                .image(mImages.get(0)).anchor(0, 1)
+                .image(BitmapDescriptorFactory.fromPath(
+                        CONSTANTS.getmImages().get(0).getPath())).anchor(0, 1)
                 .bearing(-60)
                 .position(Constants.REUTLINGEN_MAP, 600, 465));
         activeMap = Constants.MAP_ACTIVE.BASIC_MAP;
@@ -214,11 +213,6 @@ public class MapsActivity extends AppCompatActivity implements
         }else{
             locationManagerCheck.createLocationServiceError(MapsActivity.this, true);
         }
-
-
-        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT).show();
-        // Return false so that we don't consume the event and the default behavior still occurs
-        // (the camera animates to the user's current position).
         return false;
     }
 
@@ -247,6 +241,12 @@ public class MapsActivity extends AppCompatActivity implements
             showMissingPermissionError();
             mPermissionDenied = false;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        CONSTANTS.deleteFiles();
     }
 
     /**

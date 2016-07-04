@@ -1,13 +1,21 @@
 package com.rolithunderbird.wheelchairmap.utils;
 
+import android.content.Context;
+import android.content.Intent;
+
 import com.google.android.gms.maps.model.LatLng;
-import com.rolithunderbird.wheelchairmap.R;
-import com.rolithunderbird.wheelchairmap.activities.MapsActivity;
+import com.rolithunderbird.wheelchairmap.server.StorageService;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by rolithunderbird on 07.06.16.
  */
 public class Constants {
+
+    private StorageService storage;
+    private static List<File> mImages;
 
     //Transparency of the GroundOverlayMap
     public static final int TRANSPARENCY_MAX = 100;
@@ -57,17 +65,19 @@ public class Constants {
         REUTLINGEN_BUILDING_20,
     };
 
-    //Location donde va el mapa. Esta location es el borde inferior izquierdo
+    // LatLng location where the imageMap goes on the google map.
+    // This location points to the bottom left border.
     public static final LatLng REUTLINGEN_MAP = new LatLng(48.478679, 9.188791);
 
-    public static final int BASIC_MAP = R.drawable.mapa_reutlingen;
+    //public static final int BASIC_MAP = R.drawable.mapa_reutlingen;
+    public static final String BASIC_MAP = "images/mapa_reutlingen.png";
 
-    public static final int ROUTE_MAP = R.drawable.mapa_reutlingen_rutas;
+    //public static final int ROUTE_MAP = R.drawable.mapa_reutlingen_rutas;
+    public static final String ROUTES_MAP = "images/mapa_reutlingen_rutas.png";
 
     /**
      * Request code for location permission request.
      *
-     * @see MapsActivity.onRequestPermissionsResult(int, String[], int[])
      */
     public static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
@@ -146,4 +156,21 @@ public class Constants {
 
     public static final DEFAULT_ICONS[] BUILDING_TWENTY_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.ASSISTANCE, DEFAULT_ICONS.WC, DEFAULT_ICONS.EXIT };
+
+    public static String[] filesPath = {BASIC_MAP, ROUTES_MAP};
+
+
+    public List<File> getmImages() {
+        return mImages;
+    }
+
+    public static void setmImages(List<File> files) {
+        mImages = files;
+    }
+
+    public void deleteFiles() {
+        for (File file : mImages) {
+            file.delete();
+        }
+    }
 }

@@ -112,14 +112,14 @@
     <string name="alertDialogTitle">Caution</string>
     <string name="alertDialogMessage">
         You need to activate location service to use this feature.
-        Please turn on network or GPS mode in location settings"
+        Please turn on network or GPS mode in location settings.
     </string>
     <string name="alertDialogButtonSettings">Settings</string>
     <string name="alertDialogButtonCancel">Cancel</string>
     <string name="alertDialogImprovementTitle">Important</string>
     <string name="alertDialogImprovementMessage">
         Currently you are using Wifi and GPRS location service.
-        For better accuracy please turn on GPS mode in location settings"
+        For better accuracy please turn on GPS mode in location settings.
     </string>
 
     <!--    Permissions    -->
