@@ -44,12 +44,12 @@ public class LocationManagerCheck {
         String alertMessage;
         String alertTitle;
         if (isError) {
-            alertMessage = activityObj.getBaseContext().getString(R.string.alertDialogMessage);
-            alertTitle = activityObj.getBaseContext().getString(R.string.alertDialogTitle);
+            alertMessage = activityObj.getBaseContext().getString(R.string.alert_dialog_message);
+            alertTitle = activityObj.getBaseContext().getString(R.string.alert_dialog_title);
         }
         else {
-            alertMessage = activityObj.getBaseContext().getString(R.string.alertDialogImprovementMessage);
-            alertTitle = activityObj.getBaseContext().getString(R.string.alertDialogImprovementTitle);
+            alertMessage = activityObj.getBaseContext().getString(R.string.alert_dialog_improvement_message);
+            alertTitle = activityObj.getBaseContext().getString(R.string.alert_dialog_improvement_title);
         }
         // show alert dialog if Internet is not connected
         AlertDialog.Builder builder = new AlertDialog.Builder(activityObj);
@@ -58,7 +58,7 @@ public class LocationManagerCheck {
                 .setTitle(alertTitle)
                 .setCancelable(false)
                 .setPositiveButton(
-                        activityObj.getBaseContext().getString(R.string.alertDialogButtonSettings),
+                        activityObj.getBaseContext().getString(R.string.alert_dialog_btn_settings),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 Intent intent = new Intent(
@@ -68,7 +68,7 @@ public class LocationManagerCheck {
                             }
                         })
                 .setNegativeButton(
-                        activityObj.getBaseContext().getString(R.string.alertDialogButtonCancel),
+                        activityObj.getBaseContext().getString(R.string.alert_dialog_btn_cancel),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 alert.dismiss();

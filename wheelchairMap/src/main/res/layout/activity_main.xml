@@ -10,12 +10,29 @@
     tools:context="com.rolithunderbird.wheelchairmap.activities.MainActivity">
 
     <TextView
+        android:id="@id/activity_main_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Welcome to WheelchairMap app"
-        android:id="@+id/textView"
+        android:text="@string/activity_main_text"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="94dp" />
+
+    <Spinner
+        android:id="@id/activity_main_spinner_maps"
+        android:layout_above="@id/activity_main_btn_select_map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@id/activity_main_btn_select_map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_main_selection_button"
+        android:layout_centerVertical="true"
+        android:layout_alignEnd="@id/activity_main_text"
+        android:layout_alignStart="@id/activity_main_text"
+        android:onClick="btnSelectMap"/>
 </RelativeLayout>

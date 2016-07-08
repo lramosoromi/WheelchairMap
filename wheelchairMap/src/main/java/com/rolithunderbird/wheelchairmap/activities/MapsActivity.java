@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -63,7 +62,7 @@ public class MapsActivity extends AppCompatActivity implements
 
         CONSTANTS = new Constants();
 
-        mTransparencyBar = (SeekBar) findViewById(R.id.transparencySeekBar);
+        mTransparencyBar = (SeekBar) findViewById(R.id.activity_map_transparency_seekBar);
         assert mTransparencyBar != null;
         mTransparencyBar.setMax(Constants.TRANSPARENCY_MAX);
         mTransparencyBar.setProgress(0);
@@ -85,35 +84,35 @@ public class MapsActivity extends AppCompatActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
+        inflater.inflate(R.menu.menu_map, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_show_routes:
+            case R.id.menu_map_action_show_routes:
                 if (activeMap == Constants.MAP_ACTIVE.BASIC_MAP) {
                     mGroundOverlayReutlingen.setImage(
-                            BitmapDescriptorFactory.fromPath(CONSTANTS.getmImages().get(1).getPath()));
+                            BitmapDescriptorFactory.fromPath(CONSTANTS.getImageFiles().get(1).getPath()));
                     activeMap = Constants.MAP_ACTIVE.ROUTE_MAP;
                 }
                 else if (activeMap == Constants.MAP_ACTIVE.ROUTE_MAP) {
                     mGroundOverlayReutlingen.setImage(
-                            BitmapDescriptorFactory.fromPath(CONSTANTS.getmImages().get(0).getPath()));
+                            BitmapDescriptorFactory.fromPath(CONSTANTS.getImageFiles().get(0).getPath()));
                     activeMap = Constants.MAP_ACTIVE.BASIC_MAP;
                 }
                 return true;
-            case R.id.action_select_building:
+            case R.id.menu_map_action_select_building:
                 CustomDialog customDialog = new CustomDialog(this, Constants.DIALOG_TYPE.BUILDING_SELECTION);
                 customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 customDialog.show();
                 return true;
-            case R.id.action_toggle_transparency:
+            case R.id.menu_map_action_toggle_transparency:
                 // Toggle transparency value between 0.0f and 0.5f. Initial default value is 0.0f.
                 mGroundOverlayReutlingen.setTransparency(0.5f - mGroundOverlayReutlingen.getTransparency());
                 return true;
-            case R.id.action_contact :
+            case R.id.menu_map_action_contact :
                 CustomDialog customDialog1 = new CustomDialog(this, Constants.DIALOG_TYPE.CONTACT_INFO);
                 customDialog1.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 customDialog1.show();
@@ -147,10 +146,10 @@ public class MapsActivity extends AppCompatActivity implements
                 new CameraPosition(Constants.REUTLINGEN_CENTER, 16, 0, 0)));
 
         //Pongo la imagen del mapa sobre google maps
-        List<File> files = CONSTANTS.getmImages();
+        List<File> files = CONSTANTS.getImageFiles();
         mGroundOverlayReutlingen = mMap.addGroundOverlay(new GroundOverlayOptions()
                 .image(BitmapDescriptorFactory.fromPath(
-                        CONSTANTS.getmImages().get(0).getPath())).anchor(0, 1)
+                        files.get(0).getPath())).anchor(0, 1)
                 .bearing(-60)
                 .position(Constants.REUTLINGEN_MAP, 600, 465));
         activeMap = Constants.MAP_ACTIVE.BASIC_MAP;
@@ -241,6 +240,11 @@ public class MapsActivity extends AppCompatActivity implements
             showMissingPermissionError();
             mPermissionDenied = false;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 
     @Override

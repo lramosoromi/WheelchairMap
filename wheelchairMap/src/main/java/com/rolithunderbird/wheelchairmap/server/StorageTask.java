@@ -1,17 +1,13 @@
 package com.rolithunderbird.wheelchairmap.server;
 
-import android.app.IntentService;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
-import android.widget.Toast;
 
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
@@ -22,43 +18,62 @@ import com.rolithunderbird.wheelchairmap.utils.Constants;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Semaphore;
 
 /**
  * Created by rolithunderbird on 28.06.16.
  */
-public class StorageService extends IntentService {
+public class StorageTask extends AsyncTask<Void, String, Void> {
 
     private Context context;
+    private ArrayList<File> files;
+    private boolean downloadSuccess;
 
-    public StorageService() {
-        super("StorageService");
+
+    public StorageTask(Context context) {
+        this.context = context;
     }
 
     @Override
-    protected void onHandleIntent(Intent intent) {
+    protected void onPreExecute() {
+        super.onPreExecute();
+        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage("Downloading content");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+
+        files = new ArrayList<>();
+    }
+
+    @Override
+    protected Void doInBackground(Void... unused) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
-
-        // Gets data from the incoming Intent
-        String dataString = intent.getDataString();
-
-        // Do work here, based on the contents of dataString
-        // E.g. get data from a server in your case
-        List<File> files = new ArrayList<>();
 
         // Create a storage reference from our app
         StorageReference storageRef = storage.getReferenceFromUrl(
                 "gs://wheelchairmap.appspot.com");
 
-        for (final String filePath : Constants.filesPath) {
-            downloadFile(storageRef, filePath, files);
-            SystemClock.sleep(5000);
+        for (final String filePath : Constants.FILES_PATH) {
+            downloadSuccess = false;
+            downloadFile(storageRef, filePath);
         }
-        Constants.setmImages(files);
+        Constants.setImageFiles(files);
+        return (null);
     }
 
-    public void downloadFile(StorageReference storageRef, final String filePath, List<File> files) {
+    @Override
+    protected void onPostExecute(Void unused) {
+        while (!downloadSuccess) {
+            SystemClock.sleep(500);
+        }
+        // Puts the status into the Intent
+        String status = "Success"; // any data that you want to send back to receivers
+        Intent localIntent = new Intent(Constants.BROADCAST_FILTER)
+                .putExtra("Status", status);
+        // Broadcasts the Intent to receivers in this app.
+        LocalBroadcastManager.getInstance(context).sendBroadcast(localIntent);
+    }
+
+    public void downloadFile(StorageReference storageRef, final String filePath) {
         // Child references can also take paths
         // spaceRef now points to "users/me/profile.png
         // imagesRef still points to "images"
@@ -72,28 +87,16 @@ public class StorageService extends IntentService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        context = this;
         spaceRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                 // Local temp file has been created
-                // Puts the status into the Intent
-                String status = "Success"; // any data that you want to send back to receivers
-                Intent localIntent = new Intent("com.rolithunderbird.wheelchairmap.BROADCAST")
-                        .putExtra("Status", status);
-                // Broadcasts the Intent to receivers in this app.
-                LocalBroadcastManager.getInstance(context).sendBroadcast(localIntent);
+                downloadSuccess = true;
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 // Handle any errors
-                // Puts the status into the Intent
-                String status = "Failure"; // any data that you want to send back to receivers
-                Intent localIntent = new Intent("com.rolithunderbird.wheelchairmap.BROADCAST")
-                        .putExtra("Status", status + " " + filePath);
-                // Broadcasts the Intent to receivers in this app.
-                LocalBroadcastManager.getInstance(context).sendBroadcast(localIntent);
             }
         });
         files.add(localFile);

@@ -1,29 +1,27 @@
 package com.rolithunderbird.wheelchairmap.utils;
 
-import android.content.Context;
-import android.content.Intent;
-
 import com.google.android.gms.maps.model.LatLng;
-import com.rolithunderbird.wheelchairmap.server.StorageService;
+
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * This class is used to store all the necessary constants that will be used in all the app.
+ * With this the only place to change code once some values changes should be this class.
  * Created by rolithunderbird on 07.06.16.
  */
 public class Constants {
 
-    private StorageService storage;
-    private static List<File> mImages;
-
-    //Transparency of the GroundOverlayMap
+    //The image files created when downloading content from the database
+    private static List<File> imageFiles;
+    //The broadcast filter used to by the broadcast receiver
+    public static final String BROADCAST_FILTER = "com.rolithunderbird.wheelchairmap.BROADCAST";
+    //Transparency maximum value of the GroundOverlayMap
     public static final int TRANSPARENCY_MAX = 100;
-
-    //Posicion donde va a arrancar la aplicacion de google maps
+    //LatLng position where the google map activity starts
     public static final LatLng REUTLINGEN_CENTER = new LatLng(48.481905, 9.188492);
 
-    //Aca van todas las Locations de los distintos edificios del mapa
+    //Here is stored all the buildings LatLng coordinates that will be used in the app
     //<editor-fold desc="Building Locations">
     protected static final LatLng REUTLINGEN_BUILDING_1 = new LatLng(48.481291, 9.184959);
     protected static final LatLng REUTLINGEN_BUILDING_2 = new LatLng(48.482342, 9.185873);
@@ -44,6 +42,7 @@ public class Constants {
     protected static final LatLng REUTLINGEN_BUILDING_17 = new LatLng(48.481666, 9.189250);
     protected static final LatLng REUTLINGEN_BUILDING_20 = new LatLng(48.481029, 9.186182);
     //</editor-fold>
+    //Now we put all these values in an array to simplify its usage
     public static final LatLng[] BUILDINGS = {
         REUTLINGEN_BUILDING_1,
         REUTLINGEN_BUILDING_2,
@@ -65,36 +64,50 @@ public class Constants {
         REUTLINGEN_BUILDING_20,
     };
 
-    // LatLng location where the imageMap goes on the google map.
+    // LatLng location where the image of Reutlingen goes on the google map.
     // This location points to the bottom left border.
     public static final LatLng REUTLINGEN_MAP = new LatLng(48.478679, 9.188791);
-
-    //public static final int BASIC_MAP = R.drawable.mapa_reutlingen;
+    //Path in the database to get the image file
     public static final String BASIC_MAP = "images/mapa_reutlingen.png";
-
-    //public static final int ROUTE_MAP = R.drawable.mapa_reutlingen_rutas;
+    //Path in the database to get the image file
     public static final String ROUTES_MAP = "images/mapa_reutlingen_rutas.png";
-
-    /**
-     * Request code for location permission request.
-     *
-     */
+    //Maps loaded in the database for use
+    public static final String HOSCHULE_REUTLINGEN = "Hoschule Reutlingen";
+    //Blueprints loaded in the database for use
+    public static final String REUTLINGEN_BUILDING_9_BLUEPRINT = "Building 9";
+    //Request code for location permission request.
     public static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
-    //Provider type of the Location
+    //Array of the different maps database path.
+    public static String[] FILES_PATH = {BASIC_MAP, ROUTES_MAP};
+
+    //Array of the available maps in the database to use the app
+    public static String[] AVAILABLE_LOCATIONS = { HOSCHULE_REUTLINGEN };
+
+    //Array of the available blueprints in the database to use the app
+    public static String[] BUILDING_BLUEPRINT = { REUTLINGEN_BUILDING_9_BLUEPRINT };
+
+    /**
+     * ======= Enums =========
+     * These are created to simplify the usage of all the constant values
+     */
+
+    //Provider type of the Location (used for the GPS location)
     public enum PROVIDERTYPE {
         NULL, GPS_PROVIDER, NETWORK_PROVIDER
     }
 
-    //  What map is active
+    //Enum used so as to know which map is active
     public enum MAP_ACTIVE {
         BASIC_MAP, ROUTE_MAP
     }
 
+    //Enum used so as to know which type of dialog should be shown
     public enum DIALOG_TYPE {
         BUILDING_SELECTION, BUILDING_INFO, CONTACT_INFO
     }
 
+    //All the icons used for the building info dialog
     public enum DEFAULT_ICONS {
         PLANE,
         INCLINED,
@@ -105,71 +118,55 @@ public class Constants {
         EXIT
     }
 
+    //Here is stored all the buildings icons that will be used when calling
+    // the info dialog of each one
+    //<editor-fold desc="Building Icons">
     public static final DEFAULT_ICONS[] BUILDING_ONE_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.ASSISTANCE, DEFAULT_ICONS.WC };
-
     public static final DEFAULT_ICONS[] BUILDING_TWO_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ELEVATOR };
-
     public static final DEFAULT_ICONS[] BUILDING_THREE_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.AUTOMATIC_DOOR, DEFAULT_ICONS.WC, DEFAULT_ICONS.EXIT };
-
     public static final DEFAULT_ICONS[] BUILDING_FOUR_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.AUTOMATIC_DOOR, DEFAULT_ICONS.WC, DEFAULT_ICONS.EXIT };
-
     public static final DEFAULT_ICONS[] BUILDING_FIVE_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.ASSISTANCE, DEFAULT_ICONS.WC };
-
     public static final DEFAULT_ICONS[] BUILDING_SIX_ICONS = { DEFAULT_ICONS.INCLINED,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.ASSISTANCE, DEFAULT_ICONS.WC };
-
     public static final DEFAULT_ICONS[] BUILDING_SEVEN_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.ASSISTANCE, DEFAULT_ICONS.WC };
-
     public static final DEFAULT_ICONS[] BUILDING_EIGHT_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.AUTOMATIC_DOOR, DEFAULT_ICONS.WC, DEFAULT_ICONS.EXIT };
-
     public static final DEFAULT_ICONS[] BUILDING_NINE_ICONS = { DEFAULT_ICONS.INCLINED,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.ASSISTANCE, DEFAULT_ICONS.WC };
-
     public static final DEFAULT_ICONS[] BUILDING_TEN_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.ASSISTANCE, DEFAULT_ICONS.WC };
-
     public static final DEFAULT_ICONS[] BUILDING_ELEVEN_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.AUTOMATIC_DOOR, DEFAULT_ICONS.WC, DEFAULT_ICONS.EXIT };
-
     public static final DEFAULT_ICONS[] BUILDING_TWELVE_ICONS = {  };
-
     public static final DEFAULT_ICONS[] BUILDING_THIRTEEN_ICONS = {  };
-
     public static final DEFAULT_ICONS[] BUILDING_FOURTEEN_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.ASSISTANCE, DEFAULT_ICONS.WC, DEFAULT_ICONS.EXIT };
-
     public static final DEFAULT_ICONS[] BUILDING_FIFTEEN_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ASSISTANCE };
-
     public static final DEFAULT_ICONS[] BUILDING_SIXTEEN_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.AUTOMATIC_DOOR, DEFAULT_ICONS.WC, DEFAULT_ICONS.EXIT };
-
     public static final DEFAULT_ICONS[] BUILDING_SEVENTEEN_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.ASSISTANCE, DEFAULT_ICONS.WC };
-
     public static final DEFAULT_ICONS[] BUILDING_TWENTY_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.ASSISTANCE, DEFAULT_ICONS.WC, DEFAULT_ICONS.EXIT };
+    //</editor-fold>
 
-    public static String[] filesPath = {BASIC_MAP, ROUTES_MAP};
-
-
-    public List<File> getmImages() {
-        return mImages;
+    public List<File> getImageFiles() {
+        return imageFiles;
     }
 
-    public static void setmImages(List<File> files) {
-        mImages = files;
+    public static void setImageFiles(List<File> files) {
+        imageFiles = files;
     }
 
     public void deleteFiles() {
-        for (File file : mImages) {
+        for (File file : imageFiles) {
             file.delete();
         }
     }

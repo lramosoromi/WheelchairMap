@@ -40,11 +40,9 @@
         </activity>
         <activity
             android:name=".activities.MapsActivity"
-            android:label="@string/title_activity_maps">
+            android:label="@string/activity_maps_title">
         </activity>
         <activity android:name=".activities.BlueprintActivity" />
-
-        <service android:name=".server.StorageService"/>
 
         <receiver android:name=".broadcastReceiver.MyResponseReceiver">
             <intent-filter>

@@ -25,7 +25,7 @@
         android:background="@color/colorPrimaryDark">
 
         <Spinner
-            android:id="@id/spinner_buildings"
+            android:id="@id/dialog_building_selection_spinner_buildings"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"/>

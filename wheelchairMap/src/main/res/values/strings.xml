@@ -1,21 +1,38 @@
 <resources>
     <string name="app_name">WheelchairMap</string>
 
-    <!--    MapActivity strings -->
-    <string name="title_activity_maps">WheelchairMap</string>
-    <string name="mapLayoutName">com.google.android.gms.maps.SupportMapFragment</string>
-    <string name="transparency">Transparency</string>
-    <string name="clickable">Clickable</string>
+    <!--    Main Activity strings    -->
+    <string name="activity_main_text">Welcome to WheelchairMap app</string>
+    <string-array name="activity_main_location_array">
+        <item>-- None --</item>
+        <item>Hoschule Reutlingen</item>
+    </string-array>
+    <string name="activity_main_selection_button">Select</string>
 
-    <!--    Menu MapActivity    -->
-    <string name="action_show_routes">Routes</string>
-    <string name="action_select_building">Select Building</string>
-    <string name="action_toggle_transparency">Toggle Transparency</string>
-    <string name="action_contact">Contact</string>
+    <!--    Map Activity strings -->
+    <string name="activity_maps_title">WheelchairMap</string>
+    <string name="activity_map_layout_name">com.google.android.gms.maps.SupportMapFragment</string>
+    <string name="activity_map_transparency_text">Transparency</string>
+
+    <!--    BlueprintActivity Activity strings  -->
+    <string name="activity_blueprint_zoom_image_text">Zooming image</string>
+    <string name="activity_blueprint_ug_btn">UG</string>
+    <string name="activity_blueprint_eg_btn">EG</string>
+    <string name="activity_blueprint_1og_btn">1OG</string>
+    <string name="activity_blueprint_2og_btn">2OG</string>
+    <string name="activity_blueprint_3og_btn">3OG</string>
+
+    <!--    Menu Map Activity    -->
+    <string name="menu_map_action_info">Info</string>
+    <string name="menu_map_action_show_routes">Show Routes</string>
+    <string name="menu_map_action_toggle_transparency">Toggle Transparency</string>
+    <string name="menu_map_action_select_building">Select Building</string>
+    <string name="menu_map_action_contact">Contact</string>
 
     <!--    Dialog Building Selection   -->
     <string name="dialog_building_selection_message">Select a building</string>
-    <string-array name="buildings_array">
+    <string-array name="dialog_buildings_array">
+        <item>-- None --</item>
         <item>Building 9</item>
     </string-array>
     <string name="dialog_building_selection_button">Select</string>
@@ -100,24 +117,16 @@
         D-72762 Reutlingen
     </string>
 
-    <!--    BlueprintActivity Activity strings  -->
-    <string name="btnChangeUG">UG</string>
-    <string name="btnChangeEG">EG</string>
-    <string name="btnChange1OG">1OG</string>
-    <string name="btnChange2OG">2OG</string>
-    <string name="btnChange3OG">3OG</string>
-    <string name="zoomImage">Zooming image</string>
-
     <!--    AlertDialog strings -->
-    <string name="alertDialogTitle">Caution</string>
-    <string name="alertDialogMessage">
+    <string name="alert_dialog_title">Caution</string>
+    <string name="alert_dialog_message">
         You need to activate location service to use this feature.
         Please turn on network or GPS mode in location settings.
     </string>
-    <string name="alertDialogButtonSettings">Settings</string>
-    <string name="alertDialogButtonCancel">Cancel</string>
-    <string name="alertDialogImprovementTitle">Important</string>
-    <string name="alertDialogImprovementMessage">
+    <string name="alert_dialog_btn_settings">Settings</string>
+    <string name="alert_dialog_btn_cancel">Cancel</string>
+    <string name="alert_dialog_improvement_title">Important</string>
+    <string name="alert_dialog_improvement_message">
         Currently you are using Wifi and GPRS location service.
         For better accuracy please turn on GPS mode in location settings.
     </string>

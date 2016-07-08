@@ -14,6 +14,7 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rolithunderbird.wheelchairmap.R;
 import com.rolithunderbird.wheelchairmap.activities.BlueprintActivity;
@@ -30,6 +31,7 @@ public class CustomDialog extends Dialog
     private Activity activity;
     private ArrayAdapter adapter;
     private Constants.DIALOG_TYPE dialogType;
+    private String blueprint;
     private String buildingTitle;
     private String buildingInfo;
     ArrayList<ImageView> iconsList;
@@ -44,7 +46,6 @@ public class CustomDialog extends Dialog
 
     public CustomDialog(Activity a, Constants.DIALOG_TYPE dialog_type) {
         super(a);
-        // TODO Auto-generated constructor stub
         this.activity = a;
         this.dialogType = dialog_type;
         this.iconsList = new ArrayList<>();
@@ -60,10 +61,10 @@ public class CustomDialog extends Dialog
             Button button = (Button) findViewById(R.id.dialog_building_selection_button);
             button.setOnClickListener(this);
 
-            Spinner spinner = (Spinner) findViewById(R.id.spinner_buildings);
+            Spinner spinner = (Spinner) findViewById(R.id.dialog_building_selection_spinner_buildings);
             // Create an ArrayAdapter using the string array and a default spinner layout
             adapter = ArrayAdapter.createFromResource(activity.getBaseContext(),
-                    R.array.buildings_array, android.R.layout.simple_spinner_item);
+                    R.array.dialog_buildings_array, android.R.layout.simple_spinner_item);
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             // Apply the adapter to the spinner
@@ -72,13 +73,13 @@ public class CustomDialog extends Dialog
         }
         else if (dialogType == Constants.DIALOG_TYPE.BUILDING_INFO){
             setContentView(R.layout.dialog_info_layout);
-            iconsList.add((ImageView) findViewById(R.id.icon_plane));
-            iconsList.add((ImageView) findViewById(R.id.icon_inclined));
-            iconsList.add((ImageView) findViewById(R.id.icon_elevator));
-            iconsList.add((ImageView) findViewById(R.id.icon_automatic_door));
-            iconsList.add((ImageView) findViewById(R.id.icon_needs_assistance));
-            iconsList.add((ImageView) findViewById(R.id.icon_wc));
-            iconsList.add((ImageView) findViewById(R.id.icon_exit));
+            iconsList.add((ImageView) findViewById(R.id.dialog_building_info_icon_plane));
+            iconsList.add((ImageView) findViewById(R.id.dialog_building_info_icon_inclined));
+            iconsList.add((ImageView) findViewById(R.id.dialog_building_info_icon_elevator));
+            iconsList.add((ImageView) findViewById(R.id.dialog_building_info_icon_automatic_door));
+            iconsList.add((ImageView) findViewById(R.id.dialog_building_info_icon_needs_assistance));
+            iconsList.add((ImageView) findViewById(R.id.dialog_building_info_icon_wc));
+            iconsList.add((ImageView) findViewById(R.id.dialog_building_info_icon_exit));
 
             TextView textView = (TextView) findViewById(R.id.dialog_building_info_title);
             textView.setText(buildingTitle);
@@ -87,37 +88,37 @@ public class CustomDialog extends Dialog
             textView1.setText(buildingInfo);
 
             if (!iconPlane) {
-                ImageView icon = (ImageView) findViewById(R.id.icon_plane);
+                ImageView icon = (ImageView) findViewById(R.id.dialog_building_info_icon_plane);
                 icon.setVisibility(View.GONE);
                 iconsList.remove(icon);
             }
             if (!iconInclined) {
-                ImageView icon = (ImageView) findViewById(R.id.icon_inclined);
+                ImageView icon = (ImageView) findViewById(R.id.dialog_building_info_icon_inclined);
                 icon.setVisibility(View.GONE);
                 iconsList.remove(icon);
             }
             if (!iconElevator) {
-                ImageView icon = (ImageView) findViewById(R.id.icon_elevator);
+                ImageView icon = (ImageView) findViewById(R.id.dialog_building_info_icon_elevator);
                 icon.setVisibility(View.GONE);
                 iconsList.remove(icon);
             }
             if (!iconAutomaticDoor) {
-                ImageView icon = (ImageView) findViewById(R.id.icon_automatic_door);
+                ImageView icon = (ImageView) findViewById(R.id.dialog_building_info_icon_automatic_door);
                 icon.setVisibility(View.GONE);
                 iconsList.remove(icon);
             }
             if (!iconAssistance) {
-                ImageView icon = (ImageView) findViewById(R.id.icon_needs_assistance);
+                ImageView icon = (ImageView) findViewById(R.id.dialog_building_info_icon_needs_assistance);
                 icon.setVisibility(View.GONE);
                 iconsList.remove(icon);
             }
             if (!iconWC) {
-                ImageView icon = (ImageView) findViewById(R.id.icon_wc);
+                ImageView icon = (ImageView) findViewById(R.id.dialog_building_info_icon_wc);
                 icon.setVisibility(View.GONE);
                 iconsList.remove(icon);
             }
             if (!iconExit) {
-                ImageView icon = (ImageView) findViewById(R.id.icon_exit);
+                ImageView icon = (ImageView) findViewById(R.id.dialog_building_info_icon_exit);
                 icon.setVisibility(View.GONE);
                 iconsList.remove(icon);
             }
@@ -130,18 +131,26 @@ public class CustomDialog extends Dialog
 
     @Override
     public void onClick(View v) {
-        //Call Activity of the building blueprint
-        activity.startActivity(new Intent(activity.getBaseContext(), BlueprintActivity.class));
-
-        dismiss();
+        if (blueprint == Constants.BUILDING_BLUEPRINT[0]) {
+            //Call Activity of the building blueprint
+            activity.startActivity(new Intent(activity.getBaseContext(), BlueprintActivity.class));
+            //Close the dialog
+            dismiss();
+        }
+        else {
+            Toast.makeText(activity.getBaseContext(), "Please select a building",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
         // An item was selected. You can retrieve the selected item using
-        //Toast.makeText(activity.getBaseContext(),
-        //        " " + parent.getItemAtPosition(pos), Toast.LENGTH_LONG).show();
+        String selected = parent.getItemAtPosition(pos).toString();
+        if (selected.equals(Constants.BUILDING_BLUEPRINT[0])) {
+            blueprint = Constants.BUILDING_BLUEPRINT[0];
+        }
     }
 
     @Override
@@ -231,7 +240,7 @@ public class CustomDialog extends Dialog
         int row = 0;
         for (ImageView icon : iconsList) {
             if (icon != null) {
-                GridLayout grid = (GridLayout) findViewById(R.id.grid_layout);
+                GridLayout grid = (GridLayout) findViewById(R.id.dialog_building_info_grid_layout);
                 GridLayout.LayoutParams layout = new GridLayout.LayoutParams();
                 if (column >= 3) {
                     column = 0;

@@ -1,43 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--    Main Activity   -->
+    <item name="activity_main_text" type="id"/>
+    <item name="activity_main_spinner_maps" type="id"/>
+    <item name="activity_main_btn_select_map" type="id"/>
+
     <!--    Map Activity    -->
-    <item name="mapLinearLayout" type="id"/>
-    <item name="transparency_text" type="id"/>
-    <item name="transparencySeekBar" type="id"/>
-    <item name="toggleClickability" type="id"/>
+    <item name="activity_map_linear_layout" type="id"/>
+    <item name="activity_map_transparency_text" type="id"/>
+    <item name="activity_map_transparency_seekBar" type="id"/>
     <item name="map" type="id"/>
 
     <!--    BlueprintActivity Activity  -->
-    <item name="imageView" type="id"/>
-    <item name="btnUnderground" type="id"/>
-    <item name="btnMainFloor" type="id"/>
-    <item name="btnFirstFloor" type="id"/>
-    <item name="btnSecondFloor" type="id"/>
-    <item name="btnThirdFloor" type="id"/>
+    <item name="activity_blueprint_image_view" type="id"/>
+    <item name="activity_blueprint_btn_underground" type="id"/>
+    <item name="activity_blueprint_btn_main_floor" type="id"/>
+    <item name="activity_blueprint_btn_first_floor" type="id"/>
+    <item name="activity_blueprint_btn_second_floor" type="id"/>
+    <item name="activity_blueprint_btn_third_floor" type="id"/>
 
-    <!--    Menu    -->
-    <item name="action_show_routes" type="id"/>
-    <item name="action_select_building" type="id"/>
-    <item name="action_toggle_transparency" type="id"/>
-    <item name="group_contact" type="id"/>
-    <item name="action_contact" type="id"/>
+    <!--    Map Activity Menu    -->
+    <item name="menu_map_action_info" type="id"/>
+    <item name="menu_map_action_show_routes" type="id"/>
+    <item name="menu_map_action_select_building" type="id"/>
+    <item name="menu_map_action_toggle_transparency" type="id"/>
+    <item name="menu_map_group_contact" type="id"/>
+    <item name="menu_map_action_contact" type="id"/>
 
     <!--    Dialog Building Selection   -->
     <item name="dialog_building_selection_message" type="id"/>
-    <item name="spinner_buildings" type="id"/>
+    <item name="dialog_building_selection_spinner_buildings" type="id"/>
     <item name="dialog_building_selection_button" type="id"/>
 
     <!--    Dialog Building Info    -->
-    <item name="grid_layout" type="id"/>
+    <item name="dialog_building_info_grid_layout" type="id"/>
     <item name="dialog_building_info_title" type="id"/>
     <item name="dialog_building_info_message" type="id"/>
-    <item name="icon_plane" type="id"/>
-    <item name="icon_inclined" type="id"/>
-    <item name="icon_elevator" type="id"/>
-    <item name="icon_automatic_door" type="id"/>
-    <item name="icon_wc" type="id"/>
-    <item name="icon_needs_assistance" type="id"/>
-    <item name="icon_exit" type="id"/>
+    <item name="dialog_building_info_icon_plane" type="id"/>
+    <item name="dialog_building_info_icon_inclined" type="id"/>
+    <item name="dialog_building_info_icon_elevator" type="id"/>
+    <item name="dialog_building_info_icon_automatic_door" type="id"/>
+    <item name="dialog_building_info_icon_wc" type="id"/>
+    <item name="dialog_building_info_icon_needs_assistance" type="id"/>
+    <item name="dialog_building_info_icon_exit" type="id"/>
 
     <!--    Dialog Contact  -->
     <item name="dialog_contact_title" type="id"/>
