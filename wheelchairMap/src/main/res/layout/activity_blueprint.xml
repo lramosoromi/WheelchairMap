@@ -6,56 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".activities.BlueprintActivity">
 
-    <com.rolithunderbird.wheelchairmap.javaClases.TouchImageView
+    <com.rolithunderbird.wheelchairmap.javaClasses.TouchImageView
         android:id="@id/activity_blueprint_image_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/activity_blueprint_zoom_image_text"
         android:isScrollContainer="true"
         android:src="@drawable/building9_0floor"/>
-
-    <Button
-        android:id="@id/activity_blueprint_btn_underground"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:text="@string/activity_blueprint_ug_btn"
-        android:onClick="btnChangeUnderground"/>
-
-    <Button
-        android:id="@id/activity_blueprint_btn_main_floor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/activity_blueprint_btn_underground"
-        android:layout_alignParentEnd="true"
-        android:text="@string/activity_blueprint_eg_btn"
-        android:onClick="btnChangeMainFloor"/>
-
-    <Button
-        android:id="@id/activity_blueprint_btn_first_floor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/activity_blueprint_btn_main_floor"
-        android:layout_alignParentEnd="true"
-        android:text="@string/activity_blueprint_1og_btn"
-        android:onClick="btnChangeFirstFloor"/>
-
-    <Button
-        android:id="@id/activity_blueprint_btn_second_floor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/activity_blueprint_btn_first_floor"
-        android:layout_alignParentEnd="true"
-        android:text="@string/activity_blueprint_2og_btn"
-        android:onClick="btnChangeSecondFloor"/>
-
-    <Button
-        android:id="@id/activity_blueprint_btn_third_floor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/activity_blueprint_btn_second_floor"
-        android:layout_alignParentEnd="true"
-        android:text="@string/activity_blueprint_3og_btn"
-        android:onClick="btnChangeThirdFloor"/>
 </RelativeLayout>

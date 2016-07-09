@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:wheelchairMap="http://schemas.android.com/apk/res-auto">
+
+    <group android:id="@id/menu_blueprint_group_info">
+        <item
+            android:id="@id/menu_blueprint_action_info"
+            android:orderInCategory="1"
+            android:icon="@android:drawable/ic_menu_info_details"
+            android:title="@string/menu_blueprint_action_info"
+            wheelchairMap:showAsAction="always"/>
+
+        <item
+            android:id="@id/menu_blueprint_action_show_location"
+            android:orderInCategory="2"
+            android:icon="@android:drawable/ic_menu_mylocation"
+            android:title="@string/menu_blueprint_action_show_location">
+        </item>
+    </group>
+
+    <group android:id="@id/menu_blueprint_group_floors">
+        <item
+            android:id="@id/menu_blueprint_action_underground"
+            android:orderInCategory="3"
+            android:title="@string/menu_blueprint_action_underground"/>
+        <item
+            android:id="@id/menu_blueprint_action_main_floor"
+            android:orderInCategory="4"
+            android:title="@string/menu_blueprint_action_main_floor"/>
+        <item
+            android:id="@id/menu_blueprint_action_first_floor"
+            android:orderInCategory="5"
+            android:title="@string/menu_blueprint_action_first_floor"/>
+        <item
+            android:id="@id/menu_blueprint_action_second_floor"
+            android:orderInCategory="6"
+            android:title="@string/menu_blueprint_action_second_floor"/>
+        <item
+            android:id="@id/menu_blueprint_action_third_floor"
+            android:orderInCategory="7"
+            android:title="@string/menu_blueprint_action_third_floor"/>
+    </group>
+</menu>

@@ -14,20 +14,39 @@
     <string name="activity_map_layout_name">com.google.android.gms.maps.SupportMapFragment</string>
     <string name="activity_map_transparency_text">Transparency</string>
 
-    <!--    BlueprintActivity Activity strings  -->
+    <!--    Blueprint Activity strings  -->
     <string name="activity_blueprint_zoom_image_text">Zooming image</string>
-    <string name="activity_blueprint_ug_btn">UG</string>
-    <string name="activity_blueprint_eg_btn">EG</string>
-    <string name="activity_blueprint_1og_btn">1OG</string>
-    <string name="activity_blueprint_2og_btn">2OG</string>
-    <string name="activity_blueprint_3og_btn">3OG</string>
 
     <!--    Menu Map Activity    -->
     <string name="menu_map_action_info">Info</string>
     <string name="menu_map_action_show_routes">Show Routes</string>
-    <string name="menu_map_action_toggle_transparency">Toggle Transparency</string>
     <string name="menu_map_action_select_building">Select Building</string>
     <string name="menu_map_action_contact">Contact</string>
+
+    <!--    Menu Blueprint Activity     -->
+    <string name="menu_blueprint_action_info">Info</string>
+    <string name="menu_blueprint_action_show_location">Show location</string>
+    <string name="menu_blueprint_action_underground">UG</string>
+    <string name="menu_blueprint_action_main_floor">EG</string>
+    <string name="menu_blueprint_action_first_floor">1OG</string>
+    <string name="menu_blueprint_action_second_floor">2OG</string>
+    <string name="menu_blueprint_action_third_floor">3OG</string>
+
+    <!--    Dialog App Info     -->
+    <string name="dialog_app_info_title">WheelchairMap</string>
+    <string name="dialog_app_info_message">
+        Welcome to the WheelchairMap app!\nThe objective of this app is to provide information
+        for people with special needs, specifically for wheelchair users.\nTo get information about
+        a building in particular just tap on it. Furthermore, to know the possible routes to the
+        buildings through the campus just tap on the map icon on the menu.\nIcons reference:
+    </string>
+    <string name="dialog_app_info_text_plane">The terrain is plane</string>
+    <string name="dialog_app_info_text_inclined">The terrain is inclined</string>
+    <string name="dialog_app_info_text_elevator">Elevator with disability access</string>
+    <string name="dialog_app_info_text_automatic_door">Doors open automatically</string>
+    <string name="dialog_app_info_text_assistance">Assistance necessary to circulate</string>
+    <string name="dialog_app_info_text_wc">WC with disability access</string>
+    <string name="dialog_app_info_text_exit">Disability emergency exits</string>
 
     <!--    Dialog Building Selection   -->
     <string name="dialog_building_selection_message">Select a building</string>
@@ -39,20 +58,16 @@
 
     <!--    Dialog Building Info   -->
     <string name="dialog_building_info_title">Building</string>
+    <string name="dialog_building_info_btn_select">Go to building</string>
     <string name="dialog_building_info_description_one">
-        School of textile and design.\n
-        Interactive materials teaching and research center.\n
-        Process analysis and technology teaching and research center.
+        School of textile and design.\nInteractive materials teaching and research center.\nProcess
+        analysis and technology teaching and research center.
     </string>
     <string name="dialog_building_info_description_two">
-        School of applied chemistry.\n
-        Reutlingen research institute.
+        School of applied chemistry.\nReutlingen research institute.
     </string>
     <string name="dialog_building_info_description_three">
-        Presidium / Administration.\n
-        Study service center.\n
-        International Office.\n
-        Learning center.
+        Presidium / Administration.\nStudy service center.\nInternational Office.\nLearning center.
     </string>
     <string name="dialog_building_info_description_four">
         School of engineering.
@@ -95,26 +110,28 @@
         ESB Business school.
     </string>
     <string name="dialog_building_info_description_seventeen">
-        ESB Business school.\n
-        Knowledge foundation.
+        ESB Business school.\nKnowledge foundation.
     </string>
     <string name="dialog_building_info_description_twenty">
-        School of textiles and design.\n
-        School of informatics.\n
-        Reutlingen energy center.
+        School of textiles and design.\nSchool of informatics.\nReutlingen energy center.
     </string>
 
     <!--    Dialog Contact  -->
     <string name="dialog_contact_title">Contact</string>
-    <string name="dialog_contact_responsibility">Disabled representation for Students</string>
+    <string name="dialog_contact_responsibility">Counseling for students with health impairment</string>
     <string name="dialog_contact_message">
-        Prof. Dr. Bernd Herr\n
-        Tel.: +49(0)7121/271-2025
+        Prof. Dr. Bernd Herr (SHE Supervisor for students)\nTel .: 07121 / 271-2025\n\nVeronika
+        Bothor (Deputy Disabilities Commissioner for students)\nTel .: 07121 / 271-1067
     </string>
     <string name="dialog_contact_place">
-        Reutlingen University\n
-        Alteburgstraße 150\n
-        D-72762 Reutlingen
+        Reutlingen University\nAlteburgstraße 150\nD-72762 Reutlingen
+    </string>
+
+    <!--    Dialog Blueprint  -->
+    <string name="dialog_blueprint_title">Blueprint</string>
+    <string name="dialog_blueprint_message">
+        Here you can view the blueprint of the building. You can view all the rooms in each floor
+        as well as its number.\nAlso, you can view the icons shown in the info an its exact location.
     </string>
 
     <!--    AlertDialog strings -->

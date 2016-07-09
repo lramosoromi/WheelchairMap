@@ -1,11 +1,11 @@
-package com.rolithunderbird.wheelchairmap.javaClases;
+package com.rolithunderbird.wheelchairmap.javaClasses;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.rolithunderbird.wheelchairmap.R;
 import com.rolithunderbird.wheelchairmap.activities.BlueprintActivity;
 import com.rolithunderbird.wheelchairmap.utils.Constants;
@@ -29,19 +28,18 @@ public class CustomDialog extends Dialog
         implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private Activity activity;
-    private ArrayAdapter adapter;
     private Constants.DIALOG_TYPE dialogType;
     private String blueprint;
     private String buildingTitle;
     private String buildingInfo;
     ArrayList<ImageView> iconsList;
-    private boolean iconPlane;
-    private boolean iconInclined;
-    private boolean iconElevator;
-    private boolean iconAutomaticDoor;
-    private boolean iconWC;
-    private boolean iconAssistance;
-    private boolean iconExit;
+    private boolean iconPlaneVisibility;
+    private boolean iconInclinedVisibility;
+    private boolean iconElevatorVisibility;
+    private boolean iconAutomaticDoorVisibility;
+    private boolean iconWCVisibility;
+    private boolean iconAssistanceVisibility;
+    private boolean iconExitVisibility;
 
 
     public CustomDialog(Activity a, Constants.DIALOG_TYPE dialog_type) {
@@ -51,19 +49,48 @@ public class CustomDialog extends Dialog
         this.iconsList = new ArrayList<>();
     }
 
+    public void setBlueprint(String string) {
+        blueprint = string;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        if (dialogType == Constants.DIALOG_TYPE.BUILDING_SELECTION) {
-            setContentView(R.layout.dialog_selection_layout);
+        if (dialogType == Constants.DIALOG_TYPE.APP_INFO) {
+            setContentView(R.layout.dialog_app_info_layout);
+
+            ImageView planeIcon = (ImageView) findViewById(R.id.dialog_app_info_icon_plane);
+            planeIcon.setImageBitmap(BitmapFactory.decodeFile(
+                    Constants.getImageFiles().get(3).getPath()));
+            ImageView inclinedIcon = (ImageView) findViewById(R.id.dialog_app_info_icon_inclined);
+            inclinedIcon.setImageBitmap(BitmapFactory.decodeFile(
+                    Constants.getImageFiles().get(4).getPath()));
+            ImageView elevatorIcon = (ImageView) findViewById(R.id.dialog_app_info_icon_elevator);
+            elevatorIcon.setImageBitmap(BitmapFactory.decodeFile(
+                    Constants.getImageFiles().get(5).getPath()));
+            ImageView automaticDoorIcon = (ImageView) findViewById(R.id.dialog_app_info_icon_automatic_door);
+            automaticDoorIcon.setImageBitmap(BitmapFactory.decodeFile(
+                    Constants.getImageFiles().get(6).getPath()));
+            ImageView assistanceIcon = (ImageView) findViewById(R.id.dialog_app_info_icon_needs_assistance);
+            assistanceIcon.setImageBitmap(BitmapFactory.decodeFile(
+                    Constants.getImageFiles().get(7).getPath()));
+            ImageView wcIcon = (ImageView) findViewById(R.id.dialog_app_info_icon_wc);
+            wcIcon.setImageBitmap(BitmapFactory.decodeFile(
+                    Constants.getImageFiles().get(8).getPath()));
+            ImageView exitIcon = (ImageView) findViewById(R.id.dialog_app_info_icon_exit);
+            exitIcon.setImageBitmap(BitmapFactory.decodeFile(
+                    Constants.getImageFiles().get(9).getPath()));
+        }
+        else if (dialogType == Constants.DIALOG_TYPE.BUILDING_SELECTION) {
+            setContentView(R.layout.dialog_map_buildin_selection_layout);
             Button button = (Button) findViewById(R.id.dialog_building_selection_button);
             button.setOnClickListener(this);
 
             Spinner spinner = (Spinner) findViewById(R.id.dialog_building_selection_spinner_buildings);
             // Create an ArrayAdapter using the string array and a default spinner layout
-            adapter = ArrayAdapter.createFromResource(activity.getBaseContext(),
+            ArrayAdapter adapter = ArrayAdapter.createFromResource(activity.getBaseContext(),
                     R.array.dialog_buildings_array, android.R.layout.simple_spinner_item);
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -72,73 +99,115 @@ public class CustomDialog extends Dialog
             spinner.setOnItemSelectedListener(this);
         }
         else if (dialogType == Constants.DIALOG_TYPE.BUILDING_INFO){
-            setContentView(R.layout.dialog_info_layout);
-            iconsList.add((ImageView) findViewById(R.id.dialog_building_info_icon_plane));
-            iconsList.add((ImageView) findViewById(R.id.dialog_building_info_icon_inclined));
-            iconsList.add((ImageView) findViewById(R.id.dialog_building_info_icon_elevator));
-            iconsList.add((ImageView) findViewById(R.id.dialog_building_info_icon_automatic_door));
-            iconsList.add((ImageView) findViewById(R.id.dialog_building_info_icon_needs_assistance));
-            iconsList.add((ImageView) findViewById(R.id.dialog_building_info_icon_wc));
-            iconsList.add((ImageView) findViewById(R.id.dialog_building_info_icon_exit));
+            //First set content view and all the src for the views
+            setContentView(R.layout.dialog_map_building_info_layout);
+            ImageView planeIcon = (ImageView) findViewById(R.id.dialog_building_info_icon_plane);
+            planeIcon.setImageBitmap(BitmapFactory.decodeFile(
+                    Constants.getImageFiles().get(3).getPath()));
+            iconsList.add(planeIcon);
+            ImageView inclinedIcon = (ImageView) findViewById(R.id.dialog_building_info_icon_inclined);
+            inclinedIcon.setImageBitmap(BitmapFactory.decodeFile(
+                    Constants.getImageFiles().get(4).getPath()));
+            iconsList.add(inclinedIcon);
+            ImageView elevatorIcon = (ImageView) findViewById(R.id.dialog_building_info_icon_elevator);
+            elevatorIcon.setImageBitmap(BitmapFactory.decodeFile(
+                    Constants.getImageFiles().get(5).getPath()));
+            iconsList.add(elevatorIcon);
+            ImageView automaticDoorIcon = (ImageView) findViewById(R.id.dialog_building_info_icon_automatic_door);
+            automaticDoorIcon.setImageBitmap(BitmapFactory.decodeFile(
+                    Constants.getImageFiles().get(6).getPath()));
+            iconsList.add(automaticDoorIcon);
+            ImageView assistanceIcon = (ImageView) findViewById(R.id.dialog_building_info_icon_needs_assistance);
+            assistanceIcon.setImageBitmap(BitmapFactory.decodeFile(
+                    Constants.getImageFiles().get(7).getPath()));
+            iconsList.add(assistanceIcon);
+            ImageView wcIcon = (ImageView) findViewById(R.id.dialog_building_info_icon_wc);
+            wcIcon.setImageBitmap(BitmapFactory.decodeFile(
+                    Constants.getImageFiles().get(8).getPath()));
+            iconsList.add(wcIcon);
+            ImageView exitIcon = (ImageView) findViewById(R.id.dialog_building_info_icon_exit);
+            exitIcon.setImageBitmap(BitmapFactory.decodeFile(
+                    Constants.getImageFiles().get(9).getPath()));
+            iconsList.add(exitIcon);
 
-            TextView textView = (TextView) findViewById(R.id.dialog_building_info_title);
-            textView.setText(buildingTitle);
+            TextView textViewTitle = (TextView) findViewById(R.id.dialog_building_info_title);
+            textViewTitle.setText(buildingTitle);
 
-            TextView textView1 = (TextView) findViewById(R.id.dialog_building_info_message);
-            textView1.setText(buildingInfo);
+            TextView textViewMessage = (TextView) findViewById(R.id.dialog_building_info_message);
+            textViewMessage.setText(buildingInfo);
 
-            if (!iconPlane) {
+            ImageView buildingImage = (ImageView) findViewById(R.id.dialog_building_info_image);
+            buildingImage.setImageBitmap(
+                    BitmapFactory.decodeFile(Constants.getImageFiles().get(2).getPath()));
+
+            Button button = (Button) findViewById(R.id.dialog_building_info_btn_select);
+            button.setOnClickListener(this);
+
+            //Check on the Visibility on the icons and remove them from the layout if necessary
+            if (!iconPlaneVisibility) {
                 ImageView icon = (ImageView) findViewById(R.id.dialog_building_info_icon_plane);
                 icon.setVisibility(View.GONE);
                 iconsList.remove(icon);
             }
-            if (!iconInclined) {
+            if (!iconInclinedVisibility) {
                 ImageView icon = (ImageView) findViewById(R.id.dialog_building_info_icon_inclined);
                 icon.setVisibility(View.GONE);
                 iconsList.remove(icon);
             }
-            if (!iconElevator) {
+            if (!iconElevatorVisibility) {
                 ImageView icon = (ImageView) findViewById(R.id.dialog_building_info_icon_elevator);
                 icon.setVisibility(View.GONE);
                 iconsList.remove(icon);
             }
-            if (!iconAutomaticDoor) {
+            if (!iconAutomaticDoorVisibility) {
                 ImageView icon = (ImageView) findViewById(R.id.dialog_building_info_icon_automatic_door);
                 icon.setVisibility(View.GONE);
                 iconsList.remove(icon);
             }
-            if (!iconAssistance) {
+            if (!iconAssistanceVisibility) {
                 ImageView icon = (ImageView) findViewById(R.id.dialog_building_info_icon_needs_assistance);
                 icon.setVisibility(View.GONE);
                 iconsList.remove(icon);
             }
-            if (!iconWC) {
+            if (!iconWCVisibility) {
                 ImageView icon = (ImageView) findViewById(R.id.dialog_building_info_icon_wc);
                 icon.setVisibility(View.GONE);
                 iconsList.remove(icon);
             }
-            if (!iconExit) {
+            if (!iconExitVisibility) {
                 ImageView icon = (ImageView) findViewById(R.id.dialog_building_info_icon_exit);
                 icon.setVisibility(View.GONE);
                 iconsList.remove(icon);
             }
+            //Once the icons are removed, reorder the layout so as to not leave spaces
             reorderIcons(iconsList);
         }
+        else if (dialogType == Constants.DIALOG_TYPE.CONTACT_INFO){
+            setContentView(R.layout.dialog_map_contact_layout);
+        }
         else {
-            setContentView(R.layout.dialog_contact_layout);
+            setContentView(R.layout.dialog_blueprint_info_layout);
+            TextView title = (TextView) findViewById(R.id.dialog_blueprint_title);
+            title.setText(blueprint);
         }
     }
 
     @Override
     public void onClick(View v) {
-        if (blueprint == Constants.BUILDING_BLUEPRINT[0]) {
+        if (blueprint != null && blueprint.equals(Constants.BUILDING_BLUEPRINT[0])) {
+            Toast.makeText(activity.getBaseContext(), "Please select a building",
+                    Toast.LENGTH_SHORT).show();
+        }
+        else if (blueprint != null && blueprint.equals(Constants.BUILDING_BLUEPRINT[1])) {
             //Call Activity of the building blueprint
-            activity.startActivity(new Intent(activity.getBaseContext(), BlueprintActivity.class));
+            Intent intent = new Intent(activity.getBaseContext(), BlueprintActivity.class);
+            intent.putExtra("Building", blueprint);
+            activity.startActivity(intent);
             //Close the dialog
             dismiss();
         }
         else {
-            Toast.makeText(activity.getBaseContext(), "Please select a building",
+            Toast.makeText(activity.getBaseContext(), "This building blueprint is currently not available",
                     Toast.LENGTH_SHORT).show();
         }
     }
@@ -148,7 +217,10 @@ public class CustomDialog extends Dialog
                                int pos, long id) {
         // An item was selected. You can retrieve the selected item using
         String selected = parent.getItemAtPosition(pos).toString();
-        if (selected.equals(Constants.BUILDING_BLUEPRINT[0])) {
+        if (selected.equals(Constants.BUILDING_BLUEPRINT[1])) {
+            blueprint = Constants.BUILDING_BLUEPRINT[1];
+        }
+        else {
             blueprint = Constants.BUILDING_BLUEPRINT[0];
         }
     }
@@ -167,68 +239,86 @@ public class CustomDialog extends Dialog
     }
 
     public void setIconsVisibility(int building) {
-        iconPlane = false;
-        iconInclined = false;
-        iconElevator = false;
-        iconAutomaticDoor = false;
-        iconAssistance = false;
-        iconWC = false;
-        iconExit = false;
+        iconPlaneVisibility = false;
+        iconInclinedVisibility = false;
+        iconElevatorVisibility = false;
+        iconAutomaticDoorVisibility = false;
+        iconAssistanceVisibility = false;
+        iconWCVisibility = false;
+        iconExitVisibility = false;
 
         switch (building) {
             case 1 :
                 iterateIconArray(Constants.BUILDING_ONE_ICONS);
+                blueprint = null;
                 break;
             case 2 :
                 iterateIconArray(Constants.BUILDING_TWO_ICONS);
+                blueprint = null;
                 break;
             case 3 :
                 iterateIconArray(Constants.BUILDING_THREE_ICONS);
+                blueprint = null;
                 break;
             case 4 :
                 iterateIconArray(Constants.BUILDING_FOUR_ICONS);
+                blueprint = null;
                 break;
             case 5 :
                 iterateIconArray(Constants.BUILDING_FIVE_ICONS);
+                blueprint = null;
                 break;
             case 6 :
                 iterateIconArray(Constants.BUILDING_SIX_ICONS);
+                blueprint = null;
                 break;
             case 7 :
                 iterateIconArray(Constants.BUILDING_SEVEN_ICONS);
+                blueprint = null;
                 break;
             case 8 :
                 iterateIconArray(Constants.BUILDING_EIGHT_ICONS);
+                blueprint = null;
                 break;
             case 9 :
                 iterateIconArray(Constants.BUILDING_NINE_ICONS);
+                blueprint = Constants.BUILDING_BLUEPRINT[1];
                 break;
             case 10 :
                 iterateIconArray(Constants.BUILDING_TEN_ICONS);
+                blueprint = null;
                 break;
             case 11 :
                 iterateIconArray(Constants.BUILDING_ELEVEN_ICONS);
+                blueprint = null;
                 break;
             case 12 :
                 iterateIconArray(Constants.BUILDING_TWELVE_ICONS);
+                blueprint = null;
                 break;
             case 13 :
                 iterateIconArray(Constants.BUILDING_THIRTEEN_ICONS);
+                blueprint = null;
                 break;
             case 14 :
                 iterateIconArray(Constants.BUILDING_FOURTEEN_ICONS);
+                blueprint = null;
                 break;
             case 15 :
                 iterateIconArray(Constants.BUILDING_FIFTEEN_ICONS);
+                blueprint = null;
                 break;
             case 16 :
                 iterateIconArray(Constants.BUILDING_SIXTEEN_ICONS);
+                blueprint = null;
                 break;
             case 17 :
                 iterateIconArray(Constants.BUILDING_SEVENTEEN_ICONS);
+                blueprint = null;
                 break;
             case 20 :
                 iterateIconArray(Constants.BUILDING_TWENTY_ICONS);
+                blueprint = null;
                 break;
             default:
                 break;
@@ -264,19 +354,19 @@ public class CustomDialog extends Dialog
     private void iterateIconArray(Constants.DEFAULT_ICONS[] iconArray) {
         for (Constants.DEFAULT_ICONS icon : iconArray) {
             if (icon == Constants.DEFAULT_ICONS.PLANE)
-                iconPlane = true;
+                iconPlaneVisibility = true;
             if (icon == Constants.DEFAULT_ICONS.INCLINED)
-                iconInclined = true;
+                iconInclinedVisibility = true;
             if (icon == Constants.DEFAULT_ICONS.ELEVATOR)
-                iconElevator = true;
+                iconElevatorVisibility = true;
             if (icon == Constants.DEFAULT_ICONS.AUTOMATIC_DOOR)
-                iconAutomaticDoor = true;
+                iconAutomaticDoorVisibility = true;
             if (icon == Constants.DEFAULT_ICONS.ASSISTANCE)
-                iconAssistance = true;
+                iconAssistanceVisibility = true;
             if (icon == Constants.DEFAULT_ICONS.WC)
-                iconWC = true;
+                iconWCVisibility = true;
             if (icon == Constants.DEFAULT_ICONS.EXIT)
-                iconExit = true;
+                iconExitVisibility = true;
         }
     }
 }

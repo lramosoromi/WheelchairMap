@@ -25,6 +25,7 @@ import java.util.ArrayList;
 public class StorageTask extends AsyncTask<Void, String, Void> {
 
     private Context context;
+    private ProgressDialog progressDialog;
     private ArrayList<File> files;
     private boolean downloadSuccess;
 
@@ -36,7 +37,7 @@ public class StorageTask extends AsyncTask<Void, String, Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Downloading content");
         progressDialog.setCancelable(false);
         progressDialog.show();
@@ -63,7 +64,7 @@ public class StorageTask extends AsyncTask<Void, String, Void> {
     @Override
     protected void onPostExecute(Void unused) {
         while (!downloadSuccess) {
-            SystemClock.sleep(500);
+            SystemClock.sleep(200);
         }
         // Puts the status into the Intent
         String status = "Success"; // any data that you want to send back to receivers
@@ -71,6 +72,7 @@ public class StorageTask extends AsyncTask<Void, String, Void> {
                 .putExtra("Status", status);
         // Broadcasts the Intent to receivers in this app.
         LocalBroadcastManager.getInstance(context).sendBroadcast(localIntent);
+        progressDialog.dismiss();
     }
 
     public void downloadFile(StorageReference storageRef, final String filePath) {
@@ -100,47 +102,5 @@ public class StorageTask extends AsyncTask<Void, String, Void> {
             }
         });
         files.add(localFile);
-    }
-
-    public void addItem() {
-
-        // Add items via the Button and EditText at the bottom of the window.
-/*
-        final EditText text = (EditText) findViewById(R.id.todoText);
-        final Button button = (Button) findViewById(R.id.addButton);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                new Firebase("https://[YOUR-FIREBASE-APP].firebaseio.com/todoItems")
-                        .push()
-                        .child("text")
-                        .setValue(text.getText().toString());
-            }
-        });
-*/
-    }
-
-    public void removeItem() {
-
-        // Delete items when clicked
-/*
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                new Firebase("https://[YOUR-FIREBASE-APP].firebaseio.com/todoItems")
-                        .orderByChild("text")
-                        .equalTo((String) listView.getItemAtPosition(position))
-                        .addListenerForSingleValueEvent(new ValueEventListener() {
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                if (dataSnapshot.hasChildren()) {
-                                    DataSnapshot firstChild = dataSnapshot.getChildren().iterator().next();
-                                    firstChild.getRef().removeValue();
-                                }
-                            }
-                            public void onCancelled(FirebaseError firebaseError) { }
-                        });
-            }
-        });
-*/
     }
 }

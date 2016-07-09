@@ -23,7 +23,7 @@ import com.google.android.gms.maps.model.GroundOverlay;
 import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.rolithunderbird.wheelchairmap.utils.Constants;
-import com.rolithunderbird.wheelchairmap.javaClases.CustomDialog;
+import com.rolithunderbird.wheelchairmap.javaClasses.CustomDialog;
 import com.rolithunderbird.wheelchairmap.utils.LocationManagerCheck;
 import com.rolithunderbird.wheelchairmap.utils.PermissionUtils;
 import com.rolithunderbird.wheelchairmap.R;
@@ -52,15 +52,11 @@ public class MapsActivity extends AppCompatActivity implements
 
     LocationManagerCheck locationManagerCheck;
 
-    private Constants CONSTANTS;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
-        CONSTANTS = new Constants();
 
         mTransparencyBar = (SeekBar) findViewById(R.id.activity_map_transparency_seekBar);
         assert mTransparencyBar != null;
@@ -91,31 +87,33 @@ public class MapsActivity extends AppCompatActivity implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menu_map_action_info:
+                CustomDialog appInfoCustomDialog = new CustomDialog(this, Constants.DIALOG_TYPE.APP_INFO);
+                appInfoCustomDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                appInfoCustomDialog.show();
+                return true;
             case R.id.menu_map_action_show_routes:
                 if (activeMap == Constants.MAP_ACTIVE.BASIC_MAP) {
                     mGroundOverlayReutlingen.setImage(
-                            BitmapDescriptorFactory.fromPath(CONSTANTS.getImageFiles().get(1).getPath()));
+                            BitmapDescriptorFactory.fromPath(Constants.getImageFiles().get(1).getPath()));
                     activeMap = Constants.MAP_ACTIVE.ROUTE_MAP;
                 }
                 else if (activeMap == Constants.MAP_ACTIVE.ROUTE_MAP) {
                     mGroundOverlayReutlingen.setImage(
-                            BitmapDescriptorFactory.fromPath(CONSTANTS.getImageFiles().get(0).getPath()));
+                            BitmapDescriptorFactory.fromPath(Constants.getImageFiles().get(0).getPath()));
                     activeMap = Constants.MAP_ACTIVE.BASIC_MAP;
                 }
                 return true;
             case R.id.menu_map_action_select_building:
-                CustomDialog customDialog = new CustomDialog(this, Constants.DIALOG_TYPE.BUILDING_SELECTION);
-                customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                customDialog.show();
-                return true;
-            case R.id.menu_map_action_toggle_transparency:
-                // Toggle transparency value between 0.0f and 0.5f. Initial default value is 0.0f.
-                mGroundOverlayReutlingen.setTransparency(0.5f - mGroundOverlayReutlingen.getTransparency());
+                CustomDialog buildingSelectionCustomDialog = new CustomDialog(
+                        this, Constants.DIALOG_TYPE.BUILDING_SELECTION);
+                buildingSelectionCustomDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                buildingSelectionCustomDialog.show();
                 return true;
             case R.id.menu_map_action_contact :
-                CustomDialog customDialog1 = new CustomDialog(this, Constants.DIALOG_TYPE.CONTACT_INFO);
-                customDialog1.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                customDialog1.show();
+                CustomDialog contactInfoCustomDialog = new CustomDialog(this, Constants.DIALOG_TYPE.CONTACT_INFO);
+                contactInfoCustomDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                contactInfoCustomDialog.show();
             default:
                 return super.onContextItemSelected(item);
         }
@@ -146,7 +144,7 @@ public class MapsActivity extends AppCompatActivity implements
                 new CameraPosition(Constants.REUTLINGEN_CENTER, 16, 0, 0)));
 
         //Pongo la imagen del mapa sobre google maps
-        List<File> files = CONSTANTS.getImageFiles();
+        List<File> files = Constants.getImageFiles();
         mGroundOverlayReutlingen = mMap.addGroundOverlay(new GroundOverlayOptions()
                 .image(BitmapDescriptorFactory.fromPath(
                         files.get(0).getPath())).anchor(0, 1)
@@ -244,13 +242,14 @@ public class MapsActivity extends AppCompatActivity implements
 
     @Override
     public void onBackPressed() {
+        Constants.deleteFiles();
         finish();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        CONSTANTS.deleteFiles();
+        Constants.deleteFiles();
     }
 
     /**

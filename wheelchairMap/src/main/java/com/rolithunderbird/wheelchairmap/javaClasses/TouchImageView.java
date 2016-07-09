@@ -1,4 +1,4 @@
-package com.rolithunderbird.wheelchairmap.javaClases;
+package com.rolithunderbird.wheelchairmap.javaClasses;
 
 import android.annotation.TargetApi;
 import android.content.Context;

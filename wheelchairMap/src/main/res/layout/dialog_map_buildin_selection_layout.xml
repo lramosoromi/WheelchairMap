@@ -5,7 +5,7 @@
     android:layout_height="100dp"
     android:background="@drawable/curve_sharp"
     android:orientation="vertical"
-    tools:context=".javaClases.CustomDialog">
+    tools:context=".javaClasses.CustomDialog">
 
     <TextView
         android:id="@id/dialog_building_selection_message"

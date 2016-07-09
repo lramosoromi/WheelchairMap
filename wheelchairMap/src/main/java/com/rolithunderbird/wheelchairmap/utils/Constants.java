@@ -12,12 +12,14 @@ import java.util.List;
  */
 public class Constants {
 
-    //The image files created when downloading content from the database
+    //The image files created when downloading content from the storage
     private static List<File> imageFiles;
     //The broadcast filter used to by the broadcast receiver
     public static final String BROADCAST_FILTER = "com.rolithunderbird.wheelchairmap.BROADCAST";
     //Transparency maximum value of the GroundOverlayMap
     public static final int TRANSPARENCY_MAX = 100;
+    //Request code for location permission request.
+    public static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     //LatLng position where the google map activity starts
     public static final LatLng REUTLINGEN_CENTER = new LatLng(48.481905, 9.188492);
 
@@ -67,25 +69,48 @@ public class Constants {
     // LatLng location where the image of Reutlingen goes on the google map.
     // This location points to the bottom left border.
     public static final LatLng REUTLINGEN_MAP = new LatLng(48.478679, 9.188791);
-    //Path in the database to get the image file
+    /**
+     * ========= Files ========
+     * All the image files used in the app
+     * Its just the path because that is what we use to download them from the storage
+     */
+    //Path in the storage to get the image file
     public static final String BASIC_MAP = "images/mapa_reutlingen.png";
-    //Path in the database to get the image file
+    //Path in the storage to get the image file
     public static final String ROUTES_MAP = "images/mapa_reutlingen_rutas.png";
-    //Maps loaded in the database for use
+    //Path in the storage to get the image file
+    public static final String BUILDING_IMAGE = "images/building_image.png";
+    //Path in the storage to get the icon file
+    public static final String ICON_PLANE = "icons/icon_plane.png";
+    //Path in the storage to get the icon file
+    public static final String ICON_INCLINED = "icons/icon_inclined.png";
+    //Path in the storage to get the icon file
+    public static final String ICON_ELEVATOR = "icons/icon_elevator.png";
+    //Path in the storage to get the icon file
+    public static final String ICON_AUTOMATIC_DOOR = "icons/icon_automatic_door.png";
+    //Path in the storage to get the icon file
+    public static final String ICON_ASSISTANCE = "icons/icon_needs_assistance.png";
+    //Path in the storage to get the icon file
+    public static final String ICON_WC = "icons/icon_wc.png";
+    //Path in the storage to get the icon file
+    public static final String ICON_EXIT = "icons/icon_exit.png";
+
+    //Array of the different files path in the storage.
+    public static String[] FILES_PATH = {
+            BASIC_MAP, ROUTES_MAP, BUILDING_IMAGE, ICON_PLANE, ICON_INCLINED,
+            ICON_ELEVATOR, ICON_AUTOMATIC_DOOR, ICON_ASSISTANCE, ICON_WC, ICON_EXIT };
+
+    //Maps loaded in the storage for use
     public static final String HOSCHULE_REUTLINGEN = "Hoschule Reutlingen";
-    //Blueprints loaded in the database for use
-    public static final String REUTLINGEN_BUILDING_9_BLUEPRINT = "Building 9";
-    //Request code for location permission request.
-    public static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-
-    //Array of the different maps database path.
-    public static String[] FILES_PATH = {BASIC_MAP, ROUTES_MAP};
-
-    //Array of the available maps in the database to use the app
+    //Array of the available maps in the storage to use the app
     public static String[] AVAILABLE_LOCATIONS = { HOSCHULE_REUTLINGEN };
 
-    //Array of the available blueprints in the database to use the app
-    public static String[] BUILDING_BLUEPRINT = { REUTLINGEN_BUILDING_9_BLUEPRINT };
+    //Blueprints loaded in the storage for use
+    public static final String NONE = "None";
+    //Blueprints loaded in the storage for use
+    public static final String REUTLINGEN_BUILDING_9_BLUEPRINT = "Building 9";
+    //Array of the available blueprints in the storage to use the app
+    public static String[] BUILDING_BLUEPRINT = { NONE, REUTLINGEN_BUILDING_9_BLUEPRINT };
 
     /**
      * ======= Enums =========
@@ -104,7 +129,7 @@ public class Constants {
 
     //Enum used so as to know which type of dialog should be shown
     public enum DIALOG_TYPE {
-        BUILDING_SELECTION, BUILDING_INFO, CONTACT_INFO
+        BUILDING_SELECTION, BUILDING_INFO, CONTACT_INFO, APP_INFO, BLUEPRINT_INFO
     }
 
     //All the icons used for the building info dialog
@@ -157,7 +182,7 @@ public class Constants {
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.ASSISTANCE, DEFAULT_ICONS.WC, DEFAULT_ICONS.EXIT };
     //</editor-fold>
 
-    public List<File> getImageFiles() {
+    public static List<File> getImageFiles() {
         return imageFiles;
     }
 
@@ -165,9 +190,11 @@ public class Constants {
         imageFiles = files;
     }
 
-    public void deleteFiles() {
-        for (File file : imageFiles) {
-            file.delete();
+    public static void deleteFiles() {
+        if (imageFiles != null) {
+            for (File file : imageFiles) {
+                file.delete();
+            }
         }
     }
 }

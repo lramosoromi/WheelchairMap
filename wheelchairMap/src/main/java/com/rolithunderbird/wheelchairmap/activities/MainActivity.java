@@ -5,6 +5,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -22,7 +23,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().hide();
+
         setContentView(R.layout.activity_main);
+
 
         Spinner spinner = (Spinner) findViewById(R.id.activity_main_spinner_maps);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -34,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
 
-        // Create the intent filter that will be used to call the broadcast reciever
+        // Create the intent filter that will be used to call the broadcast receiver
         IntentFilter statusIntentFilter = new IntentFilter(Constants.BROADCAST_FILTER);
         MyResponseReceiver responseReceiver = new MyResponseReceiver();
         // Registers the MyResponseReceiver and its intent filters
@@ -51,13 +57,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         if (selected.equals(reutlingenLocation)) {
             location = Constants.AVAILABLE_LOCATIONS[0];
         }
+        else {
+            location = null;
+        }
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {  }
 
     public void btnSelectMap(View view) {
-        if (location == Constants.AVAILABLE_LOCATIONS[0]) {
+        if (location != null && location.equals(Constants.AVAILABLE_LOCATIONS[0])) {
             // Initialize the task that starts downloading the content necessary for this map
             StorageTask task = new StorageTask(this);
             task.execute();
@@ -65,5 +74,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         else {
             Toast.makeText(this, "Please select a location", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Constants.deleteFiles();
     }
 }

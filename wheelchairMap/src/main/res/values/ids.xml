@@ -11,21 +11,47 @@
     <item name="activity_map_transparency_seekBar" type="id"/>
     <item name="map" type="id"/>
 
-    <!--    BlueprintActivity Activity  -->
+    <!--    Blueprint Activity  -->
     <item name="activity_blueprint_image_view" type="id"/>
-    <item name="activity_blueprint_btn_underground" type="id"/>
-    <item name="activity_blueprint_btn_main_floor" type="id"/>
-    <item name="activity_blueprint_btn_first_floor" type="id"/>
-    <item name="activity_blueprint_btn_second_floor" type="id"/>
-    <item name="activity_blueprint_btn_third_floor" type="id"/>
 
     <!--    Map Activity Menu    -->
+    <item name="menu_map_group_select_building" type="id"/>
     <item name="menu_map_action_info" type="id"/>
     <item name="menu_map_action_show_routes" type="id"/>
     <item name="menu_map_action_select_building" type="id"/>
-    <item name="menu_map_action_toggle_transparency" type="id"/>
     <item name="menu_map_group_contact" type="id"/>
     <item name="menu_map_action_contact" type="id"/>
+
+    <!--    Blueprint Activity Menu    -->
+    <item name="menu_blueprint_group_info" type="id"/>
+    <item name="menu_blueprint_action_info" type="id"/>
+    <item name="menu_blueprint_action_show_location" type="id"/>
+    <item name="menu_blueprint_group_floors" type="id"/>
+    <item name="menu_blueprint_action_underground" type="id"/>
+    <item name="menu_blueprint_action_main_floor" type="id"/>
+    <item name="menu_blueprint_action_first_floor" type="id"/>
+    <item name="menu_blueprint_action_second_floor" type="id"/>
+    <item name="menu_blueprint_action_third_floor" type="id"/>
+
+    <!--    Dialog App Info     -->
+    <item name="dialog_app_info_title" type="id"/>
+    <item name="dialog_app_info_message" type="id"/>
+    <item name="dialog_app_info_grid_layout" type="id"/>
+    <item name="dialog_app_info_icon_plane" type="id"/>
+    <item name="dialog_app_info_text_plane" type="id"/>
+    <item name="dialog_app_info_icon_inclined" type="id"/>
+    <item name="dialog_app_info_text_inclined" type="id"/>
+    <item name="dialog_app_info_icon_elevator" type="id"/>
+    <item name="dialog_app_info_text_elevator" type="id"/>
+    <item name="dialog_app_info_icon_automatic_door" type="id"/>
+    <item name="dialog_app_info_text_automatic_door" type="id"/>
+    <item name="dialog_app_info_icon_needs_assistance" type="id"/>
+    <item name="dialog_app_info_text_needs_assistance" type="id"/>
+    <item name="dialog_app_info_icon_wc" type="id"/>
+    <item name="dialog_app_info_text_wc" type="id"/>
+    <item name="dialog_app_info_icon_exit" type="id"/>
+    <item name="dialog_app_info_text_exit" type="id"/>
+    <item name="dialog_app_info_btn_select" type="id"/>
 
     <!--    Dialog Building Selection   -->
     <item name="dialog_building_selection_message" type="id"/>
@@ -43,10 +69,16 @@
     <item name="dialog_building_info_icon_wc" type="id"/>
     <item name="dialog_building_info_icon_needs_assistance" type="id"/>
     <item name="dialog_building_info_icon_exit" type="id"/>
+    <item name="dialog_building_info_image" type="id"/>
+    <item name="dialog_building_info_btn_select" type="id"/>
 
     <!--    Dialog Contact  -->
     <item name="dialog_contact_title" type="id"/>
     <item name="dialog_contact_responsibility" type="id"/>
     <item name="dialog_contact_message" type="id"/>
     <item name="dialog_contact_place" type="id"/>
+
+    <!--    Dialog Blueprint  -->
+    <item name="dialog_blueprint_title" type="id"/>
+    <item name="dialog_blueprint_message" type="id"/>
 </resources>
