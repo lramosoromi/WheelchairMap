@@ -29,6 +29,7 @@ import com.rolithunderbird.wheelchairmap.utils.PermissionUtils;
 import com.rolithunderbird.wheelchairmap.R;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MapsActivity extends AppCompatActivity implements
@@ -37,26 +38,29 @@ public class MapsActivity extends AppCompatActivity implements
         ActivityCompat.OnRequestPermissionsResultCallback {
 
     private GoogleMap mMap;
-
     private GroundOverlay mGroundOverlayReutlingen;
-
     private Constants.MAP_ACTIVE activeMap;
-
+    private ArrayList<File> mapFiles;
     private SeekBar mTransparencyBar;
-
     /**
      * Flag indicating whether a requested permission has been denied after returning in
      * {@link #onRequestPermissionsResult(int, String[], int[])}.
      */
     private boolean mPermissionDenied = false;
-
     LocationManagerCheck locationManagerCheck;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.mapFiles = new ArrayList<>();
         setContentView(R.layout.activity_maps);
+
+        List<File> files = Constants.getImageFiles();
+        for (File file : files) {
+            if (file.getName().contains(Constants.FILE_MAP_STRING))
+                mapFiles.add(file);
+        }
 
         mTransparencyBar = (SeekBar) findViewById(R.id.activity_map_transparency_seekBar);
         assert mTransparencyBar != null;
@@ -95,12 +99,12 @@ public class MapsActivity extends AppCompatActivity implements
             case R.id.menu_map_action_show_routes:
                 if (activeMap == Constants.MAP_ACTIVE.BASIC_MAP) {
                     mGroundOverlayReutlingen.setImage(
-                            BitmapDescriptorFactory.fromPath(Constants.getImageFiles().get(1).getPath()));
+                            BitmapDescriptorFactory.fromPath(mapFiles.get(1).getPath()));
                     activeMap = Constants.MAP_ACTIVE.ROUTE_MAP;
                 }
                 else if (activeMap == Constants.MAP_ACTIVE.ROUTE_MAP) {
                     mGroundOverlayReutlingen.setImage(
-                            BitmapDescriptorFactory.fromPath(Constants.getImageFiles().get(0).getPath()));
+                            BitmapDescriptorFactory.fromPath(mapFiles.get(0).getPath()));
                     activeMap = Constants.MAP_ACTIVE.BASIC_MAP;
                 }
                 return true;
@@ -144,10 +148,9 @@ public class MapsActivity extends AppCompatActivity implements
                 new CameraPosition(Constants.REUTLINGEN_CENTER, 16, 0, 0)));
 
         //Pongo la imagen del mapa sobre google maps
-        List<File> files = Constants.getImageFiles();
         mGroundOverlayReutlingen = mMap.addGroundOverlay(new GroundOverlayOptions()
                 .image(BitmapDescriptorFactory.fromPath(
-                        files.get(0).getPath())).anchor(0, 1)
+                        mapFiles.get(0).getPath())).anchor(0, 1)
                 .bearing(-60)
                 .position(Constants.REUTLINGEN_MAP, 600, 465));
         activeMap = Constants.MAP_ACTIVE.BASIC_MAP;
@@ -240,18 +243,6 @@ public class MapsActivity extends AppCompatActivity implements
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        Constants.deleteFiles();
-        finish();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Constants.deleteFiles();
-    }
-
     /**
      * Displays a dialog with error message explaining that the location permission is missing.
      */
@@ -292,10 +283,9 @@ public class MapsActivity extends AppCompatActivity implements
                 closestDistance = newDistance;
             }
         }
-        if (closestDistance > 20)
+        if (closestDistance > Constants.MAX_CLOSEST_DISTANCE)
             indexOfClosestBuilding = -1;
-        //Este switch esta para poder decir cual es el edificio dependiendo de el id
-        // en la lista
+        //This switch is to decide which is the building closest to the touch using the buildings array
         switch (indexOfClosestBuilding) {
             case 0:
                 createBuildingInfoPopup("1", getResources()

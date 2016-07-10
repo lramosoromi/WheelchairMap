@@ -1,5 +1,6 @@
 package com.rolithunderbird.wheelchairmap.activities;
 
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +14,7 @@ import android.widget.Toast;
 
 import com.rolithunderbird.wheelchairmap.R;
 import com.rolithunderbird.wheelchairmap.broadcastReceiver.MyResponseReceiver;
-import com.rolithunderbird.wheelchairmap.server.StorageTask;
+import com.rolithunderbird.wheelchairmap.database.StorageTask;
 import com.rolithunderbird.wheelchairmap.utils.Constants;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -67,9 +68,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public void btnSelectMap(View view) {
         if (location != null && location.equals(Constants.AVAILABLE_LOCATIONS[0])) {
-            // Initialize the task that starts downloading the content necessary for this map
-            StorageTask task = new StorageTask(this);
-            task.execute();
+            String[] filesToDownload = Constants.FILES_PATH;
+            if (Constants.getImageFiles() != null
+                    && Constants.getImageFiles().size() == filesToDownload.length) {
+                //If the files were already created previously, just go to the map activity
+                Intent intent = new Intent(this, MapsActivity.class);
+                startActivity(intent);
+            }
+            else {
+                // Initialize the task that starts downloading the content necessary for this map
+                StorageTask task = new StorageTask(this, filesToDownload, location);
+                task.execute();
+            }
         }
         else {
             Toast.makeText(this, "Please select a location", Toast.LENGTH_SHORT).show();

@@ -11,6 +11,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/activity_blueprint_zoom_image_text"
-        android:isScrollContainer="true"
-        android:src="@drawable/building9_0floor"/>
+        android:isScrollContainer="true"/>
 </RelativeLayout>

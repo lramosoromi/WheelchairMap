@@ -19,7 +19,9 @@ import com.rolithunderbird.wheelchairmap.R;
 import com.rolithunderbird.wheelchairmap.activities.BlueprintActivity;
 import com.rolithunderbird.wheelchairmap.utils.Constants;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by rolithunderbird on 11.06.16.
@@ -32,7 +34,10 @@ public class CustomDialog extends Dialog
     private String blueprint;
     private String buildingTitle;
     private String buildingInfo;
-    ArrayList<ImageView> iconsList;
+    private ArrayList<ImageView> iconsList;
+    private ArrayList<File> iconFiles;
+    private ArrayList<File> buildingImageFiles;
+    //Atributes to see if the icon should be visible or not
     private boolean iconPlaneVisibility;
     private boolean iconInclinedVisibility;
     private boolean iconElevatorVisibility;
@@ -47,6 +52,15 @@ public class CustomDialog extends Dialog
         this.activity = a;
         this.dialogType = dialog_type;
         this.iconsList = new ArrayList<>();
+        this.iconFiles = new ArrayList<>();
+        this.buildingImageFiles = new ArrayList<>();
+        List<File> files = Constants.getImageFiles();
+        for (File file : files) {
+            if (file.getName().contains(Constants.FILE_ICON_STRING))
+                iconFiles.add(file);
+            if (file.getName().contains(Constants.FILE_BUILDING_IMAGE_STRING))
+                buildingImageFiles.add(file);
+        }
     }
 
     public void setBlueprint(String string) {
@@ -63,25 +77,25 @@ public class CustomDialog extends Dialog
 
             ImageView planeIcon = (ImageView) findViewById(R.id.dialog_app_info_icon_plane);
             planeIcon.setImageBitmap(BitmapFactory.decodeFile(
-                    Constants.getImageFiles().get(3).getPath()));
+                    iconFiles.get(0).getPath()));
             ImageView inclinedIcon = (ImageView) findViewById(R.id.dialog_app_info_icon_inclined);
             inclinedIcon.setImageBitmap(BitmapFactory.decodeFile(
-                    Constants.getImageFiles().get(4).getPath()));
+                    iconFiles.get(1).getPath()));
             ImageView elevatorIcon = (ImageView) findViewById(R.id.dialog_app_info_icon_elevator);
             elevatorIcon.setImageBitmap(BitmapFactory.decodeFile(
-                    Constants.getImageFiles().get(5).getPath()));
+                    iconFiles.get(2).getPath()));
             ImageView automaticDoorIcon = (ImageView) findViewById(R.id.dialog_app_info_icon_automatic_door);
             automaticDoorIcon.setImageBitmap(BitmapFactory.decodeFile(
-                    Constants.getImageFiles().get(6).getPath()));
+                    iconFiles.get(3).getPath()));
             ImageView assistanceIcon = (ImageView) findViewById(R.id.dialog_app_info_icon_needs_assistance);
             assistanceIcon.setImageBitmap(BitmapFactory.decodeFile(
-                    Constants.getImageFiles().get(7).getPath()));
+                    iconFiles.get(4).getPath()));
             ImageView wcIcon = (ImageView) findViewById(R.id.dialog_app_info_icon_wc);
             wcIcon.setImageBitmap(BitmapFactory.decodeFile(
-                    Constants.getImageFiles().get(8).getPath()));
+                    iconFiles.get(5).getPath()));
             ImageView exitIcon = (ImageView) findViewById(R.id.dialog_app_info_icon_exit);
             exitIcon.setImageBitmap(BitmapFactory.decodeFile(
-                    Constants.getImageFiles().get(9).getPath()));
+                    iconFiles.get(6).getPath()));
         }
         else if (dialogType == Constants.DIALOG_TYPE.BUILDING_SELECTION) {
             setContentView(R.layout.dialog_map_buildin_selection_layout);
@@ -103,31 +117,31 @@ public class CustomDialog extends Dialog
             setContentView(R.layout.dialog_map_building_info_layout);
             ImageView planeIcon = (ImageView) findViewById(R.id.dialog_building_info_icon_plane);
             planeIcon.setImageBitmap(BitmapFactory.decodeFile(
-                    Constants.getImageFiles().get(3).getPath()));
+                    iconFiles.get(0).getPath()));
             iconsList.add(planeIcon);
             ImageView inclinedIcon = (ImageView) findViewById(R.id.dialog_building_info_icon_inclined);
             inclinedIcon.setImageBitmap(BitmapFactory.decodeFile(
-                    Constants.getImageFiles().get(4).getPath()));
+                    iconFiles.get(1).getPath()));
             iconsList.add(inclinedIcon);
             ImageView elevatorIcon = (ImageView) findViewById(R.id.dialog_building_info_icon_elevator);
             elevatorIcon.setImageBitmap(BitmapFactory.decodeFile(
-                    Constants.getImageFiles().get(5).getPath()));
+                    iconFiles.get(2).getPath()));
             iconsList.add(elevatorIcon);
             ImageView automaticDoorIcon = (ImageView) findViewById(R.id.dialog_building_info_icon_automatic_door);
             automaticDoorIcon.setImageBitmap(BitmapFactory.decodeFile(
-                    Constants.getImageFiles().get(6).getPath()));
+                    iconFiles.get(3).getPath()));
             iconsList.add(automaticDoorIcon);
             ImageView assistanceIcon = (ImageView) findViewById(R.id.dialog_building_info_icon_needs_assistance);
             assistanceIcon.setImageBitmap(BitmapFactory.decodeFile(
-                    Constants.getImageFiles().get(7).getPath()));
+                    iconFiles.get(4).getPath()));
             iconsList.add(assistanceIcon);
             ImageView wcIcon = (ImageView) findViewById(R.id.dialog_building_info_icon_wc);
             wcIcon.setImageBitmap(BitmapFactory.decodeFile(
-                    Constants.getImageFiles().get(8).getPath()));
+                    iconFiles.get(5).getPath()));
             iconsList.add(wcIcon);
             ImageView exitIcon = (ImageView) findViewById(R.id.dialog_building_info_icon_exit);
             exitIcon.setImageBitmap(BitmapFactory.decodeFile(
-                    Constants.getImageFiles().get(9).getPath()));
+                    iconFiles.get(6).getPath()));
             iconsList.add(exitIcon);
 
             TextView textViewTitle = (TextView) findViewById(R.id.dialog_building_info_title);
@@ -138,7 +152,7 @@ public class CustomDialog extends Dialog
 
             ImageView buildingImage = (ImageView) findViewById(R.id.dialog_building_info_image);
             buildingImage.setImageBitmap(
-                    BitmapFactory.decodeFile(Constants.getImageFiles().get(2).getPath()));
+                    BitmapFactory.decodeFile(buildingImageFiles.get(0).getPath()));
 
             Button button = (Button) findViewById(R.id.dialog_building_info_btn_select);
             button.setOnClickListener(this);
@@ -229,9 +243,8 @@ public class CustomDialog extends Dialog
     public void onNothingSelected(AdapterView<?> parent) {  }
 
     public void setBuildingTitle(String title) {
-        String titleAux =
+        this.buildingTitle =
                 activity.getResources().getString(R.string.dialog_building_info_title) + " " + title;
-        this.buildingTitle = titleAux;
     }
 
     public void setBuildingInfo(String info) {

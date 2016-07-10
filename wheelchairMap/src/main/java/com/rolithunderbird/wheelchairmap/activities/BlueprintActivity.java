@@ -1,5 +1,6 @@
 package com.rolithunderbird.wheelchairmap.activities;
 
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
@@ -14,24 +15,38 @@ import com.rolithunderbird.wheelchairmap.javaClasses.CustomDialog;
 import com.rolithunderbird.wheelchairmap.javaClasses.TouchImageView;
 import com.rolithunderbird.wheelchairmap.utils.Constants;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 public class BlueprintActivity extends AppCompatActivity {
 
     private TouchImageView image;
     private String buildingSelected;
+    private ArrayList<File> blueprintFiles;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.blueprintFiles = new ArrayList<>();
 
         Bundle bundle = getIntent().getExtras();
         buildingSelected = bundle.getString("Building");
         if (getSupportActionBar() != null)
             getSupportActionBar().setTitle(buildingSelected);
 
+        String buildingSelectedFileName = buildingSelected.replace(" ", "").toLowerCase();
+        List<File> files = Constants.getImageFiles();
+        for (File file : files) {
+            if (file.getName().contains(buildingSelectedFileName))
+                blueprintFiles.add(file);
+        }
+
         setContentView(R.layout.activity_blueprint);
 
         image = (TouchImageView) findViewById(R.id.activity_blueprint_image_view);
+        image.setImageBitmap(BitmapFactory.decodeFile(blueprintFiles.get(1).getPath()));
     }
 
     /**
@@ -59,19 +74,19 @@ public class BlueprintActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.menu_blueprint_action_underground:
-                image.setImageResource(R.drawable.building9_underground);
+                image.setImageBitmap(BitmapFactory.decodeFile(blueprintFiles.get(0).getPath()));
                 return true;
             case R.id.menu_blueprint_action_main_floor:
-                image.setImageResource(R.drawable.building9_0floor);
+                image.setImageBitmap(BitmapFactory.decodeFile(blueprintFiles.get(1).getPath()));
                 return true;
             case R.id.menu_blueprint_action_first_floor:
-                image.setImageResource(R.drawable.building9_1floor);
+                image.setImageBitmap(BitmapFactory.decodeFile(blueprintFiles.get(2).getPath()));
                 return true;
             case R.id.menu_blueprint_action_second_floor:
-                image.setImageResource(R.drawable.building9_2floor);
+                image.setImageBitmap(BitmapFactory.decodeFile(blueprintFiles.get(3).getPath()));
                 return true;
             case R.id.menu_blueprint_action_third_floor:
-                image.setImageResource(R.drawable.building9_3floor);
+                image.setImageBitmap(BitmapFactory.decodeFile(blueprintFiles.get(4).getPath()));
                 return true;
             default:
                 return super.onContextItemSelected(item);
