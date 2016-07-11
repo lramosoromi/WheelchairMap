@@ -1,38 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="com.rolithunderbird.wheelchairmap.activities.MainActivity">
 
     <TextView
-        android:id="@id/activity_main_text"
-        android:layout_width="wrap_content"
+        android:id="@id/activity_main_title"
+        android:layout_width="268dp"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/activity_main_text"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="94dp" />
+        android:layout_marginTop="94dp"
+        android:textSize="30sp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/activity_main_title"/>
 
     <Spinner
         android:id="@id/activity_main_spinner_maps"
-        android:layout_above="@id/activity_main_btn_select_map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"/>
 
     <Button
         android:id="@id/activity_main_btn_select_map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
         android:text="@string/activity_main_selection_button"
-        android:layout_centerVertical="true"
-        android:layout_alignEnd="@id/activity_main_text"
-        android:layout_alignStart="@id/activity_main_text"
         android:onClick="btnSelectMap"/>
-</RelativeLayout>
+
+    <TextView
+        android:id="@id/activity_main_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="15sp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/activity_main_text"/>
+</LinearLayout>

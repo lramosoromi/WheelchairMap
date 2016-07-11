@@ -1,7 +1,13 @@
 package com.rolithunderbird.wheelchairmap.activities;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.provider.Settings;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +26,12 @@ import com.rolithunderbird.wheelchairmap.utils.Constants;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private String location;
+    private String alertDialogTitle;
+    private String alertDialogMessage;
+    private String alertDialogDataSettings;
+    private String alertDialogWifiSettings;
+    private static AlertDialog alert;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,14 +88,83 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 startActivity(intent);
             }
             else {
-                // Initialize the task that starts downloading the content necessary for this map
-                StorageTask task = new StorageTask(this, filesToDownload, location);
-                task.execute();
+                if (!isConnected(getBaseContext()))
+                    showDialog();
+                else {
+                    // Initialize the task that starts downloading the content necessary for this map
+                    StorageTask task = new StorageTask(this, filesToDownload, location);
+                    task.execute();
+                }
             }
         }
         else {
             Toast.makeText(this, "Please select a location", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private boolean isConnected(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager)
+                context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+
+        if (activeNetwork != null && activeNetwork.isConnected()) {
+            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI)
+                return true;
+            else {
+                if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+                    alertDialogTitle = getString(R.string.alert_dialog_internet_improvement_title);
+                    alertDialogMessage = getString(R.string.alert_dialog_internet_improvement_message);
+                    alertDialogWifiSettings = Settings.ACTION_WIFI_SETTINGS;
+                    alertDialogDataSettings = null;
+                }
+            }
+        }
+        else {
+            alertDialogTitle = getString(R.string.alert_dialog_internet_title);
+            alertDialogMessage = getString(R.string.alert_dialog_internet_message);
+            alertDialogDataSettings = Settings.ACTION_DATA_ROAMING_SETTINGS;
+            alertDialogWifiSettings = Settings.ACTION_WIFI_SETTINGS;
+        }
+        return false;
+    }
+
+    private void showDialog() {
+        // show alert dialog if GPS is not connected
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage(alertDialogMessage)
+                .setTitle(alertDialogTitle)
+                .setCancelable(false)
+                .setPositiveButton(
+                        this.getBaseContext().getString(R.string.alert_dialog_internet_btn_wifi_settings),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Intent intent = new Intent(alertDialogWifiSettings);
+                                startActivity(intent);
+                                alert.dismiss();
+                            }
+                        })
+                .setNegativeButton(
+                        this.getBaseContext().getString(R.string.alert_dialog_internet_btn_cancel),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                alert.dismiss();
+                            }
+                        });
+        if (alertDialogDataSettings != null) {
+            builder.setNeutralButton(
+                    this.getBaseContext().getString(R.string.alert_dialog_internet_btn_data_settings),
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Intent intent = new Intent(alertDialogDataSettings);
+                            startActivity(intent);
+                            alert.dismiss();
+                        }
+                    });
+        }
+
+        alert = builder.create();
+        alert.show();
     }
 
     @Override

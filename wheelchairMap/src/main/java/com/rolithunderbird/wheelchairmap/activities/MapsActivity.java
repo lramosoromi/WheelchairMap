@@ -203,7 +203,7 @@ public class MapsActivity extends AppCompatActivity implements
     @Override
     public boolean onMyLocationButtonClick() {
 
-        //Popup que me dice de habilitar el GPS
+        //Popup that ask me to enable the GPS
         locationManagerCheck.updateLocationManagerCheck();
 
         if(locationManagerCheck.isLocationServiceAvailable()){
