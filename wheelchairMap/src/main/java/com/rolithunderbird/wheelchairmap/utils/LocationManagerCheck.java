@@ -16,33 +16,51 @@ import com.rolithunderbird.wheelchairmap.R;
  */
 public class LocationManagerCheck {
 
+    //Location service
     private LocationManager locationManager;
+    //Boolean if location is available or not
     private Boolean locationServiceBoolean = false;
+    //Type of provider (NULL, NETWORK o GPS)
     private Constants.PROVIDERTYPE providerType = Constants.PROVIDERTYPE.NULL;
+    //Alert dialog
     private static AlertDialog alert;
 
 
+    /**
+     * Constructor. Needs the context of the app
+     * @param context
+     */
     public LocationManagerCheck(Context context) {
         locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         updateLocationManagerCheck();
     }
 
+    /**
+     * Getter of locationServiceBoolean
+     * @return location available or not
+     */
     public Boolean isLocationServiceAvailable() {
         return locationServiceBoolean;
     }
 
+    /**
+     * Getter of provider type
+     * @return provider type
+     */
     public Constants.PROVIDERTYPE getProviderType() {
         return providerType;
     }
 
-    public LocationManager getLocationManager() {
-        return locationManager;
-    }
-
+    /**
+     * Method that creates a alert dialog
+     * @param activityObj
+     * @param isError
+     */
     public void createLocationServiceError(final Activity activityObj, boolean isError) {
 
         String alertMessage;
         String alertTitle;
+        //Check if the alert should show location not available or location can improve
         if (isError) {
             alertMessage = activityObj.getBaseContext().getString(R.string.alert_dialog_location_message);
             alertTitle = activityObj.getBaseContext().getString(R.string.alert_dialog_location_title);
@@ -51,7 +69,7 @@ public class LocationManagerCheck {
             alertMessage = activityObj.getBaseContext().getString(R.string.alert_dialog_location_improvement_message);
             alertTitle = activityObj.getBaseContext().getString(R.string.alert_dialog_location_improvement_title);
         }
-        // show alert dialog if GPS is not connected
+        // show alert dialog with strings set before
         AlertDialog.Builder builder = new AlertDialog.Builder(activityObj);
 
         builder.setMessage(alertMessage)
@@ -61,6 +79,7 @@ public class LocationManagerCheck {
                         activityObj.getBaseContext().getString(R.string.alert_dialog_location_btn_settings),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+                                //If btn setting selected, show location settings page
                                 Intent intent = new Intent(
                                         Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                                 activityObj.startActivity(intent);
@@ -78,6 +97,9 @@ public class LocationManagerCheck {
         alert.show();
     }
 
+    /**
+     * Method that checks if location enabled
+     */
     public void updateLocationManagerCheck() {
         boolean gpsIsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         boolean networkIsEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
@@ -93,6 +115,9 @@ public class LocationManagerCheck {
         } else if (networkIsEnabled) {
             locationServiceBoolean = true;
             providerType = Constants.PROVIDERTYPE.NETWORK_PROVIDER;
+        }
+        else {
+            locationServiceBoolean = false;
         }
     }
 }

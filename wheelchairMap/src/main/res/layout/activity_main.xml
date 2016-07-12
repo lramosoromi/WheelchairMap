@@ -6,11 +6,17 @@
     android:orientation="vertical"
     tools:context="com.rolithunderbird.wheelchairmap.activities.MainActivity">
 
+    <ImageView
+        android:layout_width="130dp"
+        android:layout_height="150dp"
+        android:src="@drawable/icon_launcher"
+        android:layout_gravity="center_horizontal" />
+
     <TextView
         android:id="@id/activity_main_title"
         android:layout_width="268dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="94dp"
+        android:layout_marginTop="20dp"
         android:textSize="30sp"
         android:layout_gravity="center_horizontal"
         android:text="@string/activity_main_title"/>

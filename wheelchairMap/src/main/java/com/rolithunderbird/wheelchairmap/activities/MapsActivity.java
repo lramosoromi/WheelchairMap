@@ -32,36 +32,47 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that controls the view of the map page
+ */
 public class MapsActivity extends AppCompatActivity implements
         SeekBar.OnSeekBarChangeListener, OnMapReadyCallback,
         GoogleMap.OnMyLocationButtonClickListener,
         ActivityCompat.OnRequestPermissionsResultCallback {
 
     private GoogleMap mMap;
+    //Image of campus map on top of google map
     private GroundOverlay mGroundOverlayReutlingen;
+    //Show which is the active map at the moment (basic map or routes map)
     private Constants.MAP_ACTIVE activeMap;
+    //List of only the map image files
     private ArrayList<File> mapFiles;
+    //Seekbar used to change transparency of groundoverlaymap
     private SeekBar mTransparencyBar;
-    /**
-     * Flag indicating whether a requested permission has been denied after returning in
-     * {@link #onRequestPermissionsResult(int, String[], int[])}.
-     */
+    //Flag indicating whether a requested permission has been denied after returning in
     private boolean mPermissionDenied = false;
-    LocationManagerCheck locationManagerCheck;
+    //Location checker
+    private LocationManagerCheck locationManagerCheck;
 
 
+    /**
+     * Method called when the activity is created
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.mapFiles = new ArrayList<>();
         setContentView(R.layout.activity_maps);
 
+        //Get all the files downloaded but only add the ones concerning the map to the map files list
         List<File> files = Constants.getImageFiles();
         for (File file : files) {
             if (file.getName().contains(Constants.FILE_MAP_STRING))
                 mapFiles.add(file);
         }
 
+        //Initialize seekbar parameters
         mTransparencyBar = (SeekBar) findViewById(R.id.activity_map_transparency_seekBar);
         assert mTransparencyBar != null;
         mTransparencyBar.setMax(Constants.TRANSPARENCY_MAX);
@@ -71,32 +82,35 @@ public class MapsActivity extends AppCompatActivity implements
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        // Testing servlet Backend
-        //new ServletPostAsyncTask().execute(new Pair<Context, String>(this, "Lucas"));
     }
 
     /**
      * Method that creates a menu
-     *
+     * Inflates the menu with the blueprint menu
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_map, menu);
         return true;
     }
 
+    /**
+     * Method that checks the menu item pressed and respond accordingly
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_map_action_info:
+                //Create a new custom dialog of the type app info
                 CustomDialog appInfoCustomDialog = new CustomDialog(this, Constants.DIALOG_TYPE.APP_INFO);
                 appInfoCustomDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 appInfoCustomDialog.show();
                 return true;
             case R.id.menu_map_action_show_routes:
+                //Change the map file from basic to routes accordingly
                 if (activeMap == Constants.MAP_ACTIVE.BASIC_MAP) {
                     mGroundOverlayReutlingen.setImage(
                             BitmapDescriptorFactory.fromPath(mapFiles.get(1).getPath()));
@@ -109,12 +123,14 @@ public class MapsActivity extends AppCompatActivity implements
                 }
                 return true;
             case R.id.menu_map_action_select_building:
+                //Create a new custom dialog of the type building selection
                 CustomDialog buildingSelectionCustomDialog = new CustomDialog(
                         this, Constants.DIALOG_TYPE.BUILDING_SELECTION);
                 buildingSelectionCustomDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 buildingSelectionCustomDialog.show();
                 return true;
             case R.id.menu_map_action_contact :
+                //Create a new custom dialog of the type contact info
                 CustomDialog contactInfoCustomDialog = new CustomDialog(this, Constants.DIALOG_TYPE.CONTACT_INFO);
                 contactInfoCustomDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 contactInfoCustomDialog.show();
@@ -134,8 +150,7 @@ public class MapsActivity extends AppCompatActivity implements
     public void onMapReady(GoogleMap map) {
         mMap = map;
 
-        //Seteo la funcion a realizar cuando toco sobre el mapa
-        // FALTARIA FIJARME QUE SI TOCO AFUERA DEL PDF NO DEBERIA DEVOLVER NADA
+        //Set the function called whenever someone touches over the map
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
@@ -143,11 +158,11 @@ public class MapsActivity extends AppCompatActivity implements
             }
         });
 
-        //Esto es para cambiar donde arranca el mapa
+        //Move the google map starting point to the center of the campus
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(
                 new CameraPosition(Constants.REUTLINGEN_CENTER, 16, 0, 0)));
 
-        //Pongo la imagen del mapa sobre google maps
+        //Initialize the ground overlay map with all its parameters
         mGroundOverlayReutlingen = mMap.addGroundOverlay(new GroundOverlayOptions()
                 .image(BitmapDescriptorFactory.fromPath(
                         mapFiles.get(0).getPath())).anchor(0, 1)
@@ -155,13 +170,14 @@ public class MapsActivity extends AppCompatActivity implements
                 .position(Constants.REUTLINGEN_MAP, 600, 465));
         activeMap = Constants.MAP_ACTIVE.BASIC_MAP;
 
+        //Set seekbar listener behaviours
         mTransparencyBar.setOnSeekBarChangeListener(this);
 
         // Override the default content description on the view, for accessibility mode.
         // Ideally this string would be localised.
         mMap.setContentDescription("Google Map with ground overlay.");
 
-        // AGREGADO POR MI para poder ver mi location en el mapa
+        // Enable my location button click on the map
         mMap.setOnMyLocationButtonClickListener(this);
         enableMyLocation();
     }
@@ -174,13 +190,18 @@ public class MapsActivity extends AppCompatActivity implements
     public void onStartTrackingTouch(SeekBar seekBar) {
     }
 
+    /**
+     * Method called while the seekbar is changing its value
+     * @param seekBar
+     * @param progress
+     * @param fromUser
+     */
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         if (mGroundOverlayReutlingen != null)
+            //Change the transparency of the ground overlay map
             mGroundOverlayReutlingen.setTransparency((float) progress / (float) Constants.TRANSPARENCY_MAX);
     }
-
-    //A PARTIR DE ACA ES LO NECESARIO PARA PODER VER MI LOCATION EN EL MAPA
 
     /**
      * Enables the My Location layer if the fine location permission has been granted.
@@ -189,6 +210,7 @@ public class MapsActivity extends AppCompatActivity implements
         //  Initialize the locationManagerCheck
         locationManagerCheck = new LocationManagerCheck(this);
 
+        //Check permissions necessary to retrieve my location
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             // Permission to access the location is missing.
@@ -203,19 +225,30 @@ public class MapsActivity extends AppCompatActivity implements
     @Override
     public boolean onMyLocationButtonClick() {
 
-        //Popup that ask me to enable the GPS
+        //Check which type of location im using (GPS or wifi) and responds accordingly
         locationManagerCheck.updateLocationManagerCheck();
 
+        //Check if the location is enabled
         if(locationManagerCheck.isLocationServiceAvailable()){
+            //Check if location is not GPS
             if (locationManagerCheck.getProviderType() != Constants.PROVIDERTYPE.GPS_PROVIDER) {
+                //If location not GPS, then show dialog error
                 locationManagerCheck.createLocationServiceError(MapsActivity.this, false);
             }
         }else{
+            //If location not enabled, then show dialog error
             locationManagerCheck.createLocationServiceError(MapsActivity.this, true);
         }
         return false;
     }
 
+    /**
+     * Method called to check result of permissions.
+     * Created by google
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -233,6 +266,10 @@ public class MapsActivity extends AppCompatActivity implements
         }
     }
 
+    /**
+     * Method called when resuming fragments.
+     * Created by google
+     */
     @Override
     protected void onResumeFragments() {
         super.onResumeFragments();
@@ -255,13 +292,12 @@ public class MapsActivity extends AppCompatActivity implements
      * Method used to select the closest building in the map to the Location clicked by the user
      */
     private void selectClosestBuilding(LatLng clickedLatLng) {
-        //ELijo el edificio mas cercano al punto que toque en el mapa.
-        //Para eso tengo que crear una Location con cada edificio y una con lo que toque
-        //y dsps comparar
+        //First create location of the placed clicked
         Location clickedLocation = new Location("");
         clickedLocation.setLatitude(clickedLatLng.latitude);
         clickedLocation.setLongitude(clickedLatLng.longitude);
 
+        //Second create location of the first building
         Location buildingLocation = new Location("");
         LatLng firstBuilding = Constants.BUILDINGS[0];
         buildingLocation.setLatitude(firstBuilding.latitude);
@@ -279,13 +315,18 @@ public class MapsActivity extends AppCompatActivity implements
             //Calculate the new distance between clickedLocation and next building
             float newDistance = buildingLocation.distanceTo(clickedLocation);
             if(newDistance < closestDistance){
+                //If distance lower than closest distance, then update new value
                 indexOfClosestBuilding = j;
                 closestDistance = newDistance;
             }
         }
+        //If the closest building to my click is less than a constant value
+        //This is so as to not show a popup when someone clicks in the middle of nowhere
         if (closestDistance > Constants.MAX_CLOSEST_DISTANCE)
             indexOfClosestBuilding = -1;
+
         //This switch is to decide which is the building closest to the touch using the buildings array
+        // and creates a popup of that building
         switch (indexOfClosestBuilding) {
             case 0:
                 createBuildingInfoPopup("1", getResources()
@@ -364,7 +405,13 @@ public class MapsActivity extends AppCompatActivity implements
         }
     }
 
+    /**
+     * Method that creates a custom dialog with the information of the building
+     * @param title
+     * @param info
+     */
     private void createBuildingInfoPopup(String title, String info) {
+        //Create a new custom dialog of the type building info
         CustomDialog customDialog = new CustomDialog(this, Constants.DIALOG_TYPE.BUILDING_INFO);
         customDialog.setIconsVisibility(Integer.parseInt(title));
         customDialog.setBuildingTitle(title);

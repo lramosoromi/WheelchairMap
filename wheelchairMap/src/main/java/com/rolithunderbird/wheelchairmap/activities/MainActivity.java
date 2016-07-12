@@ -23,34 +23,48 @@ import com.rolithunderbird.wheelchairmap.broadcastReceiver.MyResponseReceiver;
 import com.rolithunderbird.wheelchairmap.database.StorageTask;
 import com.rolithunderbird.wheelchairmap.utils.Constants;
 
+/**
+ * Class that controls the view of the main page of the app
+ */
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    //String of the selected location in the picklist
     private String location;
+    //Title of the alert dialog
     private String alertDialogTitle;
+    //Message of the alert dialog
     private String alertDialogMessage;
+    //Intent string type when alert dialog button for data settings pressed
     private String alertDialogDataSettings;
+    //Intent string type when alert dialog button for wifi settings pressed
     private String alertDialogWifiSettings;
+    //Alert dialog
     private static AlertDialog alert;
 
-
+    /**
+     * Method called when the activity is created
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //First of all hide the action bar
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         if (getSupportActionBar() != null)
             getSupportActionBar().hide();
 
         setContentView(R.layout.activity_main);
 
-
+        //Set the spinner (picklist)
         Spinner spinner = (Spinner) findViewById(R.id.activity_main_spinner_maps);
-        // Create an ArrayAdapter using the string array and a default spinner layout
+        // Create an ArrayAdapter using the array of locations and a default spinner layout
         ArrayAdapter adapter = ArrayAdapter.createFromResource(getBaseContext(),
                 R.array.activity_main_location_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+        //Add on item selected functionality
         spinner.setOnItemSelectedListener(this);
 
         // Create the intent filter that will be used to call the broadcast receiver
@@ -61,12 +75,21 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 responseReceiver, statusIntentFilter );
     }
 
+    /**
+     * Method called whenever the spinner selection changes
+     * @param parent
+     * @param view
+     * @param pos
+     * @param id
+     */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
-        // An item was selected. You can retrieve the selected item using
+        // Get the string of the selected location
         String selected = parent.getItemAtPosition(pos).toString();
+        // Get the string of the available locations
         String reutlingenLocation = Constants.AVAILABLE_LOCATIONS[0];
+        // Compare both strings
         if (selected.equals(reutlingenLocation)) {
             location = Constants.AVAILABLE_LOCATIONS[0];
         }
@@ -78,9 +101,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onNothingSelected(AdapterView<?> parent) {  }
 
+    /**
+     * Method called when the button selected is clicked
+     * @param view
+     */
     public void btnSelectMap(View view) {
+        //Check if the selected location is not null and if it equals the available location
         if (location != null && location.equals(Constants.AVAILABLE_LOCATIONS[0])) {
+            //Get the path of the files that will be downloaded
             String[] filesToDownload = Constants.FILES_PATH;
+            //Check if there are downloaded files and if they are all the files to be downloaded
             if (Constants.getImageFiles() != null
                     && Constants.getImageFiles().size() == filesToDownload.length) {
                 //If the files were already created previously, just go to the map activity
@@ -88,38 +118,52 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 startActivity(intent);
             }
             else {
+                //If the maps where not downloaded
+                //Check phone connection
                 if (!isConnected(getBaseContext()))
+                    //If not connected show alert message
                     showDialog();
                 else {
-                    // Initialize the task that starts downloading the content necessary for this map
+                    //If phone connected
+                    //Initialize the task that starts downloading the content necessary for this map
                     StorageTask task = new StorageTask(this, filesToDownload, location);
                     task.execute();
                 }
             }
         }
         else {
+            //If the selected location is null or not equal to available connection
             Toast.makeText(this, "Please select a location", Toast.LENGTH_SHORT).show();
         }
     }
 
+    /**
+     * Method that checks the phone connectivity
+     * @param context
+     * @return
+     */
     private boolean isConnected(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager)
                 context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        //Get the active network the phone is using
         NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
 
+        //Check if the network is connected
         if (activeNetwork != null && activeNetwork.isConnected()) {
+            //If connected check which type of network is
             if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI)
+                //If wifi network, do nothing start download
                 return true;
-            else {
-                if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
-                    alertDialogTitle = getString(R.string.alert_dialog_internet_improvement_title);
-                    alertDialogMessage = getString(R.string.alert_dialog_internet_improvement_message);
-                    alertDialogWifiSettings = Settings.ACTION_WIFI_SETTINGS;
-                    alertDialogDataSettings = null;
-                }
+            else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+                //If data network, then set alert for improve network connection, showing wifi settings
+                alertDialogTitle = getString(R.string.alert_dialog_internet_improvement_title);
+                alertDialogMessage = getString(R.string.alert_dialog_internet_improvement_message);
+                alertDialogWifiSettings = Settings.ACTION_WIFI_SETTINGS;
+                alertDialogDataSettings = null;
             }
         }
         else {
+            //If not connected, then set alert for connect pone, showing both settings
             alertDialogTitle = getString(R.string.alert_dialog_internet_title);
             alertDialogMessage = getString(R.string.alert_dialog_internet_message);
             alertDialogDataSettings = Settings.ACTION_DATA_ROAMING_SETTINGS;
@@ -128,8 +172,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         return false;
     }
 
+    /**
+     * Method called when needs to show the alert message
+     */
     private void showDialog() {
-        // show alert dialog if GPS is not connected
+        // show alert dialog if internet is not connected, or using data roaming
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setMessage(alertDialogMessage)
@@ -151,6 +198,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                 alert.dismiss();
                             }
                         });
+        //If data settings is not null, it means it has to be used, then create new button
         if (alertDialogDataSettings != null) {
             builder.setNeutralButton(
                     this.getBaseContext().getString(R.string.alert_dialog_internet_btn_data_settings),
@@ -167,6 +215,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         alert.show();
     }
 
+    /**
+     * Method called when app is destroyed. It deletes all downloaded files
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();

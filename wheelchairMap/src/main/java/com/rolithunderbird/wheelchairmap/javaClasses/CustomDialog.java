@@ -24,18 +24,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Class that creates a custom dialog
  * Created by rolithunderbird on 11.06.16.
  */
 public class CustomDialog extends Dialog
         implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
+    //Activity which called the class
     private Activity activity;
+    //Typeof dialog
     private Constants.DIALOG_TYPE dialogType;
+    //Blueprint that will be shown (value from picklist)
     private String blueprint;
+    //Building title that will be shown
     private String buildingTitle;
+    //Building info that will be shown
     private String buildingInfo;
+    //List of all the icons that will be shown
     private ArrayList<ImageView> iconsList;
+    //List of all the icon files downloaded
     private ArrayList<File> iconFiles;
+    //List of all the building image files downloaded
     private ArrayList<File> buildingImageFiles;
     //Atributes to see if the icon should be visible or not
     private boolean iconPlaneVisibility;
@@ -47,6 +56,11 @@ public class CustomDialog extends Dialog
     private boolean iconExitVisibility;
 
 
+    /**
+     * Constructor
+     * @param a
+     * @param dialog_type
+     */
     public CustomDialog(Activity a, Constants.DIALOG_TYPE dialog_type) {
         super(a);
         this.activity = a;
@@ -54,6 +68,7 @@ public class CustomDialog extends Dialog
         this.iconsList = new ArrayList<>();
         this.iconFiles = new ArrayList<>();
         this.buildingImageFiles = new ArrayList<>();
+        //Get all the files downloaded and add them to its specific list according to its name
         List<File> files = Constants.getImageFiles();
         for (File file : files) {
             if (file.getName().contains(Constants.FILE_ICON_STRING))
@@ -63,18 +78,29 @@ public class CustomDialog extends Dialog
         }
     }
 
+    /**
+     * Setter
+     * @param string
+     */
     public void setBlueprint(String string) {
         blueprint = string;
     }
 
+    /**
+     * Method called when Custom Dialog created
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
+        //First get the dialog type and respond accordingly
         if (dialogType == Constants.DIALOG_TYPE.APP_INFO) {
+            //If type app info, show its layout and set all image icons
             setContentView(R.layout.dialog_app_info_layout);
 
+            //For each imageview set the image of the icon downloaded accordingly
             ImageView planeIcon = (ImageView) findViewById(R.id.dialog_app_info_icon_plane);
             planeIcon.setImageBitmap(BitmapFactory.decodeFile(
                     iconFiles.get(0).getPath()));
@@ -98,12 +124,14 @@ public class CustomDialog extends Dialog
                     iconFiles.get(6).getPath()));
         }
         else if (dialogType == Constants.DIALOG_TYPE.BUILDING_SELECTION) {
+            //If type building selection, show its layout and set the picklist and button
             setContentView(R.layout.dialog_map_buildin_selection_layout);
+            //Set button onclick method
             Button button = (Button) findViewById(R.id.dialog_building_selection_button);
             button.setOnClickListener(this);
 
             Spinner spinner = (Spinner) findViewById(R.id.dialog_building_selection_spinner_buildings);
-            // Create an ArrayAdapter using the string array and a default spinner layout
+            // Create an ArrayAdapter using the array of buildings and a default spinner layout
             ArrayAdapter adapter = ArrayAdapter.createFromResource(activity.getBaseContext(),
                     R.array.dialog_buildings_array, android.R.layout.simple_spinner_item);
             // Specify the layout to use when the list of choices appears
@@ -113,8 +141,10 @@ public class CustomDialog extends Dialog
             spinner.setOnItemSelectedListener(this);
         }
         else if (dialogType == Constants.DIALOG_TYPE.BUILDING_INFO){
-            //First set content view and all the src for the views
+            //If type building info, show its layout and set the icons, building image and button
             setContentView(R.layout.dialog_map_building_info_layout);
+
+            //For each imageview set the image of the icon downloaded accordingly
             ImageView planeIcon = (ImageView) findViewById(R.id.dialog_building_info_icon_plane);
             planeIcon.setImageBitmap(BitmapFactory.decodeFile(
                     iconFiles.get(0).getPath()));
@@ -144,20 +174,23 @@ public class CustomDialog extends Dialog
                     iconFiles.get(6).getPath()));
             iconsList.add(exitIcon);
 
+            //Set the title and message accordingly
             TextView textViewTitle = (TextView) findViewById(R.id.dialog_building_info_title);
             textViewTitle.setText(buildingTitle);
 
             TextView textViewMessage = (TextView) findViewById(R.id.dialog_building_info_message);
             textViewMessage.setText(buildingInfo);
 
+            //Set the image of the building accordingly
             ImageView buildingImage = (ImageView) findViewById(R.id.dialog_building_info_image);
             buildingImage.setImageBitmap(
                     BitmapFactory.decodeFile(buildingImageFiles.get(0).getPath()));
 
+            //Set the button onclick method
             Button button = (Button) findViewById(R.id.dialog_building_info_btn_select);
             button.setOnClickListener(this);
 
-            //Check on the Visibility on the icons and remove them from the layout if necessary
+            //Check on the Visibility on the icons and remove them from the layout and list if necessary
             if (!iconPlaneVisibility) {
                 ImageView icon = (ImageView) findViewById(R.id.dialog_building_info_icon_plane);
                 icon.setVisibility(View.GONE);
@@ -197,22 +230,32 @@ public class CustomDialog extends Dialog
             reorderIcons(iconsList);
         }
         else if (dialogType == Constants.DIALOG_TYPE.CONTACT_INFO){
+            //If type contact info, show its layout
             setContentView(R.layout.dialog_map_contact_layout);
         }
         else {
+            //If type blueprint info, show its layout and set its title
             setContentView(R.layout.dialog_blueprint_info_layout);
+            //Set dialog title accordingly
             TextView title = (TextView) findViewById(R.id.dialog_blueprint_title);
             title.setText(blueprint);
         }
     }
 
+    /**
+     * Method called when a button is clicked
+     * @param v
+     */
     @Override
     public void onClick(View v) {
+        //Check if the blueprint picklist is equal to an available blueprint
         if (blueprint != null && blueprint.equals(Constants.BUILDING_BLUEPRINT[0])) {
+            //If blueprint is not null, but selected None on picklist
             Toast.makeText(activity.getBaseContext(), "Please select a building",
                     Toast.LENGTH_SHORT).show();
         }
         else if (blueprint != null && blueprint.equals(Constants.BUILDING_BLUEPRINT[1])) {
+            //If blueprint is available
             //Call Activity of the building blueprint
             Intent intent = new Intent(activity.getBaseContext(), BlueprintActivity.class);
             intent.putExtra("Building", blueprint);
@@ -221,20 +264,30 @@ public class CustomDialog extends Dialog
             dismiss();
         }
         else {
+            //If blueprint is null, meaning not defined
             Toast.makeText(activity.getBaseContext(), "This building blueprint is currently not available",
                     Toast.LENGTH_SHORT).show();
         }
     }
 
+    /**
+     * Method called when spinner value changes
+     * @param parent
+     * @param view
+     * @param pos
+     * @param id
+     */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
-        // An item was selected. You can retrieve the selected item using
+        // Get the string of the item selected
         String selected = parent.getItemAtPosition(pos).toString();
+        //Compare its value to see if its the available or not
         if (selected.equals(Constants.BUILDING_BLUEPRINT[1])) {
             blueprint = Constants.BUILDING_BLUEPRINT[1];
         }
         else {
+            //If not set it to NULL value
             blueprint = Constants.BUILDING_BLUEPRINT[0];
         }
     }
@@ -242,15 +295,28 @@ public class CustomDialog extends Dialog
     @Override
     public void onNothingSelected(AdapterView<?> parent) {  }
 
+    /**
+     * Setter of building title
+     * @param title
+     */
     public void setBuildingTitle(String title) {
+        //Set building number
         this.buildingTitle =
                 activity.getResources().getString(R.string.dialog_building_info_title) + " " + title;
     }
 
+    /**
+     * Setter of the building info
+     * @param info
+     */
     public void setBuildingInfo(String info) {
         this.buildingInfo = info;
     }
 
+    /**
+     * Check which icon should be visible and which not depending on the building number
+     * @param building number of the building
+     */
     public void setIconsVisibility(int building) {
         iconPlaneVisibility = false;
         iconInclinedVisibility = false;
@@ -260,6 +326,7 @@ public class CustomDialog extends Dialog
         iconWCVisibility = false;
         iconExitVisibility = false;
 
+        //Compare value and iterate with Constant value of each building
         switch (building) {
             case 1 :
                 iterateIconArray(Constants.BUILDING_ONE_ICONS);
@@ -338,13 +405,21 @@ public class CustomDialog extends Dialog
         }
     }
 
+    /**
+     * Method called to reorder the icons once all the necessary are eliminated
+     * @param iconsList
+     */
     private void reorderIcons(ArrayList<ImageView> iconsList) {
+        //Start at column 0, row 0
         int column = 0;
         int row = 0;
+        //Iterate thorugh list of icons
         for (ImageView icon : iconsList) {
             if (icon != null) {
+                //If icon not null, set its new layout
                 GridLayout grid = (GridLayout) findViewById(R.id.dialog_building_info_grid_layout);
                 GridLayout.LayoutParams layout = new GridLayout.LayoutParams();
+                //Check if column >= 3, then should start on new row
                 if (column >= 3) {
                     column = 0;
                     row++;
@@ -364,6 +439,10 @@ public class CustomDialog extends Dialog
         }
     }
 
+    /**
+     * Iterate through all the icons of a specific icon array of a building and set its visibility values
+     * @param iconArray
+     */
     private void iterateIconArray(Constants.DEFAULT_ICONS[] iconArray) {
         for (Constants.DEFAULT_ICONS icon : iconArray) {
             if (icon == Constants.DEFAULT_ICONS.PLANE)

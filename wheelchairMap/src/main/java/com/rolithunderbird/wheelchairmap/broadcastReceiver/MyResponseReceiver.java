@@ -21,17 +21,15 @@ public class MyResponseReceiver extends BroadcastReceiver {
      */
     @Override
     public void onReceive(Context context, Intent intent) {
-        /*
-         * You get notified here when your StorageTask is done
-         * obtaining data form the server!
-         */
+
+        //You get notified here when your StorageTask is done obtaining data form the server!
         Bundle bundle = intent.getExtras();
         String status = bundle.getString("Status");
         //Analyze the status of the broadcast
         if (status!= null && status.equals("Success")) {
             //Create the new intent for the map activity
             Intent newIntent = new Intent(context.getApplicationContext(), MapsActivity.class);
-            //Add necessary flags (Because I don't know why the intent wasn't called
+            //Add necessary flags (Because I don't know why the intent wasn't called)
             newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                     | Intent.FLAG_ACTIVITY_CLEAR_TOP
                     | Intent.FLAG_ACTIVITY_SINGLE_TOP);

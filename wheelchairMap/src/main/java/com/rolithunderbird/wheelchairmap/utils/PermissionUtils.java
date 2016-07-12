@@ -15,6 +15,7 @@ import com.rolithunderbird.wheelchairmap.R;
 /**
  * Utility class for access to runtime permissions. I really don't know how its used, but was in the
  * example.
+ * Created by Google
  * Created by rolithunderbird on 07.06.16.
  */
 public abstract class PermissionUtils {
