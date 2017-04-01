@@ -83,9 +83,13 @@ public class Constants {
 
     //LatLng position where the google map activity starts
     public static final LatLng REUTLINGEN_CENTER = new LatLng(48.481905, 9.188492);
+    public static final LatLng AUSTRAL_CENTER = new LatLng(-34.456582, -58.859102);
+
     // LatLng location where the file of Reutlingen campus goes on the google map.
     // This location points to the bottom left border.
     public static final LatLng REUTLINGEN_MAP = new LatLng(48.478679, 9.188791);
+    public static final LatLng AUSTRAL_MAP = new LatLng(-34.466582, -58.855102);
+
     //Here are stored all the buildings LatLng coordinates that will be used in the app
     //<editor-fold desc="Building LatLng Coordinates">
     protected static final LatLng REUTLINGEN_BUILDING_1 = new LatLng(48.481291, 9.184959);
@@ -167,6 +171,9 @@ public class Constants {
     public static final String BUILDING9_THIRD_FLOOR_BLUEPRINT = "blueprints/building9_3floor.png";
     //</editor-fold>
 
+    //Path in the storage to get the image file
+    public static final String BASIC_MAP_AUSTRAL = "images/mapa_austral.png";
+
     //Array of the different files path in the storage.
     public static String[] FILES_PATH = {
             BASIC_MAP, ROUTES_MAP, BUILDING_IMAGE, ICON_PLANE, ICON_INCLINED,
@@ -174,10 +181,17 @@ public class Constants {
             BUILDING9_UNDERGROUND_BLUEPRINT, BUILDING9_MAIN_FLOOR_BLUEPRINT,
             BUILDING9_FIRST_FLOOR_BLUEPRINT, BUILDING9_SECOND_FLOOR_BLUEPRINT, BUILDING9_THIRD_FLOOR_BLUEPRINT};
 
+    //Array of the different files path in the storage.
+    public static String[] FILES_PATH_AUSTRAL = {
+            BASIC_MAP_AUSTRAL, BUILDING_IMAGE, ICON_PLANE, ICON_INCLINED,
+            ICON_ELEVATOR, ICON_AUTOMATIC_DOOR, ICON_ASSISTANCE, ICON_WC, ICON_EXIT};
+
     //Maps loaded in the storage for use
     public static final String HOSCHULE_REUTLINGEN = "Hoschule Reutlingen";
+    public static final String UNIVERSIDAD_AUSTRAL = "Austral University";
+
     //Array of the available maps in the storage to use the app
-    public static String[] AVAILABLE_LOCATIONS = { HOSCHULE_REUTLINGEN };
+    public static String[] AVAILABLE_LOCATIONS = { HOSCHULE_REUTLINGEN, UNIVERSIDAD_AUSTRAL };
 
     //Blueprints loaded in the storage for use
     public static final String NONE = "None";

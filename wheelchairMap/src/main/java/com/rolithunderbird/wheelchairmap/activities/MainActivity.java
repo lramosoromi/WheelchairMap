@@ -30,6 +30,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     //String of the selected location in the picklist
     private String location;
+    // Strings of the available locations
+    private String reutlingenLocation = Constants.AVAILABLE_LOCATIONS[0];
+    private String australLocation = Constants.AVAILABLE_LOCATIONS[1];
+
     //Title of the alert dialog
     private String alertDialogTitle;
     //Message of the alert dialog
@@ -40,6 +44,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private String alertDialogWifiSettings;
     //Alert dialog
     private static AlertDialog alert;
+    //Phone is connected or not
+    private Boolean isConnected;
+    //Path of the files that will be downloaded for the specific location
+    private String[] filesToDownload;
+
 
     /**
      * Method called when the activity is created
@@ -87,13 +96,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                int pos, long id) {
         // Get the string of the selected location
         String selected = parent.getItemAtPosition(pos).toString();
-        // Get the string of the available locations
-        String reutlingenLocation = Constants.AVAILABLE_LOCATIONS[0];
+
         // Compare both strings
         if (selected.equals(reutlingenLocation)) {
-            location = Constants.AVAILABLE_LOCATIONS[0];
-        }
-        else {
+            location = reutlingenLocation;
+        }else if(selected.equals(australLocation)){
+            location = australLocation;
+        }else {
             location = null;
         }
     }
@@ -107,17 +116,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
      */
     public void btnSelectMap(View view) {
         //Check if the selected location is not null and if it equals the available location
-        if (location != null && location.equals(Constants.AVAILABLE_LOCATIONS[0])) {
-            //Get the path of the files that will be downloaded
-            String[] filesToDownload = Constants.FILES_PATH;
+        if (location != null && location.equals(reutlingenLocation)) {
+            //Get the path of the files
+            filesToDownload = Constants.FILES_PATH;
             //Check if there are downloaded files and if they are all the files to be downloaded
             if (Constants.getImageFiles() != null
                     && Constants.getImageFiles().size() == filesToDownload.length) {
                 //If the files were already created previously, just go to the map activity
                 Intent intent = new Intent(this, MapsActivity.class);
+                intent.putExtra("Location", location);
                 startActivity(intent);
-            }
-            else {
+            }else {
                 //If the maps where not downloaded
                 //Check phone connection
                 if (!isConnected(getBaseContext()))
@@ -125,14 +134,36 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     showDialog();
                 else {
                     //If phone connected
-                    //Initialize the task that starts downloading the content necessary for this map
-                    StorageTask task = new StorageTask(this, filesToDownload, location);
-                    task.execute();
+                    downloadContent();
                 }
             }
         }
-        else {
-            //If the selected location is null or not equal to available connection
+        //Check if the selected location is not null and if it equals the available location
+        else if (location != null && location.equals(australLocation)) {
+            //Get the path of the files
+            filesToDownload = Constants.FILES_PATH_AUSTRAL
+            ;
+            //Check if there are downloaded files and if they are all the files to be downloaded
+            if (Constants.getImageFiles() != null
+                    && Constants.getImageFiles().size() == filesToDownload.length) {
+                //If the files were already created previously, just go to the map activity
+                Intent intent = new Intent(this, MapsActivity.class);
+                intent.putExtra("Location", location);
+                startActivity(intent);
+            }else {
+                //If the maps where not downloaded
+                //Check phone connection
+                if (!isConnected(getBaseContext()))
+                    //If not connected show alert message
+                    showDialog();
+                else {
+                    //If phone connected
+                    downloadContent();
+                }
+            }
+            // END LO QUE HAY QUE CAMBIAR
+        } else {
+            //If the selected location is null or not equal to an available location
             Toast.makeText(this, "Please select a location", Toast.LENGTH_SHORT).show();
         }
     }
@@ -150,6 +181,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         //Check if the network is connected
         if (activeNetwork != null && activeNetwork.isConnected()) {
+            isConnected = true;
             //If connected check which type of network is
             if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI)
                 //If wifi network, do nothing start download
@@ -161,8 +193,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 alertDialogWifiSettings = Settings.ACTION_WIFI_SETTINGS;
                 alertDialogDataSettings = null;
             }
-        }
-        else {
+        }else {
+            isConnected = false;
             //If not connected, then set alert for connect pone, showing both settings
             alertDialogTitle = getString(R.string.alert_dialog_internet_title);
             alertDialogMessage = getString(R.string.alert_dialog_internet_message);
@@ -190,14 +222,27 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                 startActivity(intent);
                                 alert.dismiss();
                             }
-                        })
-                .setNegativeButton(
-                        this.getBaseContext().getString(R.string.alert_dialog_internet_btn_cancel),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                alert.dismiss();
-                            }
                         });
+        //If phone is connected to internet then show continue button
+        if (isConnected) {
+            builder.setNegativeButton(
+                    this.getBaseContext().getString(R.string.alert_dialog_internet_connected_btn_cancel),
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            downloadContent();
+                            alert.dismiss();
+                        }
+                    });
+        }
+        else {
+            builder.setNegativeButton(
+                    this.getBaseContext().getString(R.string.alert_dialog_internet_not_connected_btn_cancel),
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            alert.dismiss();
+                        }
+                    });
+        }
         //If data settings is not null, it means it has to be used, then create new button
         if (alertDialogDataSettings != null) {
             builder.setNeutralButton(
@@ -213,6 +258,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         alert = builder.create();
         alert.show();
+    }
+
+    /**
+     *
+     */
+    private void downloadContent() {
+        //Initialize the task that starts downloading the content necessary for this map
+        StorageTask task = new StorageTask(this, filesToDownload, location);
+        task.execute();
     }
 
     /**

@@ -6,6 +6,7 @@
     <string-array name="activity_main_location_array">
         <item>-- None --</item>
         <item>Hoschule Reutlingen</item>
+        <item>Austral University</item>
     </string-array>
     <string name="activity_main_selection_button">Select</string>
     <string name="activity_main_text">
@@ -146,7 +147,8 @@
     </string>
     <string name="alert_dialog_internet_btn_data_settings">Data Settings</string>
     <string name="alert_dialog_internet_btn_wifi_settings">Wifi Settings</string>
-    <string name="alert_dialog_internet_btn_cancel">Cancel</string>
+    <string name="alert_dialog_internet_connected_btn_cancel">Continue anyway</string>
+    <string name="alert_dialog_internet_not_connected_btn_cancel">Cancel</string>
     <string name="alert_dialog_internet_improvement_title">Caution</string>
     <string name="alert_dialog_internet_improvement_message">
         You are currently using data connection internet.\nIn order to limit your data consumption please

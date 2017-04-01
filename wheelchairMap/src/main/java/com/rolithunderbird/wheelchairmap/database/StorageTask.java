@@ -121,8 +121,10 @@ public class StorageTask extends AsyncTask<Void, String, Void> {
 
         // Puts the status into the Intent
         String status = "Success"; // any data that you want to send back to receivers
+        String location = locationForCoordinates;
         Intent localIntent = new Intent(Constants.BROADCAST_FILTER)
-                .putExtra("Status", status);
+                .putExtra("Status", status)
+                .putExtra("Location", location);
         // Broadcasts the Intent to receivers in this app.
         LocalBroadcastManager.getInstance(context).sendBroadcast(localIntent);
         //Close progress dialog

@@ -25,10 +25,13 @@ public class MyResponseReceiver extends BroadcastReceiver {
         //You get notified here when your StorageTask is done obtaining data form the server!
         Bundle bundle = intent.getExtras();
         String status = bundle.getString("Status");
+        String location = bundle.getString("Location");
         //Analyze the status of the broadcast
         if (status!= null && status.equals("Success")) {
             //Create the new intent for the map activity
             Intent newIntent = new Intent(context.getApplicationContext(), MapsActivity.class);
+            //Add the location to be used by the map activity
+            newIntent.putExtra("Location", location);
             //Add necessary flags (Because I don't know why the intent wasn't called)
             newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                     | Intent.FLAG_ACTIVITY_CLEAR_TOP

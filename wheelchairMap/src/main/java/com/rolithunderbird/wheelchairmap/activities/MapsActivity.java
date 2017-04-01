@@ -41,6 +41,8 @@ public class MapsActivity extends AppCompatActivity implements
         ActivityCompat.OnRequestPermissionsResultCallback {
 
     private GoogleMap mMap;
+    //The location that was selected in the main page
+    private String locationSelected;
     //Image of campus map on top of google map
     private GroundOverlay mGroundOverlayReutlingen;
     //Show which is the active map at the moment (basic map or routes map)
@@ -61,6 +63,10 @@ public class MapsActivity extends AppCompatActivity implements
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Get the location that is going to be showed on the map
+        Bundle bundle = getIntent().getExtras();
+        locationSelected = bundle.getString("Location");
+
         super.onCreate(savedInstanceState);
         this.mapFiles = new ArrayList<>();
         setContentView(R.layout.activity_maps);
@@ -149,6 +155,16 @@ public class MapsActivity extends AppCompatActivity implements
     @Override
     public void onMapReady(GoogleMap map) {
         mMap = map;
+        //LatLng of the location selected by the user
+        LatLng cameraPosition = new LatLng(0, 0);
+        LatLng mGroundOverlayPosition = new LatLng(0, 0);
+        if(locationSelected.equals(Constants.AVAILABLE_LOCATIONS[0])) {
+            cameraPosition = Constants.REUTLINGEN_CENTER;
+            mGroundOverlayPosition = Constants.REUTLINGEN_MAP;
+        }else if(locationSelected.equals(Constants.AVAILABLE_LOCATIONS[1])) {
+            cameraPosition = Constants.AUSTRAL_CENTER;
+            mGroundOverlayPosition = Constants.AUSTRAL_MAP;
+        }
 
         //Set the function called whenever someone touches over the map
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -160,14 +176,14 @@ public class MapsActivity extends AppCompatActivity implements
 
         //Move the google map starting point to the center of the campus
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(
-                new CameraPosition(Constants.REUTLINGEN_CENTER, 16, 0, 0)));
+                new CameraPosition(cameraPosition, 16, 0, 0)));
 
         //Initialize the ground overlay map with all its parameters
         mGroundOverlayReutlingen = mMap.addGroundOverlay(new GroundOverlayOptions()
                 .image(BitmapDescriptorFactory.fromPath(
                         mapFiles.get(0).getPath())).anchor(0, 1)
                 .bearing(-60)
-                .position(Constants.REUTLINGEN_MAP, 600, 465));
+                .position(mGroundOverlayPosition, 600, 465));
         activeMap = Constants.MAP_ACTIVE.BASIC_MAP;
 
         //Set seekbar listener behaviours
