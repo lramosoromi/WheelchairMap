@@ -44,7 +44,7 @@ public class MapsActivity extends AppCompatActivity implements
     //The location that was selected in the main page
     private String locationSelected;
     //Image of campus map on top of google map
-    private GroundOverlay mGroundOverlayReutlingen;
+    private GroundOverlay mGroundOverlay;
     //Show which is the active map at the moment (basic map or routes map)
     private Constants.MAP_ACTIVE activeMap;
     //List of only the map image files
@@ -118,12 +118,12 @@ public class MapsActivity extends AppCompatActivity implements
             case R.id.menu_map_action_show_routes:
                 //Change the map file from basic to routes accordingly
                 if (activeMap == Constants.MAP_ACTIVE.BASIC_MAP) {
-                    mGroundOverlayReutlingen.setImage(
+                    mGroundOverlay.setImage(
                             BitmapDescriptorFactory.fromPath(mapFiles.get(1).getPath()));
                     activeMap = Constants.MAP_ACTIVE.ROUTE_MAP;
                 }
                 else if (activeMap == Constants.MAP_ACTIVE.ROUTE_MAP) {
-                    mGroundOverlayReutlingen.setImage(
+                    mGroundOverlay.setImage(
                             BitmapDescriptorFactory.fromPath(mapFiles.get(0).getPath()));
                     activeMap = Constants.MAP_ACTIVE.BASIC_MAP;
                 }
@@ -179,7 +179,7 @@ public class MapsActivity extends AppCompatActivity implements
                 new CameraPosition(cameraPosition, 16, 0, 0)));
 
         //Initialize the ground overlay map with all its parameters
-        mGroundOverlayReutlingen = mMap.addGroundOverlay(new GroundOverlayOptions()
+        mGroundOverlay = mMap.addGroundOverlay(new GroundOverlayOptions()
                 .image(BitmapDescriptorFactory.fromPath(
                         mapFiles.get(0).getPath())).anchor(0, 1)
                 .bearing(-60)
@@ -214,9 +214,9 @@ public class MapsActivity extends AppCompatActivity implements
      */
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        if (mGroundOverlayReutlingen != null)
+        if (mGroundOverlay != null)
             //Change the transparency of the ground overlay map
-            mGroundOverlayReutlingen.setTransparency((float) progress / (float) Constants.TRANSPARENCY_MAX);
+            mGroundOverlay.setTransparency((float) progress / (float) Constants.TRANSPARENCY_MAX);
     }
 
     /**

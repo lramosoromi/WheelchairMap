@@ -141,8 +141,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         //Check if the selected location is not null and if it equals the available location
         else if (location != null && location.equals(australLocation)) {
             //Get the path of the files
-            filesToDownload = Constants.FILES_PATH_AUSTRAL
-            ;
+            filesToDownload = Constants.FILES_PATH_AUSTRAL;
             //Check if there are downloaded files and if they are all the files to be downloaded
             if (Constants.getImageFiles() != null
                     && Constants.getImageFiles().size() == filesToDownload.length) {
@@ -161,7 +160,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     downloadContent();
                 }
             }
-            // END LO QUE HAY QUE CAMBIAR
         } else {
             //If the selected location is null or not equal to an available location
             Toast.makeText(this, "Please select a location", Toast.LENGTH_SHORT).show();
