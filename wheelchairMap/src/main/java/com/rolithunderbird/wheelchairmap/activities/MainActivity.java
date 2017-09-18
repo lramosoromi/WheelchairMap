@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         //Check if the selected location is not null and if it equals the available location
         if (location != null && location.equals(reutlingenLocation)) {
             //Get the path of the files
-            filesToDownload = Constants.FILES_PATH;
+            filesToDownload = Constants.FILES_PATH_REUTLINGEN;
             //Check if there are downloaded files and if they are all the files to be downloaded
             if (Constants.getImageFiles() != null
                     && Constants.getImageFiles().size() == filesToDownload.length) {

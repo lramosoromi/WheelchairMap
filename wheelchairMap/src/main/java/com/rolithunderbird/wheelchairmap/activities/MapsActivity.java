@@ -158,12 +158,18 @@ public class MapsActivity extends AppCompatActivity implements
         //LatLng of the location selected by the user
         LatLng cameraPosition = new LatLng(0, 0);
         LatLng mGroundOverlayPosition = new LatLng(0, 0);
+        Integer cameraZoom = 0;
+        Integer mapBearing = 0;
         if(locationSelected.equals(Constants.AVAILABLE_LOCATIONS[0])) {
             cameraPosition = Constants.REUTLINGEN_CENTER;
             mGroundOverlayPosition = Constants.REUTLINGEN_MAP;
+            cameraZoom = Constants.REUTLINGEN_CAMERA_ZOOM;
+            mapBearing = Constants.REUTLINGEN_BEARING;
         }else if(locationSelected.equals(Constants.AVAILABLE_LOCATIONS[1])) {
             cameraPosition = Constants.AUSTRAL_CENTER;
             mGroundOverlayPosition = Constants.AUSTRAL_MAP;
+            cameraZoom = Constants.AUSTRAL_CAMERA_ZOOM;
+            mapBearing = Constants.AUSTRAL_BEARING;
         }
 
         //Set the function called whenever someone touches over the map
@@ -176,13 +182,13 @@ public class MapsActivity extends AppCompatActivity implements
 
         //Move the google map starting point to the center of the campus
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(
-                new CameraPosition(cameraPosition, 16, 0, 0)));
+                new CameraPosition(cameraPosition, cameraZoom, 0, 0)));
 
         //Initialize the ground overlay map with all its parameters
         mGroundOverlay = mMap.addGroundOverlay(new GroundOverlayOptions()
                 .image(BitmapDescriptorFactory.fromPath(
                         mapFiles.get(0).getPath())).anchor(0, 1)
-                .bearing(-60)
+                .bearing(mapBearing)
                 .position(mGroundOverlayPosition, 600, 465));
         activeMap = Constants.MAP_ACTIVE.BASIC_MAP;
 

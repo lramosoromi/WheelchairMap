@@ -1,7 +1,6 @@
 package com.rolithunderbird.wheelchairmap.utils;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -85,10 +84,18 @@ public class Constants {
     public static final LatLng REUTLINGEN_CENTER = new LatLng(48.481905, 9.188492);
     public static final LatLng AUSTRAL_CENTER = new LatLng(-34.456582, -58.859102);
 
+    //Bearing of the image to be added to the map
+    public static final Integer REUTLINGEN_BEARING = -60;
+    public static final Integer AUSTRAL_BEARING = 60;
+
+    //Bearing of the image to be added to the map
+    public static final Integer REUTLINGEN_CAMERA_ZOOM = 16;
+    public static final Integer AUSTRAL_CAMERA_ZOOM = 15;
+
     // LatLng location where the file of Reutlingen campus goes on the google map.
     // This location points to the bottom left border.
     public static final LatLng REUTLINGEN_MAP = new LatLng(48.478679, 9.188791);
-    public static final LatLng AUSTRAL_MAP = new LatLng(-34.466582, -58.855102);
+    public static final LatLng AUSTRAL_MAP = new LatLng(-34.456568, -58.859728);
 
     //Here are stored all the buildings LatLng coordinates that will be used in the app
     //<editor-fold desc="Building LatLng Coordinates">
@@ -140,9 +147,9 @@ public class Constants {
      */
     //<editor-fold desc="Path of different files">
     //Path in the storage to get the image file
-    public static final String BASIC_MAP = "images/mapa_reutlingen.png";
+    public static final String BASIC_MAP_REUTLINGEN = "images/mapa_reutlingen.png";
     //Path in the storage to get the image file
-    public static final String ROUTES_MAP = "images/mapa_reutlingen_rutas.png";
+    public static final String ROUTES_MAP_REUTLINGEN = "images/mapa_reutlingen_rutas.png";
     //Path in the storage to get the image file
     public static final String BUILDING_IMAGE = "images/building_image.png";
     //Path in the storage to get the icon file
@@ -175,8 +182,8 @@ public class Constants {
     public static final String BASIC_MAP_AUSTRAL = "images/mapa_austral.png";
 
     //Array of the different files path in the storage.
-    public static String[] FILES_PATH = {
-            BASIC_MAP, ROUTES_MAP, BUILDING_IMAGE, ICON_PLANE, ICON_INCLINED,
+    public static String[] FILES_PATH_REUTLINGEN = {
+            BASIC_MAP_REUTLINGEN, ROUTES_MAP_REUTLINGEN, BUILDING_IMAGE, ICON_PLANE, ICON_INCLINED,
             ICON_ELEVATOR, ICON_AUTOMATIC_DOOR, ICON_ASSISTANCE, ICON_WC, ICON_EXIT,
             BUILDING9_UNDERGROUND_BLUEPRINT, BUILDING9_MAIN_FLOOR_BLUEPRINT,
             BUILDING9_FIRST_FLOOR_BLUEPRINT, BUILDING9_SECOND_FLOOR_BLUEPRINT, BUILDING9_THIRD_FLOOR_BLUEPRINT};
