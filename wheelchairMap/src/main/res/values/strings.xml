@@ -64,62 +64,74 @@
     <!--    Dialog Building Info   -->
     <string name="dialog_building_info_title">Building</string>
     <string name="dialog_building_info_btn_select">Go to building</string>
-    <string name="dialog_building_info_description_one">
+    <!--    Reutlingen Buildings    -->
+    <string name="dialog_reutlingen_building_info_description_one">
         School of textile and design.\nInteractive materials teaching and research center.\nProcess
         analysis and technology teaching and research center.
     </string>
-    <string name="dialog_building_info_description_two">
+    <string name="dialog_reutlingen_building_info_description_two">
         School of applied chemistry.\nReutlingen research institute.
     </string>
-    <string name="dialog_building_info_description_three">
+    <string name="dialog_reutlingen_building_info_description_three">
         Presidium / Administration.\nStudy service center.\nInternational Office.\nLearning center.
     </string>
-    <string name="dialog_building_info_description_four">
+    <string name="dialog_reutlingen_building_info_description_four">
         School of engineering.
     </string>
-    <string name="dialog_building_info_description_five">
+    <string name="dialog_reutlingen_building_info_description_five">
         ESB Business school.
     </string>
-    <string name="dialog_building_info_description_six">
+    <string name="dialog_reutlingen_building_info_description_six">
         Aula.
     </string>
-    <string name="dialog_building_info_description_seven">
+    <string name="dialog_reutlingen_building_info_description_seven">
         Cafeteria.\n
         Real training seminar.
     </string>
-    <string name="dialog_building_info_description_eight">
+    <string name="dialog_reutlingen_building_info_description_eight">
         Computing and media center.
     </string>
-    <string name="dialog_building_info_description_nine">
+    <string name="dialog_reutlingen_building_info_description_nine">
         School of informatics.
     </string>
-    <string name="dialog_building_info_description_ten">
+    <string name="dialog_reutlingen_building_info_description_ten">
         University service center.
     </string>
-    <string name="dialog_building_info_description_eleven">
+    <string name="dialog_reutlingen_building_info_description_eleven">
         Gym.
     </string>
-    <string name="dialog_building_info_description_twelve">
+    <string name="dialog_reutlingen_building_info_description_twelve">
         Educational college.
     </string>
-    <string name="dialog_building_info_description_thirteen">
+    <string name="dialog_reutlingen_building_info_description_thirteen">
         Day care center.
     </string>
-    <string name="dialog_building_info_description_fourteen">
+    <string name="dialog_reutlingen_building_info_description_fourteen">
         Educational college.
     </string>
-    <string name="dialog_building_info_description_fifteen">
+    <string name="dialog_reutlingen_building_info_description_fifteen">
         University service center.
     </string>
-    <string name="dialog_building_info_description_sixteen">
+    <string name="dialog_reutlingen_building_info_description_sixteen">
         ESB Business school.
     </string>
-    <string name="dialog_building_info_description_seventeen">
+    <string name="dialog_reutlingen_building_info_description_seventeen">
         ESB Business school.\nKnowledge foundation.
     </string>
-    <string name="dialog_building_info_description_twenty">
+    <string name="dialog_reutlingen_building_info_description_twenty">
         School of textiles and design.\nSchool of informatics.\nReutlingen energy center.
     </string>
+    <!--    Austral Buildings   -->
+    <string name="dialog_austral_building_info_description_admin">
+        Visitors Entrance. Administration. Cafeteria. Library.
+    </string>
+    <string name="dialog_austral_building_info_description_a">
+        Engineer Building. Auditorium. Chapel.
+    </string>
+    <string name="dialog_austral_building_info_description_b">
+        Student Administration Office. TV Room. Radio Room.
+    </string>
+
 
     <!--    Dialog Contact  -->
     <string name="dialog_contact_title">Contact</string>

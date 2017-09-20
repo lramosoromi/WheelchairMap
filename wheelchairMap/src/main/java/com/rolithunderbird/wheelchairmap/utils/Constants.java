@@ -1,7 +1,6 @@
 package com.rolithunderbird.wheelchairmap.utils;
 
 import com.google.android.gms.maps.model.LatLng;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,28 +46,28 @@ public class Constants {
      * ======== String values for Firebase Database ========
      */
     //String value of google maps starting point key
-    public static final String MAP_START_KEY = "map_center";
+    private static final String MAP_START_KEY = "map_center";
     //String value of campus map position key
-    public static final String MAP_POSITION_KEY = "campus_map_position";
+    private static final String MAP_POSITION_KEY = "campus_map_position";
     //<editor-fold desc="Building String Key">
-    protected static final String REUTLINGEN_BUILDING_1_KEY = "building1_position";
-    protected static final String REUTLINGEN_BUILDING_2_KEY = "building2_position";
-    protected static final String REUTLINGEN_BUILDING_3_KEY = "building3_position";
-    protected static final String REUTLINGEN_BUILDING_4_KEY = "building4_position";
-    protected static final String REUTLINGEN_BUILDING_5_KEY = "building5_position";
-    protected static final String REUTLINGEN_BUILDING_6_KEY = "building6_position";
-    protected static final String REUTLINGEN_BUILDING_7_KEY = "building7_position";
-    protected static final String REUTLINGEN_BUILDING_8_KEY = "building8_position";
-    protected static final String REUTLINGEN_BUILDING_9_KEY = "building9_position";
-    protected static final String REUTLINGEN_BUILDING_10_KEY = "building10_position";
-    protected static final String REUTLINGEN_BUILDING_11_KEY = "building11_position";
-    protected static final String REUTLINGEN_BUILDING_12_KEY = "building12_position";
-    protected static final String REUTLINGEN_BUILDING_13_KEY = "building13_position";
-    protected static final String REUTLINGEN_BUILDING_14_KEY = "building14_position";
-    protected static final String REUTLINGEN_BUILDING_15_KEY = "building15_position";
-    protected static final String REUTLINGEN_BUILDING_16_KEY = "building16_position";
-    protected static final String REUTLINGEN_BUILDING_17_KEY = "building17_position";
-    protected static final String REUTLINGEN_BUILDING_20_KEY = "building20_position";
+    private static final String REUTLINGEN_BUILDING_1_KEY = "building1_position";
+    private static final String REUTLINGEN_BUILDING_2_KEY = "building2_position";
+    private static final String REUTLINGEN_BUILDING_3_KEY = "building3_position";
+    private static final String REUTLINGEN_BUILDING_4_KEY = "building4_position";
+    private static final String REUTLINGEN_BUILDING_5_KEY = "building5_position";
+    private static final String REUTLINGEN_BUILDING_6_KEY = "building6_position";
+    private static final String REUTLINGEN_BUILDING_7_KEY = "building7_position";
+    private static final String REUTLINGEN_BUILDING_8_KEY = "building8_position";
+    private static final String REUTLINGEN_BUILDING_9_KEY = "building9_position";
+    private static final String REUTLINGEN_BUILDING_10_KEY = "building10_position";
+    private static final String REUTLINGEN_BUILDING_11_KEY = "building11_position";
+    private static final String REUTLINGEN_BUILDING_12_KEY = "building12_position";
+    private static final String REUTLINGEN_BUILDING_13_KEY = "building13_position";
+    private static final String REUTLINGEN_BUILDING_14_KEY = "building14_position";
+    private static final String REUTLINGEN_BUILDING_15_KEY = "building15_position";
+    private static final String REUTLINGEN_BUILDING_16_KEY = "building16_position";
+    private static final String REUTLINGEN_BUILDING_17_KEY = "building17_position";
+    private static final String REUTLINGEN_BUILDING_20_KEY = "building20_position";
     //</editor-fold>
     //Array of the different keys path in the database.
     public static String[] KEYS_PATH = {
@@ -90,36 +89,48 @@ public class Constants {
 
     //Bearing of the image to be added to the map
     public static final Integer REUTLINGEN_CAMERA_ZOOM = 16;
-    public static final Integer AUSTRAL_CAMERA_ZOOM = 15;
+    public static final Integer AUSTRAL_CAMERA_ZOOM = 18;
 
     // LatLng location where the file of Reutlingen campus goes on the google map.
     // This location points to the bottom left border.
     public static final LatLng REUTLINGEN_MAP = new LatLng(48.478679, 9.188791);
-    public static final LatLng AUSTRAL_MAP = new LatLng(-34.456568, -58.859728);
+    public static final LatLng AUSTRAL_MAP = new LatLng(-34.456512, -58.859934);
+
+    //Size of the image to be shown on the map
+    public static final Integer REUTLINGEN_MAP_WIDTH = 600;
+    public static final Integer REUTLINGEN_MAP_HEIGHT = 465;
+    public static final Integer AUSTRAL_MAP_WIDTH = 150;
+    public static final Integer AUSTRAL_MAP_HEIGHT = 100;
 
     //Here are stored all the buildings LatLng coordinates that will be used in the app
-    //<editor-fold desc="Building LatLng Coordinates">
-    protected static final LatLng REUTLINGEN_BUILDING_1 = new LatLng(48.481291, 9.184959);
-    protected static final LatLng REUTLINGEN_BUILDING_2 = new LatLng(48.482342, 9.185873);
-    protected static final LatLng REUTLINGEN_BUILDING_3 = new LatLng(48.482191, 9.186583);
-    protected static final LatLng REUTLINGEN_BUILDING_4 = new LatLng(48.481654, 9.187525);
-    protected static final LatLng REUTLINGEN_BUILDING_5 = new LatLng(48.482699, 9.186263);
-    protected static final LatLng REUTLINGEN_BUILDING_6 = new LatLng(48.482420, 9.187888);
-    protected static final LatLng REUTLINGEN_BUILDING_7 = new LatLng(48.482216, 9.188627);
-    protected static final LatLng REUTLINGEN_BUILDING_8 = new LatLng(48.483336, 9.186354);
-    protected static final LatLng REUTLINGEN_BUILDING_9 = new LatLng(48.483066, 9.187489);
-    protected static final LatLng REUTLINGEN_BUILDING_10 = new LatLng(48.482913, 9.188484);
-    protected static final LatLng REUTLINGEN_BUILDING_11 = new LatLng(48.483711, 9.188055);
-    protected static final LatLng REUTLINGEN_BUILDING_12 = new LatLng(48.483432, 9.188756);
-    protected static final LatLng REUTLINGEN_BUILDING_13 = new LatLng(48.483961, 9.188726);
-    protected static final LatLng REUTLINGEN_BUILDING_14 = new LatLng(48.483740, 9.189431);
-    protected static final LatLng REUTLINGEN_BUILDING_15 = new LatLng(48.483145, 9.189419);
-    protected static final LatLng REUTLINGEN_BUILDING_16 = new LatLng(48.482137, 9.189623);
-    protected static final LatLng REUTLINGEN_BUILDING_17 = new LatLng(48.481666, 9.189250);
-    protected static final LatLng REUTLINGEN_BUILDING_20 = new LatLng(48.481029, 9.186182);
+    //<editor-fold desc="Reutlingen Building LatLng Coordinates">
+    private static final LatLng REUTLINGEN_BUILDING_1 = new LatLng(48.481291, 9.184959);
+    private static final LatLng REUTLINGEN_BUILDING_2 = new LatLng(48.482342, 9.185873);
+    private static final LatLng REUTLINGEN_BUILDING_3 = new LatLng(48.482191, 9.186583);
+    private static final LatLng REUTLINGEN_BUILDING_4 = new LatLng(48.481654, 9.187525);
+    private static final LatLng REUTLINGEN_BUILDING_5 = new LatLng(48.482699, 9.186263);
+    private static final LatLng REUTLINGEN_BUILDING_6 = new LatLng(48.482420, 9.187888);
+    private static final LatLng REUTLINGEN_BUILDING_7 = new LatLng(48.482216, 9.188627);
+    private static final LatLng REUTLINGEN_BUILDING_8 = new LatLng(48.483336, 9.186354);
+    private static final LatLng REUTLINGEN_BUILDING_9 = new LatLng(48.483066, 9.187489);
+    private static final LatLng REUTLINGEN_BUILDING_10 = new LatLng(48.482913, 9.188484);
+    private static final LatLng REUTLINGEN_BUILDING_11 = new LatLng(48.483711, 9.188055);
+    private static final LatLng REUTLINGEN_BUILDING_12 = new LatLng(48.483432, 9.188756);
+    private static final LatLng REUTLINGEN_BUILDING_13 = new LatLng(48.483961, 9.188726);
+    private static final LatLng REUTLINGEN_BUILDING_14 = new LatLng(48.483740, 9.189431);
+    private static final LatLng REUTLINGEN_BUILDING_15 = new LatLng(48.483145, 9.189419);
+    private static final LatLng REUTLINGEN_BUILDING_16 = new LatLng(48.482137, 9.189623);
+    private static final LatLng REUTLINGEN_BUILDING_17 = new LatLng(48.481666, 9.189250);
+    private static final LatLng REUTLINGEN_BUILDING_20 = new LatLng(48.481029, 9.186182);
     //</editor-fold>
+    //<editor-fold desc="Austral Building LatLng Coordinates">
+    private static final LatLng AUSTRAL_BUILDING_ADMIN = new LatLng(-34.456641, -58.858885);
+    private static final LatLng AUSTRAL_BUILDING_A = new LatLng(-34.456557, -58.859406);
+    private static final LatLng AUSTRAL_BUILDING_B = new LatLng(-34.456981, -58.859049);
+    //</editor-fold>
+
     //Now we put all these values in an array to simplify its usage
-    public static final LatLng[] BUILDINGS = {
+    public static final LatLng[] REUTLINGEN_BUILDINGS = {
         REUTLINGEN_BUILDING_1,
         REUTLINGEN_BUILDING_2,
         REUTLINGEN_BUILDING_3,
@@ -140,6 +151,12 @@ public class Constants {
         REUTLINGEN_BUILDING_20,
     };
 
+    public static final LatLng[] AUSTRAL_BUILDINGS = {
+        AUSTRAL_BUILDING_ADMIN,
+        AUSTRAL_BUILDING_A,
+        AUSTRAL_BUILDING_B,
+    };
+
     /**
      * ========= Files ========
      * All the image files used in the app
@@ -147,39 +164,39 @@ public class Constants {
      */
     //<editor-fold desc="Path of different files">
     //Path in the storage to get the image file
-    public static final String BASIC_MAP_REUTLINGEN = "images/mapa_reutlingen.png";
+    private static final String BASIC_MAP_REUTLINGEN = "images/mapa_reutlingen.png";
     //Path in the storage to get the image file
-    public static final String ROUTES_MAP_REUTLINGEN = "images/mapa_reutlingen_rutas.png";
+    private static final String ROUTES_MAP_REUTLINGEN = "images/mapa_reutlingen_rutas.png";
     //Path in the storage to get the image file
-    public static final String BUILDING_IMAGE = "images/building_image.png";
+    private static final String BUILDING_IMAGE = "images/building_image.png";
     //Path in the storage to get the icon file
-    public static final String ICON_PLANE = "icons/icon_plane.png";
+    private static final String ICON_PLANE = "icons/icon_plane.png";
     //Path in the storage to get the icon file
-    public static final String ICON_INCLINED = "icons/icon_inclined.png";
+    private static final String ICON_INCLINED = "icons/icon_inclined.png";
     //Path in the storage to get the icon file
-    public static final String ICON_ELEVATOR = "icons/icon_elevator.png";
+    private static final String ICON_ELEVATOR = "icons/icon_elevator.png";
     //Path in the storage to get the icon file
-    public static final String ICON_AUTOMATIC_DOOR = "icons/icon_automatic_door.png";
+    private static final String ICON_AUTOMATIC_DOOR = "icons/icon_automatic_door.png";
     //Path in the storage to get the icon file
-    public static final String ICON_ASSISTANCE = "icons/icon_needs_assistance.png";
+    private static final String ICON_ASSISTANCE = "icons/icon_needs_assistance.png";
     //Path in the storage to get the icon file
-    public static final String ICON_WC = "icons/icon_wc.png";
+    private static final String ICON_WC = "icons/icon_wc.png";
     //Path in the storage to get the icon file
-    public static final String ICON_EXIT = "icons/icon_exit.png";
+    private static final String ICON_EXIT = "icons/icon_exit.png";
     //Path in the storage to get the blueprint file
-    public static final String BUILDING9_UNDERGROUND_BLUEPRINT = "blueprints/building9_underground.png";
+    private static final String BUILDING9_UNDERGROUND_BLUEPRINT = "blueprints/building9_underground.png";
     //Path in the storage to get the blueprint file
-    public static final String BUILDING9_MAIN_FLOOR_BLUEPRINT = "blueprints/building9_0floor.png";
+    private static final String BUILDING9_MAIN_FLOOR_BLUEPRINT = "blueprints/building9_0floor.png";
     //Path in the storage to get the blueprint file
-    public static final String BUILDING9_FIRST_FLOOR_BLUEPRINT = "blueprints/building9_1floor.png";
+    private static final String BUILDING9_FIRST_FLOOR_BLUEPRINT = "blueprints/building9_1floor.png";
     //Path in the storage to get the blueprint file
-    public static final String BUILDING9_SECOND_FLOOR_BLUEPRINT = "blueprints/building9_2floor.png";
+    private static final String BUILDING9_SECOND_FLOOR_BLUEPRINT = "blueprints/building9_2floor.png";
     //Path in the storage to get the blueprint file
-    public static final String BUILDING9_THIRD_FLOOR_BLUEPRINT = "blueprints/building9_3floor.png";
+    private static final String BUILDING9_THIRD_FLOOR_BLUEPRINT = "blueprints/building9_3floor.png";
     //</editor-fold>
 
     //Path in the storage to get the image file
-    public static final String BASIC_MAP_AUSTRAL = "images/mapa_austral.png";
+    private static final String BASIC_MAP_AUSTRAL = "images/mapa_austral.png";
 
     //Array of the different files path in the storage.
     public static String[] FILES_PATH_REUTLINGEN = {
@@ -190,22 +207,32 @@ public class Constants {
 
     //Array of the different files path in the storage.
     public static String[] FILES_PATH_AUSTRAL = {
-            BASIC_MAP_AUSTRAL, BUILDING_IMAGE, ICON_PLANE, ICON_INCLINED,
+            BASIC_MAP_AUSTRAL, BASIC_MAP_AUSTRAL, BUILDING_IMAGE, ICON_PLANE, ICON_INCLINED,
             ICON_ELEVATOR, ICON_AUTOMATIC_DOOR, ICON_ASSISTANCE, ICON_WC, ICON_EXIT};
 
     //Maps loaded in the storage for use
-    public static final String HOSCHULE_REUTLINGEN = "Hoschule Reutlingen";
-    public static final String UNIVERSIDAD_AUSTRAL = "Austral University";
+    private static final String HOSCHULE_REUTLINGEN = "Hoschule Reutlingen";
+    private static final String UNIVERSIDAD_AUSTRAL = "Austral University";
 
     //Array of the available maps in the storage to use the app
     public static String[] AVAILABLE_LOCATIONS = { HOSCHULE_REUTLINGEN, UNIVERSIDAD_AUSTRAL };
 
     //Blueprints loaded in the storage for use
-    public static final String NONE = "None";
+    private static final String NONE = "None";
     //Blueprints loaded in the storage for use
-    public static final String REUTLINGEN_BUILDING_9_BLUEPRINT = "Building 9";
+    //<editor-fold desc="Reutlingen Building Blueprints">
+    private static final String REUTLINGEN_BUILDING_9_BLUEPRINT = "Building 9";
     //Array of the available blueprints in the storage to use the app
-    public static String[] BUILDING_BLUEPRINT = { NONE, REUTLINGEN_BUILDING_9_BLUEPRINT };
+    public static String[] REUTLINGEN_BUILDING_BLUEPRINT = { NONE, REUTLINGEN_BUILDING_9_BLUEPRINT };
+    //</editor-fold>
+    //<editor-fold desc="Austral Building Blueprints">
+    private static final String AUSTRAL_BUILDING_ADMIN_BLUEPRINT = "Building Admin";
+    private static final String AUSTRAL_BUILDING_A_BLUEPRINT = "Building A";
+    private static final String AUSTRAL_BUILDING_B_BLUEPRINT = "Building B";
+    //Array of the available blueprints in the storage to use the app
+    public static String[] AUSTRAL_BUILDING_BLUEPRINT = { NONE, AUSTRAL_BUILDING_ADMIN_BLUEPRINT,
+            AUSTRAL_BUILDING_A_BLUEPRINT, AUSTRAL_BUILDING_B_BLUEPRINT };
+    //</editor-fold>
 
     /**
      * ======= Enums =========
@@ -240,41 +267,49 @@ public class Constants {
 
     //Here is stored all the buildings icons that will be used when calling
     // the info dialog of each one
-    //<editor-fold desc="Building Icons">
-    public static final DEFAULT_ICONS[] BUILDING_ONE_ICONS = { DEFAULT_ICONS.PLANE,
+    //<editor-fold desc="Reutlingen Building Icons">
+    public static final DEFAULT_ICONS[] REUTLINGEN_BUILDING_ONE_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.ASSISTANCE, DEFAULT_ICONS.WC };
-    public static final DEFAULT_ICONS[] BUILDING_TWO_ICONS = { DEFAULT_ICONS.PLANE,
+    public static final DEFAULT_ICONS[] REUTLINGEN_BUILDING_TWO_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ELEVATOR };
-    public static final DEFAULT_ICONS[] BUILDING_THREE_ICONS = { DEFAULT_ICONS.PLANE,
+    public static final DEFAULT_ICONS[] REUTLINGEN_BUILDING_THREE_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.AUTOMATIC_DOOR, DEFAULT_ICONS.WC, DEFAULT_ICONS.EXIT };
-    public static final DEFAULT_ICONS[] BUILDING_FOUR_ICONS = { DEFAULT_ICONS.PLANE,
+    public static final DEFAULT_ICONS[] REUTLINGEN_BUILDING_FOUR_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.AUTOMATIC_DOOR, DEFAULT_ICONS.WC, DEFAULT_ICONS.EXIT };
-    public static final DEFAULT_ICONS[] BUILDING_FIVE_ICONS = { DEFAULT_ICONS.PLANE,
+    public static final DEFAULT_ICONS[] REUTLINGEN_BUILDING_FIVE_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.ASSISTANCE, DEFAULT_ICONS.WC };
-    public static final DEFAULT_ICONS[] BUILDING_SIX_ICONS = { DEFAULT_ICONS.INCLINED,
+    public static final DEFAULT_ICONS[] REUTLINGEN_BUILDING_SIX_ICONS = { DEFAULT_ICONS.INCLINED,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.ASSISTANCE, DEFAULT_ICONS.WC };
-    public static final DEFAULT_ICONS[] BUILDING_SEVEN_ICONS = { DEFAULT_ICONS.PLANE,
+    public static final DEFAULT_ICONS[] REUTLINGEN_BUILDING_SEVEN_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.ASSISTANCE, DEFAULT_ICONS.WC };
-    public static final DEFAULT_ICONS[] BUILDING_EIGHT_ICONS = { DEFAULT_ICONS.PLANE,
+    public static final DEFAULT_ICONS[] REUTLINGEN_BUILDING_EIGHT_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.AUTOMATIC_DOOR, DEFAULT_ICONS.WC, DEFAULT_ICONS.EXIT };
-    public static final DEFAULT_ICONS[] BUILDING_NINE_ICONS = { DEFAULT_ICONS.INCLINED,
+    public static final DEFAULT_ICONS[] REUTLINGEN_BUILDING_NINE_ICONS = { DEFAULT_ICONS.INCLINED,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.ASSISTANCE, DEFAULT_ICONS.WC };
-    public static final DEFAULT_ICONS[] BUILDING_TEN_ICONS = { DEFAULT_ICONS.PLANE,
+    public static final DEFAULT_ICONS[] REUTLINGEN_BUILDING_TEN_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.ASSISTANCE, DEFAULT_ICONS.WC };
-    public static final DEFAULT_ICONS[] BUILDING_ELEVEN_ICONS = { DEFAULT_ICONS.PLANE,
+    public static final DEFAULT_ICONS[] REUTLINGEN_BUILDING_ELEVEN_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.AUTOMATIC_DOOR, DEFAULT_ICONS.WC, DEFAULT_ICONS.EXIT };
-    public static final DEFAULT_ICONS[] BUILDING_TWELVE_ICONS = {  };
-    public static final DEFAULT_ICONS[] BUILDING_THIRTEEN_ICONS = {  };
-    public static final DEFAULT_ICONS[] BUILDING_FOURTEEN_ICONS = { DEFAULT_ICONS.PLANE,
+    public static final DEFAULT_ICONS[] REUTLINGEN_BUILDING_TWELVE_ICONS = {  };
+    public static final DEFAULT_ICONS[] REUTLINGEN_BUILDING_THIRTEEN_ICONS = {  };
+    public static final DEFAULT_ICONS[] REUTLINGEN_BUILDING_FOURTEEN_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.ASSISTANCE, DEFAULT_ICONS.WC, DEFAULT_ICONS.EXIT };
-    public static final DEFAULT_ICONS[] BUILDING_FIFTEEN_ICONS = { DEFAULT_ICONS.PLANE,
+    public static final DEFAULT_ICONS[] REUTLINGEN_BUILDING_FIFTEEN_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ASSISTANCE };
-    public static final DEFAULT_ICONS[] BUILDING_SIXTEEN_ICONS = { DEFAULT_ICONS.PLANE,
+    public static final DEFAULT_ICONS[] REUTLINGEN_BUILDING_SIXTEEN_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.AUTOMATIC_DOOR, DEFAULT_ICONS.WC, DEFAULT_ICONS.EXIT };
-    public static final DEFAULT_ICONS[] BUILDING_SEVENTEEN_ICONS = { DEFAULT_ICONS.PLANE,
+    public static final DEFAULT_ICONS[] REUTLINGEN_BUILDING_SEVENTEEN_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.ASSISTANCE, DEFAULT_ICONS.WC };
-    public static final DEFAULT_ICONS[] BUILDING_TWENTY_ICONS = { DEFAULT_ICONS.PLANE,
+    public static final DEFAULT_ICONS[] REUTLINGEN_BUILDING_TWENTY_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.ASSISTANCE, DEFAULT_ICONS.WC, DEFAULT_ICONS.EXIT };
+    //</editor-fold>
+    //<editor-fold desc="Austral Building Icons">
+    public static final DEFAULT_ICONS[] AUSTRAL_BUILDING_ADMIN_ICONS = { DEFAULT_ICONS.PLANE,
+            DEFAULT_ICONS.ASSISTANCE, DEFAULT_ICONS.WC, DEFAULT_ICONS.EXIT };
+    public static final DEFAULT_ICONS[] AUSTRAL_BUILDING_A_ICONS = { DEFAULT_ICONS.PLANE,
+            DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.WC, DEFAULT_ICONS.EXIT };
+    public static final DEFAULT_ICONS[] AUSTRAL_BUILDING_B_ICONS = { DEFAULT_ICONS.PLANE,
+            DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.WC, DEFAULT_ICONS.EXIT };
     //</editor-fold>
 
     /**

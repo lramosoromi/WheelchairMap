@@ -132,6 +132,7 @@ public class MapsActivity extends AppCompatActivity implements
                 //Create a new custom dialog of the type building selection
                 CustomDialog buildingSelectionCustomDialog = new CustomDialog(
                         this, Constants.DIALOG_TYPE.BUILDING_SELECTION);
+                buildingSelectionCustomDialog.setLocation(locationSelected);
                 buildingSelectionCustomDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 buildingSelectionCustomDialog.show();
                 return true;
@@ -159,17 +160,23 @@ public class MapsActivity extends AppCompatActivity implements
         LatLng cameraPosition = new LatLng(0, 0);
         LatLng mGroundOverlayPosition = new LatLng(0, 0);
         Integer cameraZoom = 0;
-        Integer mapBearing = 0;
+        Integer imageBearing = 0;
+        Integer imageWidth = 0;
+        Integer imageHeight = 0;
         if(locationSelected.equals(Constants.AVAILABLE_LOCATIONS[0])) {
             cameraPosition = Constants.REUTLINGEN_CENTER;
-            mGroundOverlayPosition = Constants.REUTLINGEN_MAP;
             cameraZoom = Constants.REUTLINGEN_CAMERA_ZOOM;
-            mapBearing = Constants.REUTLINGEN_BEARING;
+            imageBearing = Constants.REUTLINGEN_BEARING;
+            mGroundOverlayPosition = Constants.REUTLINGEN_MAP;
+            imageWidth = Constants.REUTLINGEN_MAP_WIDTH;
+            imageHeight = Constants.REUTLINGEN_MAP_HEIGHT;
         }else if(locationSelected.equals(Constants.AVAILABLE_LOCATIONS[1])) {
             cameraPosition = Constants.AUSTRAL_CENTER;
             mGroundOverlayPosition = Constants.AUSTRAL_MAP;
             cameraZoom = Constants.AUSTRAL_CAMERA_ZOOM;
-            mapBearing = Constants.AUSTRAL_BEARING;
+            imageBearing = Constants.AUSTRAL_BEARING;
+            imageWidth = Constants.AUSTRAL_MAP_WIDTH;
+            imageHeight = Constants.AUSTRAL_MAP_HEIGHT;
         }
 
         //Set the function called whenever someone touches over the map
@@ -188,8 +195,8 @@ public class MapsActivity extends AppCompatActivity implements
         mGroundOverlay = mMap.addGroundOverlay(new GroundOverlayOptions()
                 .image(BitmapDescriptorFactory.fromPath(
                         mapFiles.get(0).getPath())).anchor(0, 1)
-                .bearing(mapBearing)
-                .position(mGroundOverlayPosition, 600, 465));
+                .bearing(imageBearing)
+                .position(mGroundOverlayPosition, imageWidth, imageHeight));
         activeMap = Constants.MAP_ACTIVE.BASIC_MAP;
 
         //Set seekbar listener behaviours
@@ -314,14 +321,21 @@ public class MapsActivity extends AppCompatActivity implements
      * Method used to select the closest building in the map to the Location clicked by the user
      */
     private void selectClosestBuilding(LatLng clickedLatLng) {
-        //First create location of the placed clicked
+        //First check the location selected and retrieve a list of the buildings from that location
+        LatLng[] buildingsList = new LatLng[0];
+        if(locationSelected.equals(Constants.AVAILABLE_LOCATIONS[0]))
+            buildingsList = Constants.REUTLINGEN_BUILDINGS;
+        else if (locationSelected.equals(Constants.AVAILABLE_LOCATIONS[1]))
+            buildingsList = Constants.AUSTRAL_BUILDINGS;
+
+        //Then create location of the placed clicked
         Location clickedLocation = new Location("");
         clickedLocation.setLatitude(clickedLatLng.latitude);
         clickedLocation.setLongitude(clickedLatLng.longitude);
 
-        //Second create location of the first building
+        //After create location of the first building
         Location buildingLocation = new Location("");
-        LatLng firstBuilding = Constants.BUILDINGS[0];
+        LatLng firstBuilding = buildingsList[0];
         buildingLocation.setLatitude(firstBuilding.latitude);
         buildingLocation.setLongitude(firstBuilding.longitude);
 
@@ -330,9 +344,9 @@ public class MapsActivity extends AppCompatActivity implements
 
         //Iterate through all the buildings
         int indexOfClosestBuilding = 0;
-        for(int j = 1; j < Constants.BUILDINGS.length; j++){
-            buildingLocation.setLatitude(Constants.BUILDINGS[j].latitude);
-            buildingLocation.setLongitude(Constants.BUILDINGS[j].longitude);
+        for(int j = 1; j < buildingsList.length; j++){
+            buildingLocation.setLatitude(buildingsList[j].latitude);
+            buildingLocation.setLongitude(buildingsList[j].longitude);
 
             //Calculate the new distance between clickedLocation and next building
             float newDistance = buildingLocation.distanceTo(clickedLocation);
@@ -347,83 +361,114 @@ public class MapsActivity extends AppCompatActivity implements
         if (closestDistance > Constants.MAX_CLOSEST_DISTANCE)
             indexOfClosestBuilding = -1;
 
+        //Call private method to select the closest building depending on the buildings list and the
+        // index of the closest one.
+        getClosestBuildingFromIndex(indexOfClosestBuilding);
+
+    }
+
+    /**
+     * Method that searches on the buildings list and chooses one depending on the index passed
+     * as parameter
+     * @param index
+     */
+    private void getClosestBuildingFromIndex(Integer index) {
         //This switch is to decide which is the building closest to the touch using the buildings array
         // and creates a popup of that building
-        switch (indexOfClosestBuilding) {
-            case 0:
-                createBuildingInfoPopup("1", getResources()
-                        .getString(R.string.dialog_building_info_description_one));
-                break;
-            case 1:
-                createBuildingInfoPopup("2", getResources()
-                        .getString(R.string.dialog_building_info_description_two));
-                break;
-            case 2:
-                createBuildingInfoPopup("3", getResources()
-                        .getString(R.string.dialog_building_info_description_three));
-                break;
-            case 3:
-                createBuildingInfoPopup("4", getResources()
-                        .getString(R.string.dialog_building_info_description_four));
-                break;
-            case 4:
-                createBuildingInfoPopup("5", getResources()
-                        .getString(R.string.dialog_building_info_description_five));
-                break;
-            case 5:
-                createBuildingInfoPopup("6", getResources()
-                        .getString(R.string.dialog_building_info_description_six));
-                break;
-            case 6:
-                createBuildingInfoPopup("7", getResources()
-                        .getString(R.string.dialog_building_info_description_seven));
-                break;
-            case 7:
-                createBuildingInfoPopup("8", getResources()
-                        .getString(R.string.dialog_building_info_description_eight));
-                break;
-            case 8:
-                createBuildingInfoPopup("9", getResources()
-                        .getString(R.string.dialog_building_info_description_nine));
-                break;
-            case 9:
-                createBuildingInfoPopup("10", getResources()
-                        .getString(R.string.dialog_building_info_description_ten));
-                break;
-            case 10:
-                createBuildingInfoPopup("11", getResources()
-                        .getString(R.string.dialog_building_info_description_eleven));
-                break;
-            case 11:
-                createBuildingInfoPopup("12", getResources()
-                        .getString(R.string.dialog_building_info_description_twelve));
-                break;
-            case 12:
-                createBuildingInfoPopup("13", getResources()
-                        .getString(R.string.dialog_building_info_description_thirteen));
-                break;
-            case 13:
-                createBuildingInfoPopup("14", getResources()
-                        .getString(R.string.dialog_building_info_description_fourteen));
-                break;
-            case 14:
-                createBuildingInfoPopup("15", getResources()
-                        .getString(R.string.dialog_building_info_description_fifteen));
-                break;
-            case 15:
-                createBuildingInfoPopup("16", getResources()
-                        .getString(R.string.dialog_building_info_description_sixteen));
-                break;
-            case 16:
-                createBuildingInfoPopup("17", getResources()
-                        .getString(R.string.dialog_building_info_description_seventeen));
-                break;
-            case 17:
-                createBuildingInfoPopup("20", getResources()
-                        .getString(R.string.dialog_building_info_description_twenty));
-                break;
-            default:
-                break;
+        if(locationSelected.equals(Constants.AVAILABLE_LOCATIONS[0])) {
+            switch (index) {
+                case 0:
+                    createBuildingInfoPopup("1", getResources()
+                            .getString(R.string.dialog_reutlingen_building_info_description_one));
+                    break;
+                case 1:
+                    createBuildingInfoPopup("2", getResources()
+                            .getString(R.string.dialog_reutlingen_building_info_description_two));
+                    break;
+                case 2:
+                    createBuildingInfoPopup("3", getResources()
+                            .getString(R.string.dialog_reutlingen_building_info_description_three));
+                    break;
+                case 3:
+                    createBuildingInfoPopup("4", getResources()
+                            .getString(R.string.dialog_reutlingen_building_info_description_four));
+                    break;
+                case 4:
+                    createBuildingInfoPopup("5", getResources()
+                            .getString(R.string.dialog_reutlingen_building_info_description_five));
+                    break;
+                case 5:
+                    createBuildingInfoPopup("6", getResources()
+                            .getString(R.string.dialog_reutlingen_building_info_description_six));
+                    break;
+                case 6:
+                    createBuildingInfoPopup("7", getResources()
+                            .getString(R.string.dialog_reutlingen_building_info_description_seven));
+                    break;
+                case 7:
+                    createBuildingInfoPopup("8", getResources()
+                            .getString(R.string.dialog_reutlingen_building_info_description_eight));
+                    break;
+                case 8:
+                    createBuildingInfoPopup("9", getResources()
+                            .getString(R.string.dialog_reutlingen_building_info_description_nine));
+                    break;
+                case 9:
+                    createBuildingInfoPopup("10", getResources()
+                            .getString(R.string.dialog_reutlingen_building_info_description_ten));
+                    break;
+                case 10:
+                    createBuildingInfoPopup("11", getResources()
+                            .getString(R.string.dialog_reutlingen_building_info_description_eleven));
+                    break;
+                case 11:
+                    createBuildingInfoPopup("12", getResources()
+                            .getString(R.string.dialog_reutlingen_building_info_description_twelve));
+                    break;
+                case 12:
+                    createBuildingInfoPopup("13", getResources()
+                            .getString(R.string.dialog_reutlingen_building_info_description_thirteen));
+                    break;
+                case 13:
+                    createBuildingInfoPopup("14", getResources()
+                            .getString(R.string.dialog_reutlingen_building_info_description_fourteen));
+                    break;
+                case 14:
+                    createBuildingInfoPopup("15", getResources()
+                            .getString(R.string.dialog_reutlingen_building_info_description_fifteen));
+                    break;
+                case 15:
+                    createBuildingInfoPopup("16", getResources()
+                            .getString(R.string.dialog_reutlingen_building_info_description_sixteen));
+                    break;
+                case 16:
+                    createBuildingInfoPopup("17", getResources()
+                            .getString(R.string.dialog_reutlingen_building_info_description_seventeen));
+                    break;
+                case 17:
+                    createBuildingInfoPopup("20", getResources()
+                            .getString(R.string.dialog_reutlingen_building_info_description_twenty));
+                    break;
+                default:
+                    break;
+            }
+        } else if (locationSelected.equals(Constants.AVAILABLE_LOCATIONS[1])) {
+            switch (index) {
+                case 0:
+                    createBuildingInfoPopup("Admin", getResources()
+                            .getString(R.string.dialog_austral_building_info_description_admin));
+                    break;
+                case 1:
+                    createBuildingInfoPopup("A", getResources()
+                            .getString(R.string.dialog_austral_building_info_description_a));
+                    break;
+                case 2:
+                    createBuildingInfoPopup("B", getResources()
+                            .getString(R.string.dialog_austral_building_info_description_b));
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -435,7 +480,11 @@ public class MapsActivity extends AppCompatActivity implements
     private void createBuildingInfoPopup(String title, String info) {
         //Create a new custom dialog of the type building info
         CustomDialog customDialog = new CustomDialog(this, Constants.DIALOG_TYPE.BUILDING_INFO);
-        customDialog.setIconsVisibility(Integer.parseInt(title));
+        if (locationSelected.equals(Constants.AVAILABLE_LOCATIONS[0]))
+            customDialog.setIconsVisibility(Integer.parseInt(title));
+        else if (locationSelected.equals(Constants.AVAILABLE_LOCATIONS[1]))
+            customDialog.setIconsVisibility(title);
+
         customDialog.setBuildingTitle(title);
         customDialog.setBuildingInfo(info);
         customDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

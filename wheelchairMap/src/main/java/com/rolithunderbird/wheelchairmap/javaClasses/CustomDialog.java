@@ -34,6 +34,8 @@ public class CustomDialog extends Dialog
     private Activity activity;
     //Typeof dialog
     private Constants.DIALOG_TYPE dialogType;
+    //The location that was selected in the main page
+    private String locationSelected;
     //Blueprint that will be shown (value from picklist)
     private String blueprint;
     //Building title that will be shown
@@ -84,6 +86,14 @@ public class CustomDialog extends Dialog
      */
     public void setBlueprint(String string) {
         blueprint = string;
+    }
+
+    /**
+     * Setter
+     * @param location
+     */
+    public void setLocation(String location) {
+        locationSelected = location;
     }
 
     /**
@@ -248,13 +258,16 @@ public class CustomDialog extends Dialog
      */
     @Override
     public void onClick(View v) {
+
+        // ACA HAY QUE VER COMO HACER CON LOS PLANOS DE LA AUSTRAL
+
         //Check if the blueprint picklist is equal to an available blueprint
-        if (blueprint != null && blueprint.equals(Constants.BUILDING_BLUEPRINT[0])) {
+        if (blueprint != null && blueprint.equals(Constants.REUTLINGEN_BUILDING_BLUEPRINT[0])) {
             //If blueprint is not null, but selected None on picklist
             Toast.makeText(activity.getBaseContext(), "Please select a building",
                     Toast.LENGTH_SHORT).show();
         }
-        else if (blueprint != null && blueprint.equals(Constants.BUILDING_BLUEPRINT[1])) {
+        else if (blueprint != null && blueprint.equals(Constants.REUTLINGEN_BUILDING_BLUEPRINT[1])) {
             //If blueprint is available
             //Call Activity of the building blueprint
             Intent intent = new Intent(activity.getBaseContext(), BlueprintActivity.class);
@@ -278,17 +291,19 @@ public class CustomDialog extends Dialog
      * @param id
      */
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view,
-                               int pos, long id) {
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         // Get the string of the item selected
         String selected = parent.getItemAtPosition(pos).toString();
+
+        //ACA HAY QUE VER COMO HACER CON LOS PLANOS DE LA AUSTRAL
+
         //Compare its value to see if its the available or not
-        if (selected.equals(Constants.BUILDING_BLUEPRINT[1])) {
-            blueprint = Constants.BUILDING_BLUEPRINT[1];
+        if (selected.equals(Constants.REUTLINGEN_BUILDING_BLUEPRINT[1])) {
+            blueprint = Constants.REUTLINGEN_BUILDING_BLUEPRINT[1];
         }
         else {
             //If not set it to NULL value
-            blueprint = Constants.BUILDING_BLUEPRINT[0];
+            blueprint = Constants.REUTLINGEN_BUILDING_BLUEPRINT[0];
         }
     }
 
@@ -329,75 +344,107 @@ public class CustomDialog extends Dialog
         //Compare value and iterate with Constant value of each building
         switch (building) {
             case 1 :
-                iterateIconArray(Constants.BUILDING_ONE_ICONS);
+                iterateIconArray(Constants.REUTLINGEN_BUILDING_ONE_ICONS);
                 blueprint = null;
                 break;
             case 2 :
-                iterateIconArray(Constants.BUILDING_TWO_ICONS);
+                iterateIconArray(Constants.REUTLINGEN_BUILDING_TWO_ICONS);
                 blueprint = null;
                 break;
             case 3 :
-                iterateIconArray(Constants.BUILDING_THREE_ICONS);
+                iterateIconArray(Constants.REUTLINGEN_BUILDING_THREE_ICONS);
                 blueprint = null;
                 break;
             case 4 :
-                iterateIconArray(Constants.BUILDING_FOUR_ICONS);
+                iterateIconArray(Constants.REUTLINGEN_BUILDING_FOUR_ICONS);
                 blueprint = null;
                 break;
             case 5 :
-                iterateIconArray(Constants.BUILDING_FIVE_ICONS);
+                iterateIconArray(Constants.REUTLINGEN_BUILDING_FIVE_ICONS);
                 blueprint = null;
                 break;
             case 6 :
-                iterateIconArray(Constants.BUILDING_SIX_ICONS);
+                iterateIconArray(Constants.REUTLINGEN_BUILDING_SIX_ICONS);
                 blueprint = null;
                 break;
             case 7 :
-                iterateIconArray(Constants.BUILDING_SEVEN_ICONS);
+                iterateIconArray(Constants.REUTLINGEN_BUILDING_SEVEN_ICONS);
                 blueprint = null;
                 break;
             case 8 :
-                iterateIconArray(Constants.BUILDING_EIGHT_ICONS);
+                iterateIconArray(Constants.REUTLINGEN_BUILDING_EIGHT_ICONS);
                 blueprint = null;
                 break;
             case 9 :
-                iterateIconArray(Constants.BUILDING_NINE_ICONS);
-                blueprint = Constants.BUILDING_BLUEPRINT[1];
+                iterateIconArray(Constants.REUTLINGEN_BUILDING_NINE_ICONS);
+                blueprint = Constants.REUTLINGEN_BUILDING_BLUEPRINT[1];
                 break;
             case 10 :
-                iterateIconArray(Constants.BUILDING_TEN_ICONS);
+                iterateIconArray(Constants.REUTLINGEN_BUILDING_TEN_ICONS);
                 blueprint = null;
                 break;
             case 11 :
-                iterateIconArray(Constants.BUILDING_ELEVEN_ICONS);
+                iterateIconArray(Constants.REUTLINGEN_BUILDING_ELEVEN_ICONS);
                 blueprint = null;
                 break;
             case 12 :
-                iterateIconArray(Constants.BUILDING_TWELVE_ICONS);
+                iterateIconArray(Constants.REUTLINGEN_BUILDING_TWELVE_ICONS);
                 blueprint = null;
                 break;
             case 13 :
-                iterateIconArray(Constants.BUILDING_THIRTEEN_ICONS);
+                iterateIconArray(Constants.REUTLINGEN_BUILDING_THIRTEEN_ICONS);
                 blueprint = null;
                 break;
             case 14 :
-                iterateIconArray(Constants.BUILDING_FOURTEEN_ICONS);
+                iterateIconArray(Constants.REUTLINGEN_BUILDING_FOURTEEN_ICONS);
                 blueprint = null;
                 break;
             case 15 :
-                iterateIconArray(Constants.BUILDING_FIFTEEN_ICONS);
+                iterateIconArray(Constants.REUTLINGEN_BUILDING_FIFTEEN_ICONS);
                 blueprint = null;
                 break;
             case 16 :
-                iterateIconArray(Constants.BUILDING_SIXTEEN_ICONS);
+                iterateIconArray(Constants.REUTLINGEN_BUILDING_SIXTEEN_ICONS);
                 blueprint = null;
                 break;
             case 17 :
-                iterateIconArray(Constants.BUILDING_SEVENTEEN_ICONS);
+                iterateIconArray(Constants.REUTLINGEN_BUILDING_SEVENTEEN_ICONS);
                 blueprint = null;
                 break;
             case 20 :
-                iterateIconArray(Constants.BUILDING_TWENTY_ICONS);
+                iterateIconArray(Constants.REUTLINGEN_BUILDING_TWENTY_ICONS);
+                blueprint = null;
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * Check which icon should be visible and which not depending on the building name
+     * @param buildingName name of the building
+     */
+    public void setIconsVisibility(String buildingName) {
+        iconPlaneVisibility = false;
+        iconInclinedVisibility = false;
+        iconElevatorVisibility = false;
+        iconAutomaticDoorVisibility = false;
+        iconAssistanceVisibility = false;
+        iconWCVisibility = false;
+        iconExitVisibility = false;
+
+        //Compare value and iterate with Constant value of each building
+        switch (buildingName) {
+            case "Admin" :
+                iterateIconArray(Constants.AUSTRAL_BUILDING_ADMIN_ICONS);
+                blueprint = null;
+                break;
+            case "A" :
+                iterateIconArray(Constants.AUSTRAL_BUILDING_A_ICONS);
+                blueprint = null;
+                break;
+            case "B" :
+                iterateIconArray(Constants.AUSTRAL_BUILDING_B_ICONS);
                 blueprint = null;
                 break;
             default:
