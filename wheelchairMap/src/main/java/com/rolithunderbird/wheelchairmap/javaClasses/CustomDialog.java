@@ -444,15 +444,15 @@ public class CustomDialog extends Dialog
         switch (buildingName) {
             case "Admin" :
                 iterateIconArray(Constants.AUSTRAL_BUILDING_ADMIN_ICONS);
-                blueprint = null;
+                blueprint = Constants.AUSTRAL_BUILDING_BLUEPRINT[1];
                 break;
             case "A" :
                 iterateIconArray(Constants.AUSTRAL_BUILDING_A_ICONS);
-                blueprint = null;
+                blueprint = Constants.AUSTRAL_BUILDING_BLUEPRINT[2];
                 break;
             case "B" :
                 iterateIconArray(Constants.AUSTRAL_BUILDING_B_ICONS);
-                blueprint = null;
+                blueprint = Constants.AUSTRAL_BUILDING_BLUEPRINT[3];
                 break;
             default:
                 break;
