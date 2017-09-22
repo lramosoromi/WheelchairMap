@@ -24,12 +24,16 @@
         android:orientation="horizontal"
         android:background="@color/colorPrimaryDark">
 
-        <Spinner
-            android:id="@id/dialog_building_selection_spinner_buildings"
-            android:layout_width="fill_parent"
+        <RelativeLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"/>
-
+            android:layout_marginTop="12dp"
+            android:background="@color/white" >
+            <Spinner
+                android:id="@id/dialog_building_selection_spinner_buildings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
         <Button
             android:id="@id/dialog_building_selection_button"
             android:layout_width="wrap_content"

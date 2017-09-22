@@ -164,10 +164,6 @@ public class Constants {
      */
     //<editor-fold desc="Path of different files">
     //Path in the storage to get the image file
-    private static final String BASIC_MAP_REUTLINGEN = "images/mapa_reutlingen.png";
-    //Path in the storage to get the image file
-    private static final String ROUTES_MAP_REUTLINGEN = "images/mapa_reutlingen_rutas.png";
-    //Path in the storage to get the image file
     private static final String BUILDING_IMAGE = "images/building_image.png";
     //Path in the storage to get the icon file
     private static final String ICON_PLANE = "icons/icon_plane.png";
@@ -183,6 +179,12 @@ public class Constants {
     private static final String ICON_WC = "icons/icon_wc.png";
     //Path in the storage to get the icon file
     private static final String ICON_EXIT = "icons/icon_exit.png";
+
+    //<editor-fold desc="Path of reutlingen files">
+    //Path in the storage to get the image file
+    private static final String BASIC_MAP_REUTLINGEN = "images/mapa_reutlingen.png";
+    //Path in the storage to get the image file
+    private static final String ROUTES_MAP_REUTLINGEN = "images/mapa_reutlingen_rutas.png";
     //Path in the storage to get the blueprint file
     private static final String BUILDING9_UNDERGROUND_BLUEPRINT = "blueprints/building9_underground.png";
     //Path in the storage to get the blueprint file
@@ -194,9 +196,24 @@ public class Constants {
     //Path in the storage to get the blueprint file
     private static final String BUILDING9_THIRD_FLOOR_BLUEPRINT = "blueprints/building9_3floor.png";
     //</editor-fold>
-
+    //<editor-fold desc="Path of austral files">
     //Path in the storage to get the image file
     private static final String BASIC_MAP_AUSTRAL = "images/mapa_austral.png";
+    //Path in the storage to get the blueprint file
+    private static final String BUILDING_ADMIN_MAIN_FLOOR_BLUEPRINT = "blueprints/buildingAdmin_0floor.png";
+    //Path in the storage to get the blueprint file
+    private static final String BUILDING_ADMIN_FIRST_FLOOR_BLUEPRINT = "blueprints/buildingAdmin_1floor.png";
+    //Path in the storage to get the blueprint file
+    private static final String BUILDING_A_MAIN_FLOOR_BLUEPRINT = "blueprints/buildingA_0floor.png";
+    //Path in the storage to get the blueprint file
+    private static final String BUILDING_A_FIRST_FLOOR_BLUEPRINT = "blueprints/buildingA_1floor.png";
+    //Path in the storage to get the blueprint file
+    private static final String BUILDING_B_MAIN_FLOOR_BLUEPRINT = "blueprints/buildingB_0floor.png";
+    //Path in the storage to get the blueprint file
+    private static final String BUILDING_B_FIRST_FLOOR_BLUEPRINT = "blueprints/buildingB_1floor.png";
+    //</editor-fold>
+    //</editor-fold>
+
 
     //Array of the different files path in the storage.
     public static String[] FILES_PATH_REUTLINGEN = {
@@ -208,7 +225,10 @@ public class Constants {
     //Array of the different files path in the storage.
     public static String[] FILES_PATH_AUSTRAL = {
             BASIC_MAP_AUSTRAL, BASIC_MAP_AUSTRAL, BUILDING_IMAGE, ICON_PLANE, ICON_INCLINED,
-            ICON_ELEVATOR, ICON_AUTOMATIC_DOOR, ICON_ASSISTANCE, ICON_WC, ICON_EXIT};
+            ICON_ELEVATOR, ICON_AUTOMATIC_DOOR, ICON_ASSISTANCE, ICON_WC, ICON_EXIT,
+            BUILDING_ADMIN_MAIN_FLOOR_BLUEPRINT, BUILDING_ADMIN_FIRST_FLOOR_BLUEPRINT,
+            BUILDING_A_MAIN_FLOOR_BLUEPRINT, BUILDING_A_FIRST_FLOOR_BLUEPRINT,
+            BUILDING_B_MAIN_FLOOR_BLUEPRINT, BUILDING_B_FIRST_FLOOR_BLUEPRINT};
 
     //Maps loaded in the storage for use
     private static final String HOSCHULE_REUTLINGEN = "Hoschule Reutlingen";

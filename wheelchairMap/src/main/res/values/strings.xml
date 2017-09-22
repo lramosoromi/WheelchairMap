@@ -55,9 +55,15 @@
 
     <!--    Dialog Building Selection   -->
     <string name="dialog_building_selection_message">Select a building</string>
-    <string-array name="dialog_buildings_array">
+    <string-array name="dialog_reutlingen_buildings_array">
         <item>-- None --</item>
         <item>Building 9</item>
+    </string-array>
+    <string-array name="dialog_austral_buildings_array">
+        <item>-- None --</item>
+        <item>Building Admin</item>
+        <item>Building A</item>
+        <item>Building B</item>
     </string-array>
     <string name="dialog_building_selection_button">Select</string>
 

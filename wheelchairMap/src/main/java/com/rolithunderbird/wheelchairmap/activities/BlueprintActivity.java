@@ -49,7 +49,7 @@ public class BlueprintActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(buildingSelected);
 
         //Convert the building name to the format used as file name
-        String buildingSelectedFileName = buildingSelected.replace(" ", "").toLowerCase();
+        String buildingSelectedFileName = (buildingSelected.substring(0, 1).toLowerCase() + buildingSelected.substring(1)).replace(" ", "");
         //Get all the image files
         List<File> files = Constants.getImageFiles();
         for (File file : files) {
@@ -86,7 +86,7 @@ public class BlueprintActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menu_blueprint_action_info:
                 //Create a new custom dialog of the type blueprint info
-                CustomDialog appInfoCustomDialog = new CustomDialog(this, Constants.DIALOG_TYPE.BLUEPRINT_INFO);
+                CustomDialog appInfoCustomDialog = new CustomDialog(this, Constants.DIALOG_TYPE.BLUEPRINT_INFO, null);
                 appInfoCustomDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 appInfoCustomDialog.setBlueprint(buildingSelected);
                 appInfoCustomDialog.show();

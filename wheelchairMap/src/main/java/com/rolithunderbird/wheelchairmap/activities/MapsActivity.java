@@ -111,7 +111,7 @@ public class MapsActivity extends AppCompatActivity implements
         switch (item.getItemId()) {
             case R.id.menu_map_action_info:
                 //Create a new custom dialog of the type app info
-                CustomDialog appInfoCustomDialog = new CustomDialog(this, Constants.DIALOG_TYPE.APP_INFO);
+                CustomDialog appInfoCustomDialog = new CustomDialog(this, Constants.DIALOG_TYPE.APP_INFO, locationSelected);
                 appInfoCustomDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 appInfoCustomDialog.show();
                 return true;
@@ -131,14 +131,13 @@ public class MapsActivity extends AppCompatActivity implements
             case R.id.menu_map_action_select_building:
                 //Create a new custom dialog of the type building selection
                 CustomDialog buildingSelectionCustomDialog = new CustomDialog(
-                        this, Constants.DIALOG_TYPE.BUILDING_SELECTION);
-                buildingSelectionCustomDialog.setLocation(locationSelected);
+                        this, Constants.DIALOG_TYPE.BUILDING_SELECTION, locationSelected);
                 buildingSelectionCustomDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 buildingSelectionCustomDialog.show();
                 return true;
             case R.id.menu_map_action_contact :
                 //Create a new custom dialog of the type contact info
-                CustomDialog contactInfoCustomDialog = new CustomDialog(this, Constants.DIALOG_TYPE.CONTACT_INFO);
+                CustomDialog contactInfoCustomDialog = new CustomDialog(this, Constants.DIALOG_TYPE.CONTACT_INFO, locationSelected);
                 contactInfoCustomDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 contactInfoCustomDialog.show();
             default:
@@ -479,7 +478,7 @@ public class MapsActivity extends AppCompatActivity implements
      */
     private void createBuildingInfoPopup(String title, String info) {
         //Create a new custom dialog of the type building info
-        CustomDialog customDialog = new CustomDialog(this, Constants.DIALOG_TYPE.BUILDING_INFO);
+        CustomDialog customDialog = new CustomDialog(this, Constants.DIALOG_TYPE.BUILDING_INFO, locationSelected);
         if (locationSelected.equals(Constants.AVAILABLE_LOCATIONS[0]))
             customDialog.setIconsVisibility(Integer.parseInt(title));
         else if (locationSelected.equals(Constants.AVAILABLE_LOCATIONS[1]))

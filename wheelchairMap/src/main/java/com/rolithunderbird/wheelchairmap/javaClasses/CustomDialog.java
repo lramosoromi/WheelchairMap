@@ -21,6 +21,7 @@ import com.rolithunderbird.wheelchairmap.utils.Constants;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -48,6 +49,8 @@ public class CustomDialog extends Dialog
     private ArrayList<File> iconFiles;
     //List of all the building image files downloaded
     private ArrayList<File> buildingImageFiles;
+    //Array of all the building blueprint files downloaded
+    private String[] buildingBlueprints;
     //Atributes to see if the icon should be visible or not
     private boolean iconPlaneVisibility;
     private boolean iconInclinedVisibility;
@@ -63,13 +66,21 @@ public class CustomDialog extends Dialog
      * @param a
      * @param dialog_type
      */
-    public CustomDialog(Activity a, Constants.DIALOG_TYPE dialog_type) {
+    public CustomDialog(Activity a, Constants.DIALOG_TYPE dialog_type, String locationSelected) {
         super(a);
         this.activity = a;
         this.dialogType = dialog_type;
+        if (locationSelected != null) {
+            this.locationSelected = locationSelected;
+            if (locationSelected.equals(Constants.AVAILABLE_LOCATIONS[0]))
+                buildingBlueprints = Constants.REUTLINGEN_BUILDING_BLUEPRINT;
+            else
+                buildingBlueprints = Constants.AUSTRAL_BUILDING_BLUEPRINT;
+        }
         this.iconsList = new ArrayList<>();
         this.iconFiles = new ArrayList<>();
         this.buildingImageFiles = new ArrayList<>();
+
         //Get all the files downloaded and add them to its specific list according to its name
         List<File> files = Constants.getImageFiles();
         for (File file : files) {
@@ -82,23 +93,15 @@ public class CustomDialog extends Dialog
 
     /**
      * Setter
-     * @param string
+     * @param string the blueprint to set
      */
     public void setBlueprint(String string) {
         blueprint = string;
     }
 
     /**
-     * Setter
-     * @param location
-     */
-    public void setLocation(String location) {
-        locationSelected = location;
-    }
-
-    /**
      * Method called when Custom Dialog created
-     * @param savedInstanceState
+     * @param savedInstanceState state of the custom dialog
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,8 +145,14 @@ public class CustomDialog extends Dialog
 
             Spinner spinner = (Spinner) findViewById(R.id.dialog_building_selection_spinner_buildings);
             // Create an ArrayAdapter using the array of buildings and a default spinner layout
+            Integer textArrayResId;
+            if (locationSelected.equals(Constants.AVAILABLE_LOCATIONS[0]))
+                textArrayResId = R.array.dialog_reutlingen_buildings_array;
+            else
+                textArrayResId = R.array.dialog_austral_buildings_array;
+
             ArrayAdapter adapter = ArrayAdapter.createFromResource(activity.getBaseContext(),
-                    R.array.dialog_buildings_array, android.R.layout.simple_spinner_item);
+                    textArrayResId, android.R.layout.simple_spinner_item);
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             // Apply the adapter to the spinner
@@ -258,16 +267,13 @@ public class CustomDialog extends Dialog
      */
     @Override
     public void onClick(View v) {
-
-        // ACA HAY QUE VER COMO HACER CON LOS PLANOS DE LA AUSTRAL
-
         //Check if the blueprint picklist is equal to an available blueprint
-        if (blueprint != null && blueprint.equals(Constants.REUTLINGEN_BUILDING_BLUEPRINT[0])) {
+        if (blueprint != null && blueprint.equals(buildingBlueprints[0])) {
             //If blueprint is not null, but selected None on picklist
             Toast.makeText(activity.getBaseContext(), "Please select a building",
                     Toast.LENGTH_SHORT).show();
         }
-        else if (blueprint != null && blueprint.equals(Constants.REUTLINGEN_BUILDING_BLUEPRINT[1])) {
+        else if (blueprint != null && Arrays.asList(buildingBlueprints).contains(blueprint)) {
             //If blueprint is available
             //Call Activity of the building blueprint
             Intent intent = new Intent(activity.getBaseContext(), BlueprintActivity.class);
@@ -295,15 +301,15 @@ public class CustomDialog extends Dialog
         // Get the string of the item selected
         String selected = parent.getItemAtPosition(pos).toString();
 
-        //ACA HAY QUE VER COMO HACER CON LOS PLANOS DE LA AUSTRAL
-
-        //Compare its value to see if its the available or not
-        if (selected.equals(Constants.REUTLINGEN_BUILDING_BLUEPRINT[1])) {
-            blueprint = Constants.REUTLINGEN_BUILDING_BLUEPRINT[1];
+        blueprint = null;
+        for (String blueprintName : buildingBlueprints) {
+            //Compare its value to see if its the available or not
+            if (selected.equals(blueprintName))
+                blueprint = blueprintName;
         }
-        else {
-            //If not set it to NULL value
-            blueprint = Constants.REUTLINGEN_BUILDING_BLUEPRINT[0];
+        if (blueprint == null) {
+            //If blueprint was not selected, set it to NULL value
+            blueprint = buildingBlueprints[0];
         }
     }
 
