@@ -278,6 +278,7 @@ public class CustomDialog extends Dialog
             //Call Activity of the building blueprint
             Intent intent = new Intent(activity.getBaseContext(), BlueprintActivity.class);
             intent.putExtra("Building", blueprint);
+            intent.putExtra("Location", locationSelected);
             activity.startActivity(intent);
             //Close the dialog
             dismiss();
