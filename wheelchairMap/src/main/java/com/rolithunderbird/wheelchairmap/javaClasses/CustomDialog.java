@@ -251,6 +251,20 @@ public class CustomDialog extends Dialog
         else if (dialogType == Constants.DIALOG_TYPE.CONTACT_INFO){
             //If type contact info, show its layout
             setContentView(R.layout.dialog_map_contact_layout);
+            TextView contactResponsibility = (TextView) findViewById (R.id.dialog_contact_responsibility);
+            TextView contactMessage = (TextView) findViewById (R.id.dialog_contact_message);
+            TextView contactPlace = (TextView) findViewById (R.id.dialog_contact_place);
+
+            if (locationSelected.equals(Constants.AVAILABLE_LOCATIONS[0])) {
+                contactResponsibility.setText(R.string.dialog_contact_reutlingen_responsibility);
+                contactMessage.setText(R.string.dialog_contact_reutlingen_message);
+                contactPlace.setText(R.string.dialog_contact_reutlingen_place);
+            }
+            else {
+                contactResponsibility.setText(R.string.dialog_contact_austral_responsibility);
+                contactMessage.setText(R.string.dialog_contact_austral_message);
+                contactPlace.setText(R.string.dialog_contact_austral_place);
+            }
         }
         else {
             //If type blueprint info, show its layout and set its title

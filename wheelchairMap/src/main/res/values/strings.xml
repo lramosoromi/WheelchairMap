@@ -141,13 +141,23 @@
 
     <!--    Dialog Contact  -->
     <string name="dialog_contact_title">Contact</string>
-    <string name="dialog_contact_responsibility">Counseling for students with health impairment</string>
-    <string name="dialog_contact_message">
+    <!--    Reutlingen Data -->
+    <string name="dialog_contact_reutlingen_responsibility">Counseling for students with health impairment</string>
+    <string name="dialog_contact_reutlingen_message">
         Prof. Dr. Bernd Herr (SHE Supervisor for students)\nTel .: 07121 / 271-2025\n\nVeronika
         Bothor (Deputy Disabilities Commissioner for students)\nTel .: 07121 / 271-1067
     </string>
-    <string name="dialog_contact_place">
+    <string name="dialog_contact_reutlingen_place">
         Reutlingen University\nAlteburgstraße 150\nD-72762 Reutlingen
+    </string>
+    <!--    Austral Data    -->
+    <string name="dialog_contact_austral_responsibility">For any question or doubt, please contact:</string>
+    <string name="dialog_contact_austral_message">
+        Main line: (+54 11) 5239-8000\n
+        Undergraduate: 0800 222 8648
+    </string>
+    <string name="dialog_contact_austral_place">
+        Austral University\nMariano Acosta 1611.\n(B1629WWA) Derqui, Pilar. Buenos Aires.
     </string>
 
     <!--    Dialog Blueprint  -->
