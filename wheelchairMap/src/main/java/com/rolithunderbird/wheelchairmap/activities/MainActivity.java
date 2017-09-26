@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         } else {
             //If the selected location is null or not equal to an available location
-            Toast.makeText(this, "Please select a location", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.activity_main_selection_error, Toast.LENGTH_SHORT).show();
         }
     }
 

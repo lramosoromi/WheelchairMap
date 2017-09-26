@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WheelchairMap</string>
+
+    <!--    Main Activity strings    -->
+    <string name="activity_main_title">Bienvenidos a la aplicación WheelchairMap</string>
+    <string-array name="activity_main_location_array">
+        <item>-- Ninguna --</item>
+        <item>Universidad Reutlingen</item>
+        <item>Universidad Austral</item>
+    </string-array>
+    <string name="activity_main_selection_error">Ubicación no válida</string>
+    <string name="activity_main_selection_button">Elegir</string>
+    <string name="activity_main_text">
+        Atención: Esta aplicación obtiene fotos y datos de internet. Para poder continuar, debe
+        conectarse ya sea mediante datos móviles o con wifi.
+    </string>
+
+    <!--    Map Activity strings -->
+    <string name="activity_maps_title">WheelchairMap</string>
+    <string name="activity_map_layout_name">com.google.android.gms.maps.SupportMapFragment</string>
+    <string name="activity_map_transparency_text">Transparencia</string>
+
+    <!--    Blueprint Activity strings  -->
+    <string name="activity_blueprint_zoom_image_text">Imagen zoomeable</string>
+
+    <!--    Menu Map Activity    -->
+    <string name="menu_map_action_info">Info</string>
+    <string name="menu_map_action_show_routes">Mostrar rutas</string>
+    <string name="menu_map_action_select_building">Elegir edificio</string>
+    <string name="menu_map_action_contact">Contacto</string>
+
+    <!--    Menu Blueprint Activity     -->
+    <string name="menu_blueprint_action_info">Info</string>
+    <string name="menu_blueprint_action_show_location">Mostrar ubicación</string>
+    <string name="menu_blueprint_action_underground">-1P</string>
+    <string name="menu_blueprint_action_main_floor">PB</string>
+    <string name="menu_blueprint_action_first_floor">1P</string>
+    <string name="menu_blueprint_action_second_floor">2P</string>
+    <string name="menu_blueprint_action_third_floor">3P</string>
+
+    <!--    Dialog App Info     -->
+    <string name="dialog_app_info_title">WheelchairMap</string>
+    <string name="dialog_app_info_message">
+        Bienvenidos a la aplicacion WheelchairMap!\nEl objetivo de esta aplicación es la de proveer
+        información para personas con discapacidades, especialmente motrices.\nPara obtener
+        información respecto a un edificio en particular clickee sobre el mismo. Además, puede
+        obtener las rutas de acceso a cualquier edificio haciendo click en el ícono de mapa ubicado
+        en el menu.\nReferencia de íconos:
+    </string>
+    <string name="dialog_app_info_text_plane">Terreno plano</string>
+    <string name="dialog_app_info_text_inclined">Terreno inclinado</string>
+    <string name="dialog_app_info_text_elevator">Ascensor con acceso a sillas de ruedas</string>
+    <string name="dialog_app_info_text_automatic_door">Puertas automáticas</string>
+    <string name="dialog_app_info_text_assistance">Asistencia necesaria para circular</string>
+    <string name="dialog_app_info_text_wc">Baños para discapacitados</string>
+    <string name="dialog_app_info_text_exit">Salida de emergencia para discapacitados</string>
+
+    <!--    Dialog Building Selection   -->
+    <string name="dialog_building_selection_message">Selección de edificio</string>
+    <string-array name="dialog_reutlingen_buildings_array">
+        <item>-- Ninguno --</item>
+        <item>Edificio 9</item>
+    </string-array>
+    <string-array name="dialog_austral_buildings_array">
+        <item>-- Ninguno --</item>
+        <item>Edificio Admin</item>
+        <item>Edificio A</item>
+        <item>Edificio B</item>
+    </string-array>
+    <string name="dialog_building_selection_button">Elegir</string>
+
+    <!--    Dialog Building Info   -->
+    <string name="dialog_building_info_title">Edificio</string>
+    <string name="dialog_building_info_btn_select">Ir a edificio</string>
+    <!--    Reutlingen Buildings    -->
+    <string name="dialog_reutlingen_building_info_description_one">
+        Facultad de Diseño y Textil.\nCentro de enseñanza e investigación de materiales
+        interactivos.\nAnálisis de procesos y centro de enseñanza e investigación tecnológica.
+    </string>
+    <string name="dialog_reutlingen_building_info_description_two">
+        Facultad de química aplicada.\nInstituto de investigación de Reutlingen
+    </string>
+    <string name="dialog_reutlingen_building_info_description_three">
+        Presidium / Administración.\nCentro de estudios.\nOficina para internacionales.\nCentro
+        de aprendizaje.
+    </string>
+    <string name="dialog_reutlingen_building_info_description_four">
+        Facultad de ingeniría.
+    </string>
+    <string name="dialog_reutlingen_building_info_description_five">
+        ESB Facultad de negocios.
+    </string>
+    <string name="dialog_reutlingen_building_info_description_six">
+        Aula.
+    </string>
+    <string name="dialog_reutlingen_building_info_description_seven">
+        Cafetería.\nSeminario de entrenamiento real.
+    </string>
+    <string name="dialog_reutlingen_building_info_description_eight">
+        Centro de media y computación.
+    </string>
+    <string name="dialog_reutlingen_building_info_description_nine">
+        Facultad de Informática.
+    </string>
+    <string name="dialog_reutlingen_building_info_description_ten">
+        Centro de servicio de la universidad.
+    </string>
+    <string name="dialog_reutlingen_building_info_description_eleven">
+        Gimnasio.
+    </string>
+    <string name="dialog_reutlingen_building_info_description_twelve">
+        Secundaria educacional.
+    </string>
+    <string name="dialog_reutlingen_building_info_description_thirteen">
+        Guardería.
+    </string>
+    <string name="dialog_reutlingen_building_info_description_fourteen">
+        Secundaria educacional.
+    </string>
+    <string name="dialog_reutlingen_building_info_description_fifteen">
+        Centro de servicio de la universidad.
+    </string>
+    <string name="dialog_reutlingen_building_info_description_sixteen">
+        ESB Facultad de negocios.
+    </string>
+    <string name="dialog_reutlingen_building_info_description_seventeen">
+                ESB Facultad de negocios.\nFundación del conocimiento.
+    </string>
+    <string name="dialog_reutlingen_building_info_description_twenty">
+        Facultad de Diseño y Textil.\nFacultad de Informática.\nCentro de energía de Reutlingen.
+    </string>
+    <!--    Austral Buildings   -->
+    <string name="dialog_austral_building_info_description_admin">
+        Entrada de visitantes. Administración. Cafetería. Biblioteca.
+    </string>
+    <string name="dialog_austral_building_info_description_a">
+        Edificio de Ingeniería. Auditorio. Capilla.
+    </string>
+    <string name="dialog_austral_building_info_description_b">
+        Oficina de administración de alumnos. Cuarto de TV. Cuarto de Radio.
+    </string>
+
+
+    <!--    Dialog Contact  -->
+    <string name="dialog_contact_title">Contacto</string>
+    <!--    Reutlingen Data -->
+    <string name="dialog_contact_reutlingen_responsibility">Ayuda para estudiantes con
+        discapacidades
+    </string>
+    <string name="dialog_contact_reutlingen_message">
+        Prof. Dr. Bernd Herr (SHE Supervisor de estudiantes)\nTel .: 07121 / 271-2025\n\nVeronika
+        Bothor (Comisionado de discapacidades para estudiantes)\nTel .: 07121 / 271-1067
+    </string>
+    <string name="dialog_contact_reutlingen_place">
+        Universidad Reutlingen\nAlteburgstraße 150\nD-72762 Reutlingen
+    </string>
+    <!--    Austral Data    -->
+    <string name="dialog_contact_austral_responsibility">Por cualquier duda o consulta, por favor
+        comunicarse con:
+    </string>
+    <string name="dialog_contact_austral_message">
+        Teléfono principal: (+54 11) 5239-8000\n
+        Estudiantes: 0800 222 8648
+    </string>
+    <string name="dialog_contact_austral_place">
+        Universidad Austral\nMariano Acosta 1611.\n(B1629WWA) Derqui, Pilar. Buenos Aires.
+    </string>
+
+    <!--    Dialog Blueprint  -->
+    <string name="dialog_blueprint_title">Plano</string>
+    <string name="dialog_blueprint_message">
+        Acá puede ver el plano del edificio seleccionado. Puede ver todas las aulas en cada piso
+        así como el número.\nTambién puede ver los íconos en su ubicación exacta.
+    </string>
+
+    <!--    Alert Dialog Internet strings -->
+    <string name="alert_dialog_internet_title">Importante</string>
+    <string name="alert_dialog_internet_message">
+        Necesita activar la conexión a internet para usar la aplicación.\nPor favor, encienda la
+        conexión por datos o el wifi en la configuración del teléfono.
+    </string>
+    <string name="alert_dialog_internet_btn_data_settings">Configuración de datos</string>
+    <string name="alert_dialog_internet_btn_wifi_settings">Configuración de Wifi</string>
+    <string name="alert_dialog_internet_connected_btn_cancel">Continuar</string>
+    <string name="alert_dialog_internet_not_connected_btn_cancel">Cancelar</string>
+    <string name="alert_dialog_internet_improvement_title">Atención</string>
+    <string name="alert_dialog_internet_improvement_message">
+        Está usando la conexión de datos del teléfono.\nPara la limitar el consumo de datos, le
+        recomendamos que encienda o se conecte al wifi.
+    </string>
+
+    <!--    Alert Dialog Location strings -->
+    <string name="alert_dialog_location_title">Precaución</string>
+    <string name="alert_dialog_location_message">
+        Necesita activar la ubicación del teléfono para usar esta funcionalidad.\nPor favor, encienda
+        la ubicación ya sea por red o GPS en la configuración del teléfono.
+    </string>
+    <string name="alert_dialog_location_btn_settings">Configuración</string>
+    <string name="alert_dialog_location_btn_cancel">Cancelar</string>
+    <string name="alert_dialog_location_improvement_title">Importante</string>
+    <string name="alert_dialog_location_improvement_message">
+        Está utilizando la ubicación mediante el Wifi y GPRS.\nPara obtener una ubicación más
+        exacta por favor encienda el modo GPS de la configuración del teléfono.
+    </string>
+
+    <!--    Permissions    -->
+    <string name="permission_rationale_location">Acceso al servicio de ubicación es requerido para
+        demostrar la funcionalidad \'mi ubicación\', que muestra su ubicación actual en el mapa.
+    </string>
+    <string name="location_permission_denied">Este ejemplo requiere permisos de ubicación para
+        habilitar la capa de \'mi ubicación\'. Por favor, vuelva a intentarlo y de permisos para
+        usar la ubicación.\nSi el permiso fue denegado permanentemente, puede ser cambiado desde la
+        configuración del sistema &gt; Aplicaciones &gt; \'Google Maps API Demos\'.
+    </string>
+    <string name="permission_required_toast">Es requerido otorgar permisos de ubicación para esta
+        demo.
+    </string>
+</resources>
