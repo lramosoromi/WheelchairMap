@@ -5,6 +5,7 @@
     <item name="activity_main_spinner_maps" type="id"/>
     <item name="activity_main_btn_select_map" type="id"/>
     <item name="activity_main_text" type="id"/>
+    <item name="activity_main_btn_change_lang" type="id"/>
 
     <!--    Map Activity    -->
     <item name="activity_map_linear_layout" type="id"/>

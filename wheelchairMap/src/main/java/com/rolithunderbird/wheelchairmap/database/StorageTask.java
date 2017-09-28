@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.rolithunderbird.wheelchairmap.R;
 import com.rolithunderbird.wheelchairmap.utils.Constants;
 import java.io.File;
 import java.io.IOException;
@@ -67,7 +68,7 @@ public class StorageTask extends AsyncTask<Void, String, Void> {
         super.onPreExecute();
         //Show the process dialog of downloading context
         progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage("Downloading content");
+        progressDialog.setMessage(context.getResources().getString(R.string.download_task_message));
         progressDialog.setCancelable(false);
         progressDialog.show();
 

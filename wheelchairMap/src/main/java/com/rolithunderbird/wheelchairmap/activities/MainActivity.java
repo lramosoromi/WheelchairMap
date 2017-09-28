@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.provider.Settings;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 import com.rolithunderbird.wheelchairmap.R;
 import com.rolithunderbird.wheelchairmap.broadcastReceiver.MyResponseReceiver;
 import com.rolithunderbird.wheelchairmap.database.StorageTask;
+import com.rolithunderbird.wheelchairmap.javaClasses.CustomDialog;
 import com.rolithunderbird.wheelchairmap.utils.Constants;
 
 /**
@@ -98,9 +101,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         String selected = parent.getItemAtPosition(pos).toString();
 
         // Compare both strings
-        if (selected.equals(reutlingenLocation)) {
+        if (selected.contains(reutlingenLocation)) {
             location = reutlingenLocation;
-        }else if(selected.equals(australLocation)){
+        }else if(selected.contains(australLocation)){
             location = australLocation;
         }else {
             location = null;

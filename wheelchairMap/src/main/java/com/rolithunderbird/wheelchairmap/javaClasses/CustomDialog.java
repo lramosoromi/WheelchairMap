@@ -3,8 +3,11 @@ package com.rolithunderbird.wheelchairmap.javaClasses;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -23,6 +26,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Class that creates a custom dialog
@@ -138,7 +142,7 @@ public class CustomDialog extends Dialog
         }
         else if (dialogType == Constants.DIALOG_TYPE.BUILDING_SELECTION) {
             //If type building selection, show its layout and set the picklist and button
-            setContentView(R.layout.dialog_map_buildin_selection_layout);
+            setContentView(R.layout.dialog_map_building_selection_layout);
             //Set button onclick method
             Button button = (Button) findViewById(R.id.dialog_building_selection_button);
             button.setOnClickListener(this);
@@ -281,26 +285,28 @@ public class CustomDialog extends Dialog
      */
     @Override
     public void onClick(View v) {
-        //Check if the blueprint picklist is equal to an available blueprint
-        if (blueprint != null && blueprint.equals(buildingBlueprints[0])) {
-            //If blueprint is not null, but selected None on picklist
-            Toast.makeText(activity.getBaseContext(), "Please select a building",
-                    Toast.LENGTH_SHORT).show();
-        }
-        else if (blueprint != null && Arrays.asList(buildingBlueprints).contains(blueprint)) {
-            //If blueprint is available
-            //Call Activity of the building blueprint
-            Intent intent = new Intent(activity.getBaseContext(), BlueprintActivity.class);
-            intent.putExtra("Building", blueprint);
-            intent.putExtra("Location", locationSelected);
-            activity.startActivity(intent);
-            //Close the dialog
-            dismiss();
-        }
-        else {
-            //If blueprint is null, meaning not defined
-            Toast.makeText(activity.getBaseContext(), "This building blueprint is currently not available",
-                    Toast.LENGTH_SHORT).show();
+        if (dialogType == Constants.DIALOG_TYPE.BUILDING_SELECTION) {
+            //Check if the blueprint picklist is equal to an available blueprint
+            if (blueprint != null && blueprint.equals(buildingBlueprints[0])) {
+                //If blueprint is not null, but selected None on picklist
+                Toast.makeText(activity.getBaseContext(), R.string.dialog_building_selection_error_message,
+                        Toast.LENGTH_SHORT).show();
+            }
+            else if (blueprint != null && Arrays.asList(buildingBlueprints).contains(blueprint)) {
+                //If blueprint is available
+                //Call Activity of the building blueprint
+                Intent intent = new Intent(activity.getBaseContext(), BlueprintActivity.class);
+                intent.putExtra("Building", blueprint);
+                intent.putExtra("Location", locationSelected);
+                activity.startActivity(intent);
+                //Close the dialog
+                dismiss();
+            }
+            else {
+                //If blueprint is null, meaning not defined
+                Toast.makeText(activity.getBaseContext(), R.string.dialog_building_selection_not_available_message,
+                        Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -313,14 +319,10 @@ public class CustomDialog extends Dialog
      */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-        // Get the string of the item selected
-        String selected = parent.getItemAtPosition(pos).toString();
 
         blueprint = null;
-        for (String blueprintName : buildingBlueprints) {
-            //Compare its value to see if its the available or not
-            if (selected.equals(blueprintName))
-                blueprint = blueprintName;
+        if (pos != 0) {
+            blueprint = buildingBlueprints[pos];
         }
         if (blueprint == null) {
             //If blueprint was not selected, set it to NULL value

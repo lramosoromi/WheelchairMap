@@ -231,8 +231,8 @@ public class Constants {
             BUILDING_B_MAIN_FLOOR_BLUEPRINT, BUILDING_B_FIRST_FLOOR_BLUEPRINT};
 
     //Maps loaded in the storage for use
-    private static final String HOSCHULE_REUTLINGEN = "Hoschule Reutlingen";
-    private static final String UNIVERSIDAD_AUSTRAL = "Austral University";
+    private static final String HOSCHULE_REUTLINGEN = "Reutlingen";
+    private static final String UNIVERSIDAD_AUSTRAL = "Austral";
 
     //Array of the available maps in the storage to use the app
     public static String[] AVAILABLE_LOCATIONS = { HOSCHULE_REUTLINGEN, UNIVERSIDAD_AUSTRAL };

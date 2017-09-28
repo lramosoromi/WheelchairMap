@@ -5,11 +5,12 @@
     <string name="activity_main_title">Welcome to WheelchairMap app</string>
     <string-array name="activity_main_location_array">
         <item>-- None --</item>
-        <item>Hoschule Reutlingen</item>
+        <item>Reutlingen University</item>
         <item>Austral University</item>
     </string-array>
     <string name="activity_main_selection_error">Please select a location</string>
-    <string name="activity_main_selection_button">Select</string>
+    <string name="activity_main_location_selection_button">Select</string>
+    <string name="activity_main_language_selection_button">Change Language</string>
     <string name="activity_main_text">
         Attention: This app needs to download content. In order to use the app, you will need to
         set either the data connection or wifi.
@@ -67,6 +68,8 @@
         <item>Building B</item>
     </string-array>
     <string name="dialog_building_selection_button">Select</string>
+    <string name="dialog_building_selection_error_message">Please select a building</string>
+    <string name="dialog_building_selection_not_available_message">This building blueprint is currently not available</string>
 
     <!--    Dialog Building Info   -->
     <string name="dialog_building_info_title">Building</string>
@@ -197,6 +200,9 @@
         Currently you are using Wifi and GPRS location service.\nFor better accuracy please turn
         on GPS mode in location settings.
     </string>
+
+    <!--    Download Task   -->
+    <string name="download_task_message">Downloading content</string>
 
     <!--    Permissions    -->
     <string name="permission_rationale_location">Access to the location service is required to demonstrate the \'my location\' feature, which shows your current location on the map.</string>

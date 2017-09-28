@@ -10,7 +10,8 @@
         <item>Universidad Austral</item>
     </string-array>
     <string name="activity_main_selection_error">Ubicación no válida</string>
-    <string name="activity_main_selection_button">Elegir</string>
+    <string name="activity_main_location_selection_button">Seleccionar</string>
+    <string name="activity_main_language_selection_button">Cambiar Idioma</string>
     <string name="activity_main_text">
         Atención: Esta aplicación obtiene fotos y datos de internet. Para poder continuar, debe
         conectarse ya sea mediante datos móviles o con wifi.
@@ -68,7 +69,11 @@
         <item>Edificio A</item>
         <item>Edificio B</item>
     </string-array>
-    <string name="dialog_building_selection_button">Elegir</string>
+    <string name="dialog_building_selection_button">Seleccionar</string>
+    <string name="dialog_building_selection_error_message">Por favor, seleccionar un edificio</string>
+    <string name="dialog_building_selection_not_available_message">El plano de este edificio no se
+        encuentra disponible en este momento.
+    </string>
 
     <!--    Dialog Building Info   -->
     <string name="dialog_building_info_title">Edificio</string>
@@ -203,6 +208,9 @@
         Está utilizando la ubicación mediante el Wifi y GPRS.\nPara obtener una ubicación más
         exacta por favor encienda el modo GPS de la configuración del teléfono.
     </string>
+
+    <!--    Download Task   -->
+    <string name="download_task_message">Descargando contenido</string>
 
     <!--    Permissions    -->
     <string name="permission_rationale_location">Acceso al servicio de ubicación es requerido para
