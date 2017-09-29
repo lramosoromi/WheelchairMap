@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * Class that creates a custom dialog
@@ -285,7 +286,8 @@ public class CustomDialog extends Dialog
      */
     @Override
     public void onClick(View v) {
-        if (dialogType == Constants.DIALOG_TYPE.BUILDING_SELECTION) {
+        if (dialogType == Constants.DIALOG_TYPE.BUILDING_SELECTION
+                || dialogType == Constants.DIALOG_TYPE.BUILDING_INFO) {
             //Check if the blueprint picklist is equal to an available blueprint
             if (blueprint != null && blueprint.equals(buildingBlueprints[0])) {
                 //If blueprint is not null, but selected None on picklist

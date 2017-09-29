@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             filesToDownload = Constants.FILES_PATH_REUTLINGEN;
             //Check if there are downloaded files and if they are all the files to be downloaded
             if (Constants.getImageFiles() != null
-                    && Constants.getImageFiles().size() == filesToDownload.length) {
+                    && Constants.checkFilesToDownloadAreImageFiles(filesToDownload)) {
                 //If the files were already created previously, just go to the map activity
                 Intent intent = new Intent(this, MapsActivity.class);
                 intent.putExtra("Location", location);
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             filesToDownload = Constants.FILES_PATH_AUSTRAL;
             //Check if there are downloaded files and if they are all the files to be downloaded
             if (Constants.getImageFiles() != null
-                    && Constants.getImageFiles().size() == filesToDownload.length) {
+                    && Constants.checkFilesToDownloadAreImageFiles(filesToDownload)) {
                 //If the files were already created previously, just go to the map activity
                 Intent intent = new Intent(this, MapsActivity.class);
                 intent.putExtra("Location", location);

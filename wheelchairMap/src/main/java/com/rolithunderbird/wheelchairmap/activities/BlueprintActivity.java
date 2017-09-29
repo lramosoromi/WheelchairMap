@@ -48,8 +48,26 @@ public class BlueprintActivity extends AppCompatActivity {
         buildingSelected = bundle.getString("Building");
         locationSelected = bundle.getString("Location");
         //Change the title of the action bar with the number of the building
-        if (getSupportActionBar() != null)
-            getSupportActionBar().setTitle(buildingSelected);
+        if (getSupportActionBar() != null) {
+            String[] blueprints;
+            String[] blueprintsName;
+            if (locationSelected.equals(Constants.AVAILABLE_LOCATIONS[0])) {
+                blueprints = Constants.REUTLINGEN_BUILDING_BLUEPRINT;
+                blueprintsName = getResources().getStringArray(R.array.dialog_reutlingen_buildings_array);
+            }
+            else {
+                blueprints = Constants.AUSTRAL_BUILDING_BLUEPRINT;
+                blueprintsName = getResources().getStringArray(R.array.dialog_austral_buildings_array);
+            }
+
+            Integer index;
+            for (index = 0; index < blueprints.length; index++) {
+                if (buildingSelected.equals(blueprints[index]))
+                    break;
+            }
+
+            getSupportActionBar().setTitle(blueprintsName[index]);
+        }
 
         //Convert the building name to the format used as file name
         String buildingSelectedFileName = (buildingSelected.substring(0, 1).toLowerCase() + buildingSelected.substring(1)).replace(" ", "");

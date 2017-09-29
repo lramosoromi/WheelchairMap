@@ -11,7 +11,6 @@
     </string-array>
     <string name="activity_main_selection_error">Ubicación no válida</string>
     <string name="activity_main_location_selection_button">Seleccionar</string>
-    <string name="activity_main_language_selection_button">Cambiar Idioma</string>
     <string name="activity_main_text">
         Atención: Esta aplicación obtiene fotos y datos de internet. Para poder continuar, debe
         conectarse ya sea mediante datos móviles o con wifi.

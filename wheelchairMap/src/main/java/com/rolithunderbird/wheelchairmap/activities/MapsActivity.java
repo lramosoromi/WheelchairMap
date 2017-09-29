@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -178,36 +179,42 @@ public class MapsActivity extends AppCompatActivity implements
             imageHeight = Constants.AUSTRAL_MAP_HEIGHT;
         }
 
-        //Set the function called whenever someone touches over the map
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                selectClosestBuilding(latLng);
-            }
-        });
+        try {
+            //Set the function called whenever someone touches over the map
+            mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                @Override
+                public void onMapClick(LatLng latLng) {
+                    selectClosestBuilding(latLng);
+                }
+            });
 
-        //Move the google map starting point to the center of the campus
-        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(
-                new CameraPosition(cameraPosition, cameraZoom, 0, 0)));
+            //Move the google map starting point to the center of the campus
+            mMap.moveCamera(CameraUpdateFactory.newCameraPosition(
+                    new CameraPosition(cameraPosition, cameraZoom, 0, 0)));
 
-        //Initialize the ground overlay map with all its parameters
-        mGroundOverlay = mMap.addGroundOverlay(new GroundOverlayOptions()
-                .image(BitmapDescriptorFactory.fromPath(
-                        mapFiles.get(0).getPath())).anchor(0, 1)
-                .bearing(imageBearing)
-                .position(mGroundOverlayPosition, imageWidth, imageHeight));
-        activeMap = Constants.MAP_ACTIVE.BASIC_MAP;
+            //Initialize the ground overlay map with all its parameters
+            mGroundOverlay = mMap.addGroundOverlay(new GroundOverlayOptions()
+                    .image(BitmapDescriptorFactory.fromPath(
+                            mapFiles.get(0).getPath())).anchor(0, 1)
+                    .bearing(imageBearing)
+                    .position(mGroundOverlayPosition, imageWidth, imageHeight));
+            activeMap = Constants.MAP_ACTIVE.BASIC_MAP;
 
-        //Set seekbar listener behaviours
-        mTransparencyBar.setOnSeekBarChangeListener(this);
+            //Set seekbar listener behaviours
+            mTransparencyBar.setOnSeekBarChangeListener(this);
 
-        // Override the default content description on the view, for accessibility mode.
-        // Ideally this string would be localised.
-        mMap.setContentDescription("Google Map with ground overlay.");
+            // Override the default content description on the view, for accessibility mode.
+            // Ideally this string would be localised.
+            mMap.setContentDescription("Google Map with ground overlay.");
 
-        // Enable my location button click on the map
-        mMap.setOnMyLocationButtonClickListener(this);
-        enableMyLocation();
+            // Enable my location button click on the map
+            mMap.setOnMyLocationButtonClickListener(this);
+            enableMyLocation();
+        }
+        catch (Exception e) {
+            Log.d("EXCEPTION", "Maps Activity --> On map ready exception: " + e.getMessage());
+            Log.d("EXCEPTION", "Map files: " + mapFiles);
+        }
     }
 
     @Override

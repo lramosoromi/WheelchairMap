@@ -10,7 +10,6 @@
     </string-array>
     <string name="activity_main_selection_error">Please select a location</string>
     <string name="activity_main_location_selection_button">Select</string>
-    <string name="activity_main_language_selection_button">Change Language</string>
     <string name="activity_main_text">
         Attention: This app needs to download content. In order to use the app, you will need to
         set either the data connection or wifi.

@@ -8,8 +8,8 @@
 
     <com.rolithunderbird.wheelchairmap.javaClasses.TouchImageView
         android:id="@id/activity_blueprint_image_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:contentDescription="@string/activity_blueprint_zoom_image_text"
         android:isScrollContainer="true"/>
 </RelativeLayout>

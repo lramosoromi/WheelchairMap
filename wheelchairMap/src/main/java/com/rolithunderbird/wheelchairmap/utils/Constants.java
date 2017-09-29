@@ -344,6 +344,30 @@ public class Constants {
         return imageFiles;
     }
 
+    public static Boolean checkFilesToDownloadAreImageFiles(String[] filesToDownload) {
+        List<String> filesToDownloadName = new ArrayList<>();
+        List<String> imageFilesName = new ArrayList<>();
+        for (String fileToDownloadPath : filesToDownload) {
+            //Eliminate parent path of file (e.g. parent/child.png)
+            String fileNameWithEnding = fileToDownloadPath.split("/")[fileToDownloadPath.split("/").length - 1];
+            //Eliminate extension of file (e.g. .png)
+            String fileName = fileNameWithEnding.substring(0, fileNameWithEnding.length() - 4);
+            filesToDownloadName.add(fileName);
+        }
+        for (File file : imageFiles) {
+            imageFilesName.add(file.getName());
+        }
+
+        Boolean result = true;
+        for (String fileToDownloadName : filesToDownloadName) {
+            if (!imageFilesName.contains(fileToDownloadName)) {
+                result = false;
+                break;
+            }
+        }
+        return result;
+    }
+
     public static void setCoordinates(List<String> coordinatesString) {
         List<LatLng> aux = new ArrayList<>();
         for (String string : coordinatesString) {
