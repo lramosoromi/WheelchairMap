@@ -163,8 +163,6 @@ public class Constants {
      * Its just the path because that is what we use to download them from the storage
      */
     //<editor-fold desc="Path of different files">
-    //Path in the storage to get the image file
-    private static final String BUILDING_IMAGE = "images/building_image.png";
     //Path in the storage to get the icon file
     private static final String ICON_PLANE = "icons/icon_plane.png";
     //Path in the storage to get the icon file
@@ -182,6 +180,8 @@ public class Constants {
 
     //<editor-fold desc="Path of reutlingen files">
     //Path in the storage to get the image file
+    private static final String BUILDING_IMAGE_REUTLINGEN = "images/building_image_reutlingen.png";
+    //Path in the storage to get the image file
     private static final String BASIC_MAP_REUTLINGEN = "images/mapa_reutlingen.png";
     //Path in the storage to get the image file
     private static final String ROUTES_MAP_REUTLINGEN = "images/mapa_reutlingen_rutas.png";
@@ -198,7 +198,11 @@ public class Constants {
     //</editor-fold>
     //<editor-fold desc="Path of austral files">
     //Path in the storage to get the image file
+    private static final String BUILDING_IMAGE_AUSTRAL = "images/building_image_austral.png";
+    //Path in the storage to get the image file
     private static final String BASIC_MAP_AUSTRAL = "images/mapa_austral.png";
+    //Path in the storage to get the image file
+    private static final String ROUTES_MAP_AUSTRAL = "images/mapa_austral_rutas.png";
     //Path in the storage to get the blueprint file
     private static final String BUILDING_ADMIN_MAIN_FLOOR_BLUEPRINT = "blueprints/buildingAdmin_0floor.png";
     //Path in the storage to get the blueprint file
@@ -217,14 +221,14 @@ public class Constants {
 
     //Array of the different files path in the storage.
     public static String[] FILES_PATH_REUTLINGEN = {
-            BASIC_MAP_REUTLINGEN, ROUTES_MAP_REUTLINGEN, BUILDING_IMAGE, ICON_PLANE, ICON_INCLINED,
+            BASIC_MAP_REUTLINGEN, ROUTES_MAP_REUTLINGEN, BUILDING_IMAGE_REUTLINGEN, ICON_PLANE, ICON_INCLINED,
             ICON_ELEVATOR, ICON_AUTOMATIC_DOOR, ICON_ASSISTANCE, ICON_WC, ICON_EXIT,
             BUILDING9_UNDERGROUND_BLUEPRINT, BUILDING9_MAIN_FLOOR_BLUEPRINT,
             BUILDING9_FIRST_FLOOR_BLUEPRINT, BUILDING9_SECOND_FLOOR_BLUEPRINT, BUILDING9_THIRD_FLOOR_BLUEPRINT};
 
     //Array of the different files path in the storage.
     public static String[] FILES_PATH_AUSTRAL = {
-            BASIC_MAP_AUSTRAL, BASIC_MAP_AUSTRAL, BUILDING_IMAGE, ICON_PLANE, ICON_INCLINED,
+            BASIC_MAP_AUSTRAL, ROUTES_MAP_AUSTRAL, BUILDING_IMAGE_AUSTRAL, ICON_PLANE, ICON_INCLINED,
             ICON_ELEVATOR, ICON_AUTOMATIC_DOOR, ICON_ASSISTANCE, ICON_WC, ICON_EXIT,
             BUILDING_ADMIN_MAIN_FLOOR_BLUEPRINT, BUILDING_ADMIN_FIRST_FLOOR_BLUEPRINT,
             BUILDING_A_MAIN_FLOOR_BLUEPRINT, BUILDING_A_FIRST_FLOOR_BLUEPRINT,
@@ -329,7 +333,7 @@ public class Constants {
     public static final DEFAULT_ICONS[] AUSTRAL_BUILDING_A_ICONS = { DEFAULT_ICONS.PLANE,
             DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.WC, DEFAULT_ICONS.EXIT };
     public static final DEFAULT_ICONS[] AUSTRAL_BUILDING_B_ICONS = { DEFAULT_ICONS.PLANE,
-            DEFAULT_ICONS.ELEVATOR, DEFAULT_ICONS.WC, DEFAULT_ICONS.EXIT };
+            DEFAULT_ICONS.WC, DEFAULT_ICONS.EXIT };
     //</editor-fold>
 
     /**
