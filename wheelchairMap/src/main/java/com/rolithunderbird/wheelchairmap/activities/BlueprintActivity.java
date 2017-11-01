@@ -10,9 +10,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.rolithunderbird.wheelchairmap.R;
+import com.rolithunderbird.wheelchairmap.javaClasses.CircleView;
 import com.rolithunderbird.wheelchairmap.javaClasses.CustomDialog;
-import com.rolithunderbird.wheelchairmap.javaClasses.TouchImageView;
+import com.rolithunderbird.wheelchairmap.javaClasses.FreehandView;
 import com.rolithunderbird.wheelchairmap.utils.Constants;
 
 import java.io.File;
@@ -25,7 +28,7 @@ import java.util.List;
 public class BlueprintActivity extends AppCompatActivity {
 
     //Image of the floor you are looking
-    private TouchImageView image;
+    private FreehandView blueprintImage;
     //String that has the name (number) of the building you are in
     private String buildingSelected;
     //The location that was selected in the main page
@@ -89,8 +92,8 @@ public class BlueprintActivity extends AppCompatActivity {
         else
             mainFloorIndex = 0;
 
-        image = (TouchImageView) findViewById(R.id.activity_blueprint_image_view);
-        image.setImageBitmap(BitmapFactory.decodeFile(blueprintFiles.get(mainFloorIndex).getPath()));
+        blueprintImage = (FreehandView) findViewById(R.id.imageView);
+        blueprintImage.setImage(ImageSource.bitmap(BitmapFactory.decodeFile(blueprintFiles.get(mainFloorIndex).getPath())));
     }
 
     /**
@@ -136,13 +139,11 @@ public class BlueprintActivity extends AppCompatActivity {
             Toast.makeText(this, "This feature is not available for the moment",
                     Toast.LENGTH_SHORT).show();
             return true;
-
         }
         else {
             //Change image to floor selected
-            image.setImageBitmap(BitmapFactory.decodeFile(blueprintFiles.get(item.getItemId()).getPath()));
+            blueprintImage.setImage(ImageSource.bitmap(BitmapFactory.decodeFile(blueprintFiles.get(item.getItemId()).getPath())));
             return true;
-
         }
     }
 }

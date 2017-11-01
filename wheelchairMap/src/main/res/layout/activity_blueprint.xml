@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".activities.BlueprintActivity">
 
-    <com.rolithunderbird.wheelchairmap.javaClasses.TouchImageView
-        android:id="@id/activity_blueprint_image_view"
+    <com.rolithunderbird.wheelchairmap.javaClasses.FreehandView
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="@string/activity_blueprint_zoom_image_text"
-        android:isScrollContainer="true"/>
+        android:layout_height="match_parent"/>
+
 </RelativeLayout>
