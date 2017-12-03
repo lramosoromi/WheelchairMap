@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".activities.BlueprintActivity">
 
-    <com.rolithunderbird.wheelchairmap.javaClasses.FreehandView
+    <com.rolithunderbird.wheelchairmap.javaClasses.MyImageView
         android:id="@+id/imageView"
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"

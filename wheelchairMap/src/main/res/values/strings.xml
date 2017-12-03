@@ -32,6 +32,7 @@
     <!--    Menu Blueprint Activity     -->
     <string name="menu_blueprint_action_info">Info</string>
     <string name="menu_blueprint_action_show_location">Show location</string>
+    <string name="menu_blueprint_action_show_path">Show Path</string>
     <string name="menu_blueprint_action_underground">UGD</string>
     <string name="menu_blueprint_action_main_floor">0F</string>
     <string name="menu_blueprint_action_first_floor">1F</string>

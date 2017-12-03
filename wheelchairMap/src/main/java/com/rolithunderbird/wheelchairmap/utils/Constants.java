@@ -1,5 +1,6 @@
 package com.rolithunderbird.wheelchairmap.utils;
 
+import android.graphics.PointF;
 import com.google.android.gms.maps.model.LatLng;
 import java.io.File;
 import java.util.ArrayList;
@@ -156,6 +157,46 @@ public class Constants {
         AUSTRAL_BUILDING_A,
         AUSTRAL_BUILDING_B,
     };
+
+    /**
+     * ========= Position on the Blueprints ========
+     * All the positions of the different places in the blueprint
+     */
+    //<editor-fold desc="Positions of Austral Buildings">
+    //<editor-fold desc="Positions of Building A">
+    public static final PointF AUSTRAL_BUILDING_A_ROOM_1 = new PointF(0.75f, 0.15f);
+    public static final PointF AUSTRAL_BUILDING_A_ROOM_2 = new PointF(0.2f, 0.08f);
+    public static final PointF AUSTRAL_BUILDING_A_ROOM_3 = new PointF(0.75f, 0.35f);
+    public static final PointF AUSTRAL_BUILDING_A_ROOM_4 = new PointF(0.2f, 0.25f);
+    public static final PointF AUSTRAL_BUILDING_A_ROOM_5 = new PointF(0.2f, 0.55f);
+    public static final PointF AUSTRAL_BUILDING_A_ROOM_6 = new PointF(0.75f, 0.6f);
+    public static final PointF AUSTRAL_BUILDING_A_ROOM_7 = new PointF(0.2f, 0.7f);
+    public static final PointF AUSTRAL_BUILDING_A_ROOM_8 = new PointF(0.2f, 0.85f);
+    public static final PointF AUSTRAL_BUILDING_A_ROOM_9 = new PointF(0.75f, 0.8f);
+    public static final PointF AUSTRAL_BUILDING_A_ROOM_10 = new PointF(0.28f, 0.32f);
+    public static final PointF AUSTRAL_BUILDING_A_AUDITORIUM = new PointF(0.25f, 0.13f);
+    public static final PointF AUSTRAL_BUILDING_A_BATHROOM_0 = new PointF(0.35f, 0.38f);
+    public static final PointF AUSTRAL_BUILDING_A_BATHROOM_1 = new PointF(0.45f, 0.45f);
+    public static final PointF AUSTRAL_BUILDING_A_COPYROOM = new PointF(0.47f, 0.55f);
+    public static final PointF AUSTRAL_BUILDING_A_CHAPEL = new PointF(0.3f, 0.82f);
+    public static final PointF AUSTRAL_BUILDING_A_ELEVATOR_0 = new PointF(0.36f, 0.88f);
+    public static final PointF AUSTRAL_BUILDING_A_ELEVATOR_1 = new PointF(0.45f, 0.86f);
+    public static final PointF AUSTRAL_BUILDING_A_PATH_0 = new PointF(0.5f, 0.01f);
+    public static final PointF AUSTRAL_BUILDING_A_PATH_1 = new PointF(0.55f, 0.01f);
+    //</editor-fold>
+    //<editor-fold desc="Positions of Building B">
+    public static final PointF AUSTRAL_BUILDING_B_ROOM_1 = new PointF(0.75f, 0.15f);
+    public static final PointF AUSTRAL_BUILDING_B_ROOM_2 = new PointF(0.2f, 0.08f);
+    public static final PointF AUSTRAL_BUILDING_B_ROOM_3 = new PointF(0.75f, 0.35f);
+    public static final PointF AUSTRAL_BUILDING_B_ROOM_4 = new PointF(0.2f, 0.25f);
+    public static final PointF AUSTRAL_BUILDING_B_ROOM_5 = new PointF(0.2f, 0.55f);
+    public static final PointF AUSTRAL_BUILDING_B_ROOM_6 = new PointF(0.75f, 0.6f);
+    public static final PointF AUSTRAL_BUILDING_B_ROOM_7 = new PointF(0.2f, 0.7f);
+    public static final PointF AUSTRAL_BUILDING_B_ROOM_8 = new PointF(0.2f, 0.85f);
+    public static final PointF AUSTRAL_BUILDING_B_ROOM_9 = new PointF(0.75f, 0.8f);
+    public static final PointF AUSTRAL_BUILDING_B_BATHROOM = new PointF(0.35f, 0.38f);
+    //</editor-fold>
+    //</editor-fold>
 
     /**
      * ========= Files ========

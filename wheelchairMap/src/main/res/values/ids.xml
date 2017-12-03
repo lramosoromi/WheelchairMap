@@ -28,6 +28,7 @@
     <item name="menu_blueprint_group_info" type="id"/>
     <item name="menu_blueprint_action_info" type="id"/>
     <item name="menu_blueprint_action_show_location" type="id"/>
+    <item name="menu_blueprint_action_show_path" type="id"/>
     <item name="menu_blueprint_group_floors" type="id"/>
     <item name="menu_blueprint_action_underground" type="id"/>
     <item name="menu_blueprint_action_main_floor" type="id"/>

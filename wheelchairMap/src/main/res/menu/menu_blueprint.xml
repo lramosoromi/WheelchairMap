@@ -16,6 +16,12 @@
             android:icon="@android:drawable/ic_menu_mylocation"
             android:title="@string/menu_blueprint_action_show_location">
         </item>
+        <item
+            android:id="@id/menu_blueprint_action_show_path"
+            android:orderInCategory="3"
+            android:icon="@android:drawable/ic_menu_directions"
+            android:title="@string/menu_blueprint_action_show_path">
+        </item>
     </group>
 
     <group android:id="@id/menu_blueprint_group_floors">
