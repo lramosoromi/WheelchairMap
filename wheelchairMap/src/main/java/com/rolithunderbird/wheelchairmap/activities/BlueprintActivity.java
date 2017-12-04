@@ -6,24 +6,36 @@ import android.graphics.PointF;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.estimote.coresdk.common.requirements.SystemRequirementsChecker;
 import com.rolithunderbird.wheelchairmap.R;
+import com.rolithunderbird.wheelchairmap.beacons.EstimoteCloudBeaconDetails;
+import com.rolithunderbird.wheelchairmap.beacons.EstimoteCloudBeaconDetailsFactory;
+import com.rolithunderbird.wheelchairmap.beacons.ProximityContentManager;
 import com.rolithunderbird.wheelchairmap.javaClasses.MyImageView;
 import com.rolithunderbird.wheelchairmap.javaClasses.CustomDialog;
 import com.rolithunderbird.wheelchairmap.utils.Constants;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Class that controls the view of the blueprint of a building
  */
 public class BlueprintActivity extends AppCompatActivity {
+
+    //Tag for logging
+    private static final String TAG = "Blueprint Activity";
 
     //Image of the floor you are looking
     private MyImageView blueprintImage;
@@ -37,6 +49,18 @@ public class BlueprintActivity extends AppCompatActivity {
     private Boolean locationShown = false;
     //Boolean to check if path is shown or not
     private Boolean pathShown = false;
+
+    //Beacon section
+    private static final Map<com.estimote.coresdk.cloud.model.Color, Integer> BACKGROUND_COLORS = new HashMap<>();
+    static {
+        BACKGROUND_COLORS.put(com.estimote.coresdk.cloud.model.Color.ICY_MARSHMALLOW, android.graphics.Color.rgb(109, 170, 199));
+        BACKGROUND_COLORS.put(com.estimote.coresdk.cloud.model.Color.BLUEBERRY_PIE, android.graphics.Color.rgb(98, 84, 158));
+        BACKGROUND_COLORS.put(com.estimote.coresdk.cloud.model.Color.MINT_COCKTAIL, android.graphics.Color.rgb(155, 186, 160));
+    }
+
+    private static final int BACKGROUND_COLOR_NEUTRAL = android.graphics.Color.rgb(160, 169, 172);
+
+    private ProximityContentManager proximityContentManager;
 
 
     /**
@@ -85,6 +109,30 @@ public class BlueprintActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_blueprint);
+
+        /**
+         * Beacon section
+         * Beacon Proximity set
+         */
+        proximityContentManager = new ProximityContentManager(this,
+                Arrays.asList(
+                        "356cd6fbaed86ed0",
+                        "9355323ee0b9b9e3",
+                        "26e092af158a3156"),
+                new EstimoteCloudBeaconDetailsFactory());
+        proximityContentManager.setListener(new ProximityContentManager.Listener() {
+            @Override
+            public void onContentChanged(Object content) {
+                if (content != null) {
+                    EstimoteCloudBeaconDetails beaconDetails = (EstimoteCloudBeaconDetails) content;
+                } else {
+                }
+                //((TextView) findViewById(R.id.textView)).setText(text);
+                //findViewById(R.id.relativeLayout).setBackgroundColor(
+                //        backgroundColor != null ? backgroundColor : BACKGROUND_COLOR_NEUTRAL);
+            }
+        });
+
 
         //Before showing set the image as the Main Floor
         //Depending on the location selected, which file is the mail floor
@@ -175,5 +223,32 @@ public class BlueprintActivity extends AppCompatActivity {
 
     public PointF getPathFromMap() {
         return Constants.AUSTRAL_BUILDING_A_PATH_0;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (!SystemRequirementsChecker.checkWithDefaultDialogs(this)) {
+            Log.e(TAG, "Can't scan for beacons, some pre-conditions were not met");
+            Log.e(TAG, "Read more about what's required at: http://estimote.github.io/Android-SDK/JavaDocs/com/estimote/sdk/SystemRequirementsChecker.html");
+            Log.e(TAG, "If this is fixable, you should see a popup on the app's screen right now, asking to enable what's necessary");
+        } else {
+            Log.d(TAG, "Starting ProximityContentManager content updates");
+            proximityContentManager.startContentUpdates();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "Stopping ProximityContentManager content updates");
+        proximityContentManager.stopContentUpdates();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        proximityContentManager.destroy();
     }
 }

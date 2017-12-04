@@ -2,6 +2,7 @@ package com.rolithunderbird.wheelchairmap;
 
 import android.support.multidex.MultiDexApplication;
 import com.estimote.coresdk.common.config.EstimoteSDK;
+import com.rolithunderbird.wheelchairmap.beacons.BeaconNotificationsManager;
 import com.estimote.coresdk.service.BeaconManager;
 
 /**
@@ -10,6 +11,7 @@ import com.estimote.coresdk.service.BeaconManager;
 public class ApplicationClass extends MultiDexApplication {
 
     private BeaconManager beaconManager;
+    private boolean beaconNotificationsEnabled = false;
 
 
     public BeaconManager getBeaconManager() {
@@ -38,4 +40,23 @@ public class ApplicationClass extends MultiDexApplication {
             }
         });
     }
+
+    public void enableBeaconNotifications() {
+        if (beaconNotificationsEnabled) { return; }
+
+        BeaconNotificationsManager beaconNotificationsManager = new BeaconNotificationsManager(this);
+        beaconNotificationsManager.addNotification(
+                //"356cd6fbaed86ed0a600b75fa4e34b06",
+                "356cd6fbaed86ed0",
+                "Hello, world.",
+                "Goodbye, world.");
+        beaconNotificationsManager.startMonitoring();
+
+        beaconNotificationsEnabled = true;
+    }
+
+    public boolean isBeaconNotificationsEnabled() {
+        return beaconNotificationsEnabled;
+    }
+
 }
