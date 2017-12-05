@@ -165,7 +165,7 @@ public class Constants {
     //<editor-fold desc="Positions of Austral Buildings">
     //<editor-fold desc="Positions of Building A">
     public static final PointF AUSTRAL_BUILDING_A_ROOM_1 = new PointF(0.75f, 0.15f);
-    public static final PointF AUSTRAL_BUILDING_A_ROOM_2 = new PointF(0.2f, 0.08f);
+    private static final PointF AUSTRAL_BUILDING_A_ROOM_2 = new PointF(0.2f, 0.08f);
     public static final PointF AUSTRAL_BUILDING_A_ROOM_3 = new PointF(0.75f, 0.35f);
     public static final PointF AUSTRAL_BUILDING_A_ROOM_4 = new PointF(0.2f, 0.25f);
     public static final PointF AUSTRAL_BUILDING_A_ROOM_5 = new PointF(0.2f, 0.55f);
@@ -183,6 +183,17 @@ public class Constants {
     public static final PointF AUSTRAL_BUILDING_A_ELEVATOR_1 = new PointF(0.45f, 0.86f);
     public static final PointF AUSTRAL_BUILDING_A_PATH_0 = new PointF(0.5f, 0.01f);
     public static final PointF AUSTRAL_BUILDING_A_PATH_1 = new PointF(0.55f, 0.01f);
+    //</editor-fold>
+    //<editor-fold desc="Arrays of Positions of Building A">
+    public static final PointF[] AUSTRAL_POSITIONS_LEVEL_0 = {
+            AUSTRAL_BUILDING_A_ROOM_1, AUSTRAL_BUILDING_A_ROOM_2, AUSTRAL_BUILDING_A_ROOM_3,
+            AUSTRAL_BUILDING_A_ROOM_4, AUSTRAL_BUILDING_A_ROOM_5, AUSTRAL_BUILDING_A_ROOM_6,
+            AUSTRAL_BUILDING_A_ROOM_7, AUSTRAL_BUILDING_A_ROOM_7, AUSTRAL_BUILDING_A_ROOM_8,
+            AUSTRAL_BUILDING_A_ROOM_9, AUSTRAL_BUILDING_A_BATHROOM_0, AUSTRAL_BUILDING_A_ELEVATOR_0,
+            AUSTRAL_BUILDING_A_PATH_0};
+    public static final PointF[] AUSTRAL_POSITIONS_LEVEL_1 = {
+            AUSTRAL_BUILDING_A_AUDITORIUM, AUSTRAL_BUILDING_A_ROOM_10, AUSTRAL_BUILDING_A_BATHROOM_1,
+            AUSTRAL_BUILDING_A_COPYROOM, AUSTRAL_BUILDING_A_CHAPEL, AUSTRAL_BUILDING_A_ELEVATOR_1};
     //</editor-fold>
     //<editor-fold desc="Positions of Building B">
     public static final PointF AUSTRAL_BUILDING_B_ROOM_1 = new PointF(0.75f, 0.15f);
@@ -292,7 +303,7 @@ public class Constants {
     //</editor-fold>
     //<editor-fold desc="Austral Building Blueprints">
     private static final String AUSTRAL_BUILDING_ADMIN_BLUEPRINT = "Building Admin";
-    private static final String AUSTRAL_BUILDING_A_BLUEPRINT = "Building A";
+    public static final String AUSTRAL_BUILDING_A_BLUEPRINT = "Building A";
     private static final String AUSTRAL_BUILDING_B_BLUEPRINT = "Building B";
     //Array of the available blueprints in the storage to use the app
     public static String[] AUSTRAL_BUILDING_BLUEPRINT = { NONE, AUSTRAL_BUILDING_ADMIN_BLUEPRINT,

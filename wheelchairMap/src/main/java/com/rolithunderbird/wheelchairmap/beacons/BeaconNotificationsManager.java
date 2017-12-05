@@ -31,9 +31,8 @@ public class BeaconNotificationsManager {
 
     private int notificationID = 0;
 
-    //Codigo Mio.   Copia de la clase de Estimote, con cambios para que funcione
-    private Boolean isEntered = Boolean.valueOf(false);
-    private Boolean isEnteredForFirstTime = Boolean.valueOf(false);
+    private Boolean isEntered = Boolean.FALSE;
+    private Boolean isEnteredForFirstTime = Boolean.FALSE;
 
 
     public BeaconNotificationsManager(Context context) {
@@ -106,26 +105,26 @@ public class BeaconNotificationsManager {
     }
 
     //Codigo Mio.   Copia de la clase de Estimote con cambios mios para que funcione
-    public void startEstimoteMonitoring(EstimoteMonitoringPacket estimoteMonitoringPacket) {
-        Double distance = Double.valueOf(Fspl.fspl(Integer.valueOf(estimoteMonitoringPacket.rssi), Integer.valueOf(estimoteMonitoringPacket.txPower)));
-        if(distance.doubleValue() >= 0.0009D && !this.isEntered.booleanValue()) {
-            this.isEntered = Boolean.valueOf(true);
-            this.isEnteredForFirstTime = Boolean.valueOf(true);
+    private void startEstimoteMonitoring(EstimoteMonitoringPacket estimoteMonitoringPacket) {
+        Double distance = Fspl.fspl(estimoteMonitoringPacket.rssi, estimoteMonitoringPacket.txPower);
+        if(distance >= 0.0009D && !this.isEntered) {
+            this.isEntered = Boolean.TRUE;
+            this.isEnteredForFirstTime = Boolean.TRUE;
 
             String message = enterMessages;
             if (message != null) {
                 showNotification(message);
             }
-        } else if(distance.doubleValue() <= 0.0008D && this.isEntered.booleanValue()) {
-            this.isEntered = Boolean.valueOf(false);
-            this.isEnteredForFirstTime = Boolean.valueOf(true);
+        } else if(distance <= 0.0008D && this.isEntered) {
+            this.isEntered = Boolean.FALSE;
+            this.isEnteredForFirstTime = Boolean.TRUE;
 
             String message = exitMessages;
             if (message != null) {
                 showNotification(message);
             }
-        } else if(0.0008D < distance.doubleValue() && distance.doubleValue() < 0.0009D && !this.isEnteredForFirstTime.booleanValue()) {
-            this.isEnteredForFirstTime = Boolean.valueOf(true);
+        } else if(0.0008D < distance && distance < 0.0009D && !this.isEnteredForFirstTime) {
+            this.isEnteredForFirstTime = Boolean.TRUE;
 
             String message = enterMessages;
             if (message != null) {

@@ -1,15 +1,10 @@
 package com.rolithunderbird.wheelchairmap.activities;
 
 import android.app.AlertDialog;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.provider.Settings;
@@ -22,28 +17,14 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-import com.estimote.coresdk.common.config.EstimoteSDK;
+
 import com.estimote.coresdk.common.requirements.SystemRequirementsChecker;
-import com.estimote.coresdk.observation.region.RegionUtils;
-import com.estimote.coresdk.observation.utils.Proximity;
-import com.estimote.coresdk.recognition.packets.EstimoteLocation;
-import com.estimote.coresdk.service.BeaconManager;
 import com.rolithunderbird.wheelchairmap.ApplicationClass;
 import com.rolithunderbird.wheelchairmap.R;
-import com.rolithunderbird.wheelchairmap.beacons.EstimoteCloudBeaconDetails;
-import com.rolithunderbird.wheelchairmap.beacons.EstimoteCloudBeaconDetailsFactory;
-import com.rolithunderbird.wheelchairmap.beacons.ProximityContentManager;
 import com.rolithunderbird.wheelchairmap.broadcastReceiver.MyResponseReceiver;
 import com.rolithunderbird.wheelchairmap.database.StorageTask;
-import com.rolithunderbird.wheelchairmap.javaClasses.CustomDialog;
 import com.rolithunderbird.wheelchairmap.utils.Constants;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Class that controls the view of the main page of the app

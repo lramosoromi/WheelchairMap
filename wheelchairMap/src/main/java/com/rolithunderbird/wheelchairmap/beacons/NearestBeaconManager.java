@@ -9,7 +9,7 @@ import com.estimote.coresdk.service.BeaconManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NearestBeaconManager {
+class NearestBeaconManager {
 
     private static final String TAG = "NearestBeaconManager";
 
@@ -22,7 +22,7 @@ public class NearestBeaconManager {
 
     private BeaconManager beaconManager;
 
-    public NearestBeaconManager(Context context, List<String> deviceIDs) {
+    NearestBeaconManager(Context context, List<String> deviceIDs) {
         this.deviceIDs = deviceIDs;
 
         beaconManager = new BeaconManager(context);
@@ -35,7 +35,7 @@ public class NearestBeaconManager {
 
     }
 
-    public void setListener(Listener listener) {
+    void setListener(Listener listener) {
         this.listener = listener;
     }
 
@@ -43,7 +43,7 @@ public class NearestBeaconManager {
         void onNearestBeaconChanged(String deviceID);
     }
 
-    public void startNearestBeaconUpdates() {
+    void startNearestBeaconUpdates() {
         beaconManager.connect(new BeaconManager.ServiceReadyCallback() {
             @Override
             public void onServiceReady() {
@@ -52,11 +52,11 @@ public class NearestBeaconManager {
         });
     }
 
-    public void stopNearestBeaconUpdates() {
+    void stopNearestBeaconUpdates() {
         beaconManager.stopLocationDiscovery();
     }
 
-    public void destroy() {
+    void destroy() {
         beaconManager.disconnect();
     }
 
@@ -75,21 +75,6 @@ public class NearestBeaconManager {
 
     private void updateNearestBeacon(String beaconID) {
         currentlyNearestDeviceID = beaconID;
-
-        //Codigo MIO
-        if (beaconID != null) {
-            switch (beaconID) {
-                case "356cd6fbaed86ed0":
-                    beaconID = "356cd6fbaed86ed0a600b75fa4e34b06";
-                    break;
-                case "9355323ee0b9b9e3":
-                    beaconID = "9355323ee0b9b9e38bf2c7e251d36e31";
-                    break;
-                case "26e092af158a3156":
-                    beaconID = "26e092af158a3156567a19318bc6f935";
-                    break;
-            }
-        }
         firstEventSent = true;
         if (listener != null) {
             listener.onNearestBeaconChanged(beaconID);

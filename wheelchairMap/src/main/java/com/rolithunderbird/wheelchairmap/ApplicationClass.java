@@ -4,6 +4,9 @@ import android.support.multidex.MultiDexApplication;
 import com.estimote.coresdk.common.config.EstimoteSDK;
 import com.rolithunderbird.wheelchairmap.beacons.BeaconNotificationsManager;
 import com.estimote.coresdk.service.BeaconManager;
+import com.rolithunderbird.wheelchairmap.beacons.ProximityContentManager;
+
+import java.util.Arrays;
 
 /**
  * Created by lucasramosoromi on 10/20/17.
@@ -12,11 +15,14 @@ public class ApplicationClass extends MultiDexApplication {
 
     private BeaconManager beaconManager;
     private boolean beaconNotificationsEnabled = false;
+    private ProximityContentManager proximityContentManager;
 
 
     public BeaconManager getBeaconManager() {
         return beaconManager;
     }
+
+    public ProximityContentManager getProximityContentManager() { return proximityContentManager; }
 
     public void setBeaconManager(BeaconManager beaconManager) {
         this.beaconManager = beaconManager;
@@ -39,6 +45,14 @@ public class ApplicationClass extends MultiDexApplication {
                 beaconManager.startLocationDiscovery();
             }
         });
+
+        //Set the proximity content manager to get the nearest beacon of all available ones
+        proximityContentManager = new ProximityContentManager(this,
+                Arrays.asList(
+                        "356cd6fbaed86ed0",
+                        "9355323ee0b9b9e3",
+                        "26e092af158a3156"));
+
     }
 
     public void enableBeaconNotifications() {
