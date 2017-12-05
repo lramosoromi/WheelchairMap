@@ -219,6 +219,12 @@ public class BlueprintActivity extends AppCompatActivity {
             return true;
         }
         else {
+            blueprintImage.setPaintLocation(false);
+            blueprintImage.setPaintPath(false);
+            blueprintImage.invalidate();
+            locationShown = false;
+            pathShown = false;
+
             //Change image to floor selected
             blueprintImage.setImage(ImageSource.bitmap(BitmapFactory.decodeFile(blueprintFiles.get(item.getItemId()).getPath())));
             return true;

@@ -13,7 +13,12 @@ import com.estimote.monitoring.EstimoteMonitoring;
 import com.estimote.monitoring.EstimoteMonitoringListener;
 import com.estimote.monitoring.EstimoteMonitoringPacket;
 import com.estimote.monitoring.Fspl;
+import com.rolithunderbird.wheelchairmap.ApplicationClass;
+import com.rolithunderbird.wheelchairmap.R;
+import com.rolithunderbird.wheelchairmap.activities.BlueprintActivity;
 import com.rolithunderbird.wheelchairmap.activities.MainActivity;
+import com.rolithunderbird.wheelchairmap.activities.MapsActivity;
+import com.rolithunderbird.wheelchairmap.utils.Constants;
 
 
 public class BeaconNotificationsManager {
@@ -23,8 +28,6 @@ public class BeaconNotificationsManager {
     private BeaconManager beaconManager;
     private EstimoteMonitoring estimoteMonitoring;
 
-    private String enterMessages;
-    private String exitMessages;
     private String deviceId;
 
     private Context context;
@@ -43,19 +46,13 @@ public class BeaconNotificationsManager {
             @Override
             public void onEnteredRegion() {
                 Log.d(TAG, "onEnteredRegion");
-                String message = enterMessages;
-                if (message != null) {
-                    showNotification(message);
-                }
+                showNotification(true);
             }
 
             @Override
             public void onExitedRegion() {
                 Log.d(TAG, "onExitedRegion");
-                String message = exitMessages;
-                if (message != null) {
-                    showNotification(message);
-                }
+                showNotification(false);
             }
         });
 
@@ -64,17 +61,15 @@ public class BeaconNotificationsManager {
             public void onLocationsFound(List<EstimoteLocation> locations) {
                 for (EstimoteLocation location : locations) {
                     if (location.id.toHexString().equals(deviceId)) {
-                        startEstimoteMonitoring(new EstimoteMonitoringPacket("356cd6fbaed86ed0a600b75fa4e34b06", location.rssi, location.txPower, location.channel, location.timestamp));
+                        startEstimoteMonitoring(new EstimoteMonitoringPacket("26e092af158a3156567a19318bc6f935", location.rssi, location.txPower, location.channel, location.timestamp));
                     }
                 }
             }
         });
     }
 
-    public void addNotification(String deviceId, String enterMessage, String exitMessage) {
+    public void addNotification(String deviceId) {
         this.deviceId = deviceId;
-        enterMessages = enterMessage;
-        exitMessages = exitMessage;
     }
 
     public void startMonitoring() {
@@ -86,15 +81,15 @@ public class BeaconNotificationsManager {
         });
     }
 
-    private void showNotification(String message) {
+    private void showNotification(Boolean enter) {
         Intent resultIntent = new Intent(context, MainActivity.class);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(
                 context, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
-                .setSmallIcon(android.R.drawable.ic_dialog_info)
-                .setContentTitle("Beacon Notifications")
-                .setContentText(message)
+                .setSmallIcon(R.drawable.icon_launcher)
+                .setContentTitle("WheelchairMap Notifications")
+                .setContentText("Beacon detected")
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentIntent(resultPendingIntent);
@@ -104,32 +99,23 @@ public class BeaconNotificationsManager {
         notificationManager.notify(notificationID++, builder.build());
     }
 
-    //Codigo Mio.   Copia de la clase de Estimote con cambios mios para que funcione
+    //Modified monitoring method so as to show easily
     private void startEstimoteMonitoring(EstimoteMonitoringPacket estimoteMonitoringPacket) {
         Double distance = Fspl.fspl(estimoteMonitoringPacket.rssi, estimoteMonitoringPacket.txPower);
         if(distance >= 0.0009D && !this.isEntered) {
             this.isEntered = Boolean.TRUE;
             this.isEnteredForFirstTime = Boolean.TRUE;
 
-            String message = enterMessages;
-            if (message != null) {
-                showNotification(message);
-            }
+            showNotification(true);
         } else if(distance <= 0.0008D && this.isEntered) {
             this.isEntered = Boolean.FALSE;
             this.isEnteredForFirstTime = Boolean.TRUE;
 
-            String message = exitMessages;
-            if (message != null) {
-                showNotification(message);
-            }
+            //showNotification(false);
         } else if(0.0008D < distance && distance < 0.0009D && !this.isEnteredForFirstTime) {
             this.isEnteredForFirstTime = Boolean.TRUE;
 
-            String message = enterMessages;
-            if (message != null) {
-                showNotification(message);
-            }
+            showNotification(true);
         }
     }
 }

@@ -52,18 +52,13 @@ public class ApplicationClass extends MultiDexApplication {
                         "356cd6fbaed86ed0",
                         "9355323ee0b9b9e3",
                         "26e092af158a3156"));
-
     }
 
     public void enableBeaconNotifications() {
         if (beaconNotificationsEnabled) { return; }
 
         BeaconNotificationsManager beaconNotificationsManager = new BeaconNotificationsManager(this);
-        beaconNotificationsManager.addNotification(
-                //"356cd6fbaed86ed0a600b75fa4e34b06",
-                "356cd6fbaed86ed0",
-                "Hello, world.",
-                "Goodbye, world.");
+        beaconNotificationsManager.addNotification("26e092af158a3156");
         beaconNotificationsManager.startMonitoring();
 
         beaconNotificationsEnabled = true;

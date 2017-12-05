@@ -23,6 +23,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.GroundOverlay;
 import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.rolithunderbird.wheelchairmap.ApplicationClass;
 import com.rolithunderbird.wheelchairmap.utils.Constants;
 import com.rolithunderbird.wheelchairmap.javaClasses.CustomDialog;
 import com.rolithunderbird.wheelchairmap.utils.LocationManagerCheck;
